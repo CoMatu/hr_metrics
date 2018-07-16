@@ -32,10 +32,11 @@ class MyApp extends StatelessWidget {
                         color: Colors.white,
                         fontSize: 34.0
                     ),
+                    textAlign: TextAlign.center,
                   ),
                 ),
               ),
-              color: Colors.lightBlueAccent,
+              color: Color(0xFFFF9000),
             ),
             FlatButton(
               onPressed: goToNumberView,
@@ -47,6 +48,7 @@ class MyApp extends StatelessWidget {
                         color: Colors.white,
                         fontSize: 34.0
                     ),
+                    textAlign: TextAlign.center,
                   ),
                 ),
               ),
@@ -62,10 +64,27 @@ class MyApp extends StatelessWidget {
                         color: Colors.white,
                         fontSize: 34.0
                     ),
+                    textAlign: TextAlign.center,
                   ),
                 ),
               ),
               color: Colors.blue,
+            ),
+            FlatButton(
+              onPressed: goToTurnoverView,
+              child: new SizedBox(
+                height: 150.0,
+                child: Center(
+                  child: new Text('ФОНД ОПЛАТЫ ТРУДА',
+                    style: new TextStyle(
+                        color: Colors.white,
+                        fontSize: 34.0
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+              ),
+              color: Colors.blueAccent,
             ),
           ],
         ),

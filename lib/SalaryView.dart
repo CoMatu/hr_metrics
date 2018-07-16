@@ -7,7 +7,8 @@ class SalaryView extends StatelessWidget{
     final title = 'SALARY';
     // TODO: implement build
     return new Scaffold(
-      body: new SalaryChart.withSampleData(),
+      appBar: new AppBar(),
+      body: new SalaryChart.withSampleData()
     );
   }
 
