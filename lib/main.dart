@@ -3,6 +3,7 @@ import 'package:hr_metrics/NumberView.dart';
 import 'package:hr_metrics/SalaryView.dart';
 
 void main() => runApp(new MaterialApp(
+  debugShowCheckedModeBanner: false,
   home: new MyApp(),
 ));
 //TODO Сделать авторизацию
@@ -13,7 +14,6 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final title = 'HR METRICS';
-    String yearsForMenu;
 
     return new Scaffold(
         appBar: AppBar(
