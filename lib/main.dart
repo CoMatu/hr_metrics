@@ -1,14 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:hr_metrics/NumberView.dart';
 import 'package:hr_metrics/SalaryView.dart';
 
 void main() => runApp(new MaterialApp(
   home: new MyApp(),
 ));
+//TODO Сделать авторизацию
+//TODO Сделать загрузку информации с сервера
+//TODO Найти АПИ 1С для запросов на обновление базы данных
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final title = 'HR METRICS';
+    String yearsForMenu;
 
     return new Scaffold(
         appBar: AppBar(
@@ -39,7 +44,12 @@ class MyApp extends StatelessWidget {
               color: Color(0xFFFF9000),
             ),
             FlatButton(
-              onPressed: goToNumberView,
+              onPressed: (){
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => NumberView()),
+                );
+              },
               child: new SizedBox(
                 height: 150.0,
                 child: Center(

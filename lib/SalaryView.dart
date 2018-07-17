@@ -5,10 +5,15 @@ class SalaryView extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     final title = 'SALARY';
-    // TODO: implement build
     return new Scaffold(
-      appBar: new AppBar(),
-      body: new SalaryChart.withSampleData()
+      appBar: new AppBar(
+        title: new Text('СРЕДНЯЯ ЗАРПЛАТА'),
+
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: new SalaryChart.withSampleData(),
+      ),
     );
   }
 
@@ -45,12 +50,17 @@ class SalaryChart extends StatelessWidget{
       seriesList,
       animate: animate,
       defaultInteractions: true,
+      barRendererDecorator: new charts.BarLabelDecorator<String>(),
+      vertical: false,
     );
   }
-
+//TODO Сделать базу данных
   /// Create one series with sample hard coded data.
   static List<charts.Series<OrdinalSales, String>> _createSampleData() {
     final data = [
+      new OrdinalSales('2008', 27990),
+      new OrdinalSales('2009', 26590),
+      new OrdinalSales('2010', 27890),
       new OrdinalSales('2011', 27890),
       new OrdinalSales('2012', 30100),
       new OrdinalSales('2013', 31230),
@@ -64,14 +74,9 @@ class SalaryChart extends StatelessWidget{
       new charts.Series<OrdinalSales, String>(
         id: 'Sales',
         domainFn: (OrdinalSales sales, _) => sales.year,
-        measureFn: (OrdinalSales sales, _) => sales.sales,
+        measureFn: (OrdinalSales sales, _) => sales.salary,
         data: data,
-       labelAccessorFn: (OrdinalSales sales, _) =>
-       '${sales.year}: \$${sales.sales.toString()}',
-        outsideLabelStyleAccessorFn: (OrdinalSales sales, _) {
-          final color = charts.MaterialPalette.black;
-          return new charts.TextStyleSpec(color: color);
-        }
+        labelAccessorFn: (OrdinalSales sales, _) => '${sales.salary.toString()}'
       )
     ];
   }
@@ -81,7 +86,7 @@ class SalaryChart extends StatelessWidget{
 /// Sample ordinal data type.
 class OrdinalSales {
   final String year;
-  final int sales;
+  final int salary;
 
-  OrdinalSales(this.year, this.sales);
+  OrdinalSales(this.year, this.salary);
 }
