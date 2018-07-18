@@ -41,7 +41,7 @@ class MyApp extends StatelessWidget {
                   ),
                 ),
               ),
-              color: Color(0xFFFF9000),
+              color: Colors.lightBlueAccent,
             ),
             FlatButton(
               onPressed: (){

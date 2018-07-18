@@ -67,15 +67,16 @@ class SalaryChart extends StatelessWidget{
       new OrdinalSalary('2015', 33001),
       new OrdinalSalary('2016', 32555),
       new OrdinalSalary('2017', 35977),
+      new OrdinalSalary('2018', 32753),
     ];
 
     return [
       new charts.Series<OrdinalSalary, String>(
         id: 'Sales',
-        domainFn: (OrdinalSalary sales, _) => sales.year,
-        measureFn: (OrdinalSalary sales, _) => sales.salary,
+        domainFn: (OrdinalSalary salaries, _) => salaries.year,
+        measureFn: (OrdinalSalary salaries, _) => salaries.salary,
         data: data,
-        labelAccessorFn: (OrdinalSalary sales, _) => '${sales.salary.toString()}'
+        labelAccessorFn: (OrdinalSalary salaries, _) => '${salaries.salary.toString()}'
       )
     ];
   }

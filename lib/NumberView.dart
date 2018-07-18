@@ -17,7 +17,6 @@ class NumberView extends StatelessWidget {
       ),
     );
   }
-
 }
 
 class NumberChart extends StatelessWidget{
@@ -59,25 +58,24 @@ class NumberChart extends StatelessWidget{
   /// Create one series with sample hard coded data.
   static List<charts.Series<OrdinalNumber, String>> _createSampleData() {
     final data = [
-      new OrdinalNumber('2008', 2799),
-      new OrdinalNumber('2009', 2659),
-      new OrdinalNumber('2010', 2789),
-      new OrdinalNumber('2011', 2789),
-      new OrdinalNumber('2012', 3010),
-      new OrdinalNumber('2013', 3123),
-      new OrdinalNumber('2014', 3103),
-      new OrdinalNumber('2015', 3301),
-      new OrdinalNumber('2016', 3255),
-      new OrdinalNumber('2017', 3597),
+      new OrdinalNumber('2010', 3195),
+      new OrdinalNumber('2011', 3159),
+      new OrdinalNumber('2012', 3094),
+      new OrdinalNumber('2013', 2878),
+      new OrdinalNumber('2014', 2784),
+      new OrdinalNumber('2015', 2655),
+      new OrdinalNumber('2016', 2650),
+      new OrdinalNumber('2017', 2742),
+      new OrdinalNumber('2018', 2766),
     ];
 
     return [
       new charts.Series<OrdinalNumber, String>(
-          id: 'Sales',
-          domainFn: (OrdinalNumber sales, _) => sales.year,
-          measureFn: (OrdinalNumber sales, _) => sales.number,
+          id: 'Numbers',
+          domainFn: (OrdinalNumber numbers, _) => numbers.year,
+          measureFn: (OrdinalNumber numbers, _) => numbers.number,
           data: data,
-          labelAccessorFn: (OrdinalNumber sales, _) => '${sales.number.toString()}'
+          labelAccessorFn: (OrdinalNumber numbers, _) => '${numbers.number.toString()}'
       )
     ];
   }
