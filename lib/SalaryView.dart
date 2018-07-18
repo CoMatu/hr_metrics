@@ -4,7 +4,6 @@ import 'package:charts_flutter/flutter.dart' as charts;
 class SalaryView extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
-    final title = 'SALARY';
     return new Scaffold(
       appBar: new AppBar(
         title: new Text('СРЕДНЯЯ ЗАРПЛАТА'),
@@ -56,27 +55,27 @@ class SalaryChart extends StatelessWidget{
   }
 //TODO Сделать базу данных
   /// Create one series with sample hard coded data.
-  static List<charts.Series<OrdinalSales, String>> _createSampleData() {
+  static List<charts.Series<OrdinalSalary, String>> _createSampleData() {
     final data = [
-      new OrdinalSales('2008', 27990),
-      new OrdinalSales('2009', 26590),
-      new OrdinalSales('2010', 27890),
-      new OrdinalSales('2011', 27890),
-      new OrdinalSales('2012', 30100),
-      new OrdinalSales('2013', 31230),
-      new OrdinalSales('2014', 31003),
-      new OrdinalSales('2015', 33001),
-      new OrdinalSales('2016', 32555),
-      new OrdinalSales('2017', 35977),
+      new OrdinalSalary('2008', 27990),
+      new OrdinalSalary('2009', 26590),
+      new OrdinalSalary('2010', 27890),
+      new OrdinalSalary('2011', 27890),
+      new OrdinalSalary('2012', 30100),
+      new OrdinalSalary('2013', 31230),
+      new OrdinalSalary('2014', 31003),
+      new OrdinalSalary('2015', 33001),
+      new OrdinalSalary('2016', 32555),
+      new OrdinalSalary('2017', 35977),
     ];
 
     return [
-      new charts.Series<OrdinalSales, String>(
+      new charts.Series<OrdinalSalary, String>(
         id: 'Sales',
-        domainFn: (OrdinalSales sales, _) => sales.year,
-        measureFn: (OrdinalSales sales, _) => sales.salary,
+        domainFn: (OrdinalSalary sales, _) => sales.year,
+        measureFn: (OrdinalSalary sales, _) => sales.salary,
         data: data,
-        labelAccessorFn: (OrdinalSales sales, _) => '${sales.salary.toString()}'
+        labelAccessorFn: (OrdinalSalary sales, _) => '${sales.salary.toString()}'
       )
     ];
   }
@@ -84,9 +83,9 @@ class SalaryChart extends StatelessWidget{
 }
 
 /// Sample ordinal data type.
-class OrdinalSales {
+class OrdinalSalary {
   final String year;
   final int salary;
 
-  OrdinalSales(this.year, this.salary);
+  OrdinalSalary(this.year, this.salary);
 }
