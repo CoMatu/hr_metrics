@@ -1,8 +1,17 @@
+import 'dart:async';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
+
 import 'package:flutter/material.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 
 
 class NumberView extends StatelessWidget {
+
+  Future<http.Response> fetchData() {
+    return http.get('http://skazkimal.ru/hr-metrics/headcount.json');
+  }
+
   @override
   Widget build(BuildContext context) {
     // TODO: добавить график
@@ -83,9 +92,30 @@ class NumberChart extends StatelessWidget{
 }
 
 /// Sample ordinal data type.
+
 class OrdinalNumber {
   final String year;
   final int number;
 
-  OrdinalNumber(this.year, this.number);
+  OrdinalNumber({this.year, this.number});
+
+  factory OrdinalNumber.fromJson(Map<String, dynamic> json) {
+    return OrdinalNumber(
+      year: json['year'],
+      number: json['number'],
+    );
+  }
+}
+
+Future<OrdinalNumber> fetchData() async {
+  final response =
+  await http.get('http://skazkimal.ru/hr-metrics/headcount.json');
+
+  if (response.statusCode == 200) {
+    // If server returns an OK response, parse the JSON
+    return OrdinalNumber.fromJson(json.decode(response.body));
+  } else {
+    // If that response was not OK, throw an error.
+    throw Exception('Failed to load data');
+  }
 }
