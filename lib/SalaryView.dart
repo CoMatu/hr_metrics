@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
+import 'package:hr_metrics/FetchChartData.dart';
+import 'package:http/http.dart' as http;
+
 
 class SalaryView extends StatelessWidget{
+
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
@@ -11,7 +15,12 @@ class SalaryView extends StatelessWidget{
       ),
       body: Padding(
         padding: const EdgeInsets.all(10.0),
-        child: new SalaryChart.withSampleData(),
+        child: FutureBuilder(
+          future: fetchData(http.Client()),
+            builder: (context, snapshot) {
+
+            }
+        )
       ),
     );
   }
