@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:hr_metrics/FetchChartData.dart';
-import 'package:http/http.dart' as http;
-
 
 class SalaryView extends StatelessWidget{
 
@@ -15,12 +13,7 @@ class SalaryView extends StatelessWidget{
       ),
       body: Padding(
         padding: const EdgeInsets.all(10.0),
-        child: FutureBuilder(
-          future: fetchData(http.Client()),
-            builder: (context, snapshot) {
-
-            }
-        )
+        child: new SalaryChart.withSampleData(),
       ),
     );
   }
@@ -41,7 +34,7 @@ class SalaryChart extends StatelessWidget{
       animate: true,
     );
   }
-
+//TODO нужен какой-то класс который строит график и в него при вызове передаем конструктором данные для графика
 
   @override
   Widget build(BuildContext context) {
@@ -64,6 +57,7 @@ class SalaryChart extends StatelessWidget{
   }
 //TODO Сделать базу данных
   /// Create one series with sample hard coded data.
+/*
   static List<charts.Series<OrdinalSalary, String>> _createSampleData() {
     final data = [
       new OrdinalSalary('2008', 27990),
@@ -89,13 +83,15 @@ class SalaryChart extends StatelessWidget{
       )
     ];
   }
+*/
 
 }
 
 /// Sample ordinal data type.
+/*
 class OrdinalSalary {
   final String year;
   final int salary;
 
   OrdinalSalary(this.year, this.salary);
-}
+}*/

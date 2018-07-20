@@ -39,7 +39,7 @@ class MyApp extends StatelessWidget {
                   child: new Text('ЗАРПЛАТА',
                     style: new TextStyle(
                         color: Colors.white,
-                        fontSize: 34.0
+                        fontSize: 30.0
                     ),
                     textAlign: TextAlign.center,
                   ),
@@ -60,7 +60,7 @@ class MyApp extends StatelessWidget {
                   child: new Text('ЧИСЛЕННОСТЬ',
                     style: new TextStyle(
                         color: Colors.white,
-                        fontSize: 34.0
+                        fontSize: 30.0
                     ),
                     textAlign: TextAlign.center,
                   ),
@@ -76,7 +76,7 @@ class MyApp extends StatelessWidget {
                   child: new Text('ТЕКУЧЕСТЬ',
                     style: new TextStyle(
                         color: Colors.white,
-                        fontSize: 34.0
+                        fontSize: 30.0
                     ),
                     textAlign: TextAlign.center,
                   ),
@@ -92,7 +92,7 @@ class MyApp extends StatelessWidget {
                   child: new Text('ФОНД ОПЛАТЫ ТРУДА',
                     style: new TextStyle(
                         color: Colors.white,
-                        fontSize: 34.0
+                        fontSize: 30.0
                     ),
                     textAlign: TextAlign.center,
                   ),

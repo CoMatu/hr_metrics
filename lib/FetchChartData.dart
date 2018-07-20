@@ -7,29 +7,19 @@ import 'package:http/http.dart' as http;
 import 'package:charts_flutter/flutter.dart' as charts;
 
 class FetchChartData {
-  static List<charts.Series<OrdinalData, String>> _createSampleData() {
-    final data = [
-      new OrdinalData('2008', 27990),
-      new OrdinalData('2009', 26590),
-      new OrdinalData('2010', 27890),
-    ];
+  static Future<List<charts.Series<ChartData, String>>> _createSampleData() async {
+    final data = await fetchData(http.Client());
 
     return [
-      new charts.Series<OrdinalData, String>(
+      new charts.Series<ChartData, String>(
           id: 'Sales',
-          domainFn: (OrdinalData series, _) => series.period,
-          measureFn: (OrdinalData series, _) => series.count,
+          domainFn: (ChartData series, _) => series.period,
+          measureFn: (ChartData series, _) => series.count,
           data: data,
-          labelAccessorFn: (OrdinalData series, _) => '${series.count.toString()}'
+          labelAccessorFn: (ChartData series, _) => '${series.count.toString()}'
       )
     ];
   }
-}
-class OrdinalData {
-  final String period;
-  final int count;
-
-  OrdinalData(this.period, this.count);
 }
 
 Future<List<ChartData>> fetchData(http.Client client) async {
@@ -48,21 +38,15 @@ List<ChartData> parseChartData(String responseBody) {
 }
 
 class ChartData {
-  final int albumId;
-  final int id;
-  final String title;
-  final String url;
-  final String thumbnailUrl;
+  final String period;
+  final int count;
 
-  ChartData({this.albumId, this.id, this.title, this.url, this.thumbnailUrl});
+  ChartData({this.period, this.count});
 
   factory ChartData.fromJson(Map<String, dynamic> json) {
     return ChartData(
-      albumId: json['albumId'] as int,
-      id: json['id'] as int,
-      title: json['title'] as String,
-      url: json['url'] as String,
-      thumbnailUrl: json['thumbnailUrl'] as String,
+      period: json['year'] as String,
+      count: json['number'] as int,
     );
   }
 }
