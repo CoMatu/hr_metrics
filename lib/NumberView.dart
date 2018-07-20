@@ -1,16 +1,8 @@
-import 'dart:async';
-import 'dart:convert';
-import 'package:http/http.dart' as http;
-
 import 'package:flutter/material.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 
 
 class NumberView extends StatelessWidget {
-
-  Future<http.Response> fetchData() {
-    return http.get('http://skazkimal.ru/hr-metrics/headcount.json');
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -67,15 +59,15 @@ class NumberChart extends StatelessWidget{
   /// Create one series with sample hard coded data.
   static List<charts.Series<OrdinalNumber, String>> _createSampleData() {
     final data = [
-      new OrdinalNumber('2010', 3195),
-      new OrdinalNumber('2011', 3159),
-      new OrdinalNumber('2012', 3094),
-      new OrdinalNumber('2013', 2878),
-      new OrdinalNumber('2014', 2784),
-      new OrdinalNumber('2015', 2655),
-      new OrdinalNumber('2016', 2650),
-      new OrdinalNumber('2017', 2742),
-      new OrdinalNumber('2018', 2766),
+      new OrdinalNumber(year: '2010', number: 3195),
+      new OrdinalNumber(year: '2011', number: 3159),
+      new OrdinalNumber(year: '2012', number: 3094),
+      new OrdinalNumber(year: '2013', number: 2878),
+      new OrdinalNumber(year: '2014', number: 2784),
+      new OrdinalNumber(year: '2015', number: 2655),
+      new OrdinalNumber(year: '2016', number: 2650),
+      new OrdinalNumber(year: '2017', number: 2742),
+      new OrdinalNumber(year: '2018', number: 2766),
     ];
 
     return [
@@ -91,31 +83,10 @@ class NumberChart extends StatelessWidget{
 
 }
 
-/// Sample ordinal data type.
-
 class OrdinalNumber {
   final String year;
   final int number;
 
   OrdinalNumber({this.year, this.number});
-
-  factory OrdinalNumber.fromJson(Map<String, dynamic> json) {
-    return OrdinalNumber(
-      year: json['year'],
-      number: json['number'],
-    );
   }
-}
 
-Future<OrdinalNumber> fetchData() async {
-  final response =
-  await http.get('http://skazkimal.ru/hr-metrics/headcount.json');
-
-  if (response.statusCode == 200) {
-    // If server returns an OK response, parse the JSON
-    return OrdinalNumber.fromJson(json.decode(response.body));
-  } else {
-    // If that response was not OK, throw an error.
-    throw Exception('Failed to load data');
-  }
-}
