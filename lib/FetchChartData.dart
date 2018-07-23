@@ -7,6 +7,8 @@ import 'package:http/http.dart' as http;
 import 'package:charts_flutter/flutter.dart' as charts;
 
 class FetchChartData {
+  final Future<List<charts.Series<ChartData, String>>> seriesList = _createSampleData();
+
   static Future<List<charts.Series<ChartData, String>>> _createSampleData() async {
     final data = await fetchData(http.Client());
 

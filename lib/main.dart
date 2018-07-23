@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:hr_metrics/TurnoverView.dart';
 import 'package:http/http.dart' as http;
 
 import 'package:flutter/material.dart';
@@ -69,7 +70,12 @@ class MyApp extends StatelessWidget {
               color: Colors.lightBlue,
             ),
             FlatButton(
-              onPressed: goToTurnoverView,
+              onPressed: (){
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => TurnoverView()),
+                );
+              },
               child: new SizedBox(
                 height: 150.0,
                 child: Center(

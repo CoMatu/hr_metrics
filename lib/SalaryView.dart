@@ -57,7 +57,7 @@ class SalaryChart extends StatelessWidget{
   }
 //TODO Сделать базу данных
   /// Create one series with sample hard coded data.
-/*
+
   static List<charts.Series<OrdinalSalary, String>> _createSampleData() {
     final data = [
       new OrdinalSalary('2008', 27990),
@@ -83,15 +83,15 @@ class SalaryChart extends StatelessWidget{
       )
     ];
   }
-*/
+
 
 }
 
 /// Sample ordinal data type.
-/*
+
 class OrdinalSalary {
   final String year;
   final int salary;
 
   OrdinalSalary(this.year, this.salary);
-}*/
+}
