@@ -9,6 +9,9 @@ void main() => runApp(new MaterialApp(
 //TODO Сделать авторизацию
 //TODO Сделать загрузку информации с сервера
 //TODO Найти АПИ 1С для запросов на обновление базы данных
+//TODO Сделать лэйбл с цифрами при нажатии
+//TODO Сделать текучесть кадров в дробных процентах
+//TODO Сделать изменение типа графика на вертикальный при переходе в альбомную ориентацию
 
 class MyApp extends StatelessWidget {
   final String headcountLoadUrl = 'http://skazkimal.ru/hr-metrics/headcount.json';
@@ -47,7 +50,7 @@ class MyApp extends StatelessWidget {
                   ),
                 ),
               ),
-              color: Colors.orangeAccent,
+              color: Colors.orange[800],
             ),
             FlatButton(
               onPressed: (){
@@ -69,7 +72,7 @@ class MyApp extends StatelessWidget {
                   ),
                 ),
               ),
-              color: Colors.lightBlue,
+              color: Colors.blue[800],
             ),
             FlatButton(
               onPressed: (){
@@ -91,7 +94,7 @@ class MyApp extends StatelessWidget {
                   ),
                 ),
               ),
-              color: Colors.pink,
+              color: Colors.pink[400],
             ),
             FlatButton(
               onPressed: (){
@@ -113,7 +116,7 @@ class MyApp extends StatelessWidget {
                   ),
                 ),
               ),
-              color: Colors.blueAccent,
+              color: Colors.cyan[800],
             ),
           ],
         ),
