@@ -47,7 +47,7 @@ class MyApp extends StatelessWidget {
                   ),
                 ),
               ),
-              color: Colors.lightBlueAccent,
+              color: Colors.orangeAccent,
             ),
             FlatButton(
               onPressed: (){
@@ -91,7 +91,7 @@ class MyApp extends StatelessWidget {
                   ),
                 ),
               ),
-              color: Colors.blue,
+              color: Colors.pink,
             ),
             FlatButton(
               onPressed: (){
@@ -120,7 +120,4 @@ class MyApp extends StatelessWidget {
       );
   }
 
-  void goToSalaryView() => print('переход на страницу зарплаты');
-  void goToNumberView() => print('переход на страницу численности');
-  void goToTurnoverView() => print('переход на страницу текучести');
 }
