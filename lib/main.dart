@@ -12,6 +12,9 @@ void main() => runApp(new MaterialApp(
 
 class MyApp extends StatelessWidget {
   final String headcountLoadUrl = 'http://skazkimal.ru/hr-metrics/headcount.json';
+  final String salaryLoadUrl = 'http://skazkimal.ru/hr-metrics/headcount.json';
+  final String turnoverLoadUrl = 'http://skazkimal.ru/hr-metrics/headcount.json';
+  final String fotLoadUrl = 'http://skazkimal.ru/hr-metrics/headcount.json';
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +32,7 @@ class MyApp extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) =>
-                      ChartView(headcountLoadUrl, 'СРЕДНЯЯ ЗАРПЛАТА')),
+                      ChartView(salaryLoadUrl, 'СРЕДНЯЯ ЗАРПЛАТА')),
                 );
               },
               child: new SizedBox(
@@ -72,7 +75,7 @@ class MyApp extends StatelessWidget {
               onPressed: (){
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => ChartView(headcountLoadUrl,
+                  MaterialPageRoute(builder: (context) => ChartView(turnoverLoadUrl,
                   'ТЕКУЧЕСТЬ КАДРОВ')),
                 );
               },
@@ -94,7 +97,7 @@ class MyApp extends StatelessWidget {
               onPressed: (){
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => ChartView(headcountLoadUrl,
+                  MaterialPageRoute(builder: (context) => ChartView(fotLoadUrl,
                       'ФОНД ОПЛАТЫ ТРУДА')),
                 );
               },
