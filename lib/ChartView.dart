@@ -3,22 +3,27 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:hr_metrics/FetchChartData.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
+import 'package:hr_metrics/SimpleBarChart.dart';
 import 'package:http/http.dart' as http;
 
-class TurnoverView extends StatelessWidget{
-  const TurnoverView({Key key}) : super(key: key);
+class ChartView extends StatelessWidget{
+
+  final String loadUrl; // ссылка на данные из интернета
+  final String title;
+
+  ChartView (this.loadUrl, this.title);
 
   @override
   Widget build(BuildContext context) {
 
     return new Scaffold(
       appBar: new AppBar(
-        title: new Text('ТЕКУЧЕСТЬ КАДРОВ'),
+        title: new Text(title),
 
       ),
       body: Center(
         child: FutureBuilder<List<charts.Series>>(
-          future: _createSampleData(),
+          future: _createData(loadUrl),
             builder: (context, snapshot){
               if(snapshot.connectionState == ConnectionState.waiting){
                 return new Text('Data is loading...');
@@ -32,8 +37,8 @@ class TurnoverView extends StatelessWidget{
     );
   }
 
-     static Future<List<charts.Series<ChartData, String>>> _createSampleData() async {
-      final data = await fetchData(http.Client());
+     static Future<List<charts.Series<ChartData, String>>> _createData(String loadUrl) async {
+      final data = await FetchChartData(loadUrl).fetchData(http.Client());
 
       return [
         new charts.Series<ChartData, String>(
@@ -46,30 +51,5 @@ class TurnoverView extends StatelessWidget{
       ];
     }
 
-}
-
-class SimpleBarChart extends StatelessWidget {
-  List<charts.Series> seriesList;
-  final bool animate;
-
-  SimpleBarChart(this.seriesList, {this.animate});
-
-  /// Creates a [BarChart] with sample data and no transition.
-  factory SimpleBarChart.withData() {
-    var bar = new SimpleBarChart.withData();
-    return bar;
-  }
-
-
-  @override
-  Widget build(BuildContext context) {
-    return new charts.BarChart(
-      seriesList,
-      animate: animate,
-      vertical: false,
-    );
-  }
-
-  /// Create one series with sample hard coded data.
 }
 

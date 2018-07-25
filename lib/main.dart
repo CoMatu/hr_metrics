@@ -1,8 +1,6 @@
-import 'package:hr_metrics/TurnoverView.dart';
+import 'package:hr_metrics/ChartView.dart';
 
 import 'package:flutter/material.dart';
-import 'package:hr_metrics/NumberView.dart';
-import 'package:hr_metrics/SalaryView.dart';
 
 void main() => runApp(new MaterialApp(
   debugShowCheckedModeBanner: false,
@@ -13,6 +11,7 @@ void main() => runApp(new MaterialApp(
 //TODO Найти АПИ 1С для запросов на обновление базы данных
 
 class MyApp extends StatelessWidget {
+  final String headcountLoadUrl = 'http://skazkimal.ru/hr-metrics/headcount.json';
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +28,8 @@ class MyApp extends StatelessWidget {
               onPressed: (){
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => SalaryView()),
+                  MaterialPageRoute(builder: (context) =>
+                      ChartView(headcountLoadUrl, 'СРЕДНЯЯ ЗАРПЛАТА')),
                 );
               },
               child: new SizedBox(
@@ -50,7 +50,8 @@ class MyApp extends StatelessWidget {
               onPressed: (){
                 Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => NumberView()),
+                    MaterialPageRoute(builder: (context) =>
+                        ChartView(headcountLoadUrl, 'СРЕДНЕСПИСОЧНАЯ ЧИСЛЕННОСТЬ')),
                 );
               },
               child: new SizedBox(
@@ -71,7 +72,8 @@ class MyApp extends StatelessWidget {
               onPressed: (){
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => TurnoverView()),
+                  MaterialPageRoute(builder: (context) => ChartView(headcountLoadUrl,
+                  'ТЕКУЧЕСТЬ КАДРОВ')),
                 );
               },
               child: new SizedBox(
@@ -89,7 +91,13 @@ class MyApp extends StatelessWidget {
               color: Colors.blue,
             ),
             FlatButton(
-              onPressed: goToTurnoverView,
+              onPressed: (){
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => ChartView(headcountLoadUrl,
+                      'ФОНД ОПЛАТЫ ТРУДА')),
+                );
+              },
               child: new SizedBox(
                 height: 150.0,
                 child: Center(

@@ -4,19 +4,21 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 
-import 'package:charts_flutter/flutter.dart' as charts;
-
 class FetchChartData {
+  final String loadUrl;
+
+  FetchChartData(this.loadUrl);
+
+  Future<List<ChartData>> fetchData(http.Client client) async {
+    final response =
+    await client.get(loadUrl);
+
+    // Use the compute function to run parsePhotos in a separate isolate
+    return compute(parseChartData, response.body);
+  }
 
 }
 
-Future<List<ChartData>> fetchData(http.Client client) async {
-  final response =
-  await client.get('http://skazkimal.ru/hr-metrics/headcount.json');
-
-  // Use the compute function to run parsePhotos in a separate isolate
-  return compute(parseChartData, response.body);
-}
 
 // A function that will convert a response body into a List<Photo>
 List<ChartData> parseChartData(String responseBody) {
