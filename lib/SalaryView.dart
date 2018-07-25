@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
-import 'package:hr_metrics/FetchChartData.dart';
 
 class SalaryView extends StatelessWidget{
 

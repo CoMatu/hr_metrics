@@ -1,6 +1,4 @@
-import 'dart:async';
 import 'package:hr_metrics/TurnoverView.dart';
-import 'package:http/http.dart' as http;
 
 import 'package:flutter/material.dart';
 import 'package:hr_metrics/NumberView.dart';

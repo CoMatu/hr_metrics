@@ -1,16 +1,11 @@
 import 'dart:async';
 
-import 'package:charts_common/src/data/series.dart';
 import 'package:flutter/material.dart';
-import 'package:hr_metrics/SimpleBarChart.dart';
 import 'package:hr_metrics/FetchChartData.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:http/http.dart' as http;
 
-
-
 class TurnoverView extends StatelessWidget{
-
   const TurnoverView({Key key}) : super(key: key);
 
   @override
@@ -18,19 +13,21 @@ class TurnoverView extends StatelessWidget{
 
     return new Scaffold(
       appBar: new AppBar(
-        title: new Text('СРЕДНЯЯ ЗАРПЛАТА'),
+        title: new Text('ТЕКУЧЕСТЬ КАДРОВ'),
 
       ),
-      body: FutureBuilder<List<charts.Series>>(
-        future: _createSampleData(),
-          builder: (context, snapshot){
-            if(snapshot.connectionState == ConnectionState.waiting){
-              return new Text('Data is loading...');
-            }
-            else{
-              return new SimpleBarChart(snapshot);
-            }
-          },
+      body: Center(
+        child: FutureBuilder<List<charts.Series>>(
+          future: _createSampleData(),
+            builder: (context, snapshot){
+              if(snapshot.connectionState == ConnectionState.waiting){
+                return new Text('Data is loading...');
+              }
+              else{
+                return new SimpleBarChart(snapshot.data);
+              }
+            },
+        ),
       ),
     );
   }
@@ -49,6 +46,30 @@ class TurnoverView extends StatelessWidget{
       ];
     }
 
-
-
 }
+
+class SimpleBarChart extends StatelessWidget {
+  List<charts.Series> seriesList;
+  final bool animate;
+
+  SimpleBarChart(this.seriesList, {this.animate});
+
+  /// Creates a [BarChart] with sample data and no transition.
+  factory SimpleBarChart.withData() {
+    var bar = new SimpleBarChart.withData();
+    return bar;
+  }
+
+
+  @override
+  Widget build(BuildContext context) {
+    return new charts.BarChart(
+      seriesList,
+      animate: animate,
+      vertical: false,
+    );
+  }
+
+  /// Create one series with sample hard coded data.
+}
+

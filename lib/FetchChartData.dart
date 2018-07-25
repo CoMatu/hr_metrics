@@ -7,21 +7,7 @@ import 'package:http/http.dart' as http;
 import 'package:charts_flutter/flutter.dart' as charts;
 
 class FetchChartData {
-  final Future<List<charts.Series<ChartData, String>>> seriesList = _createSampleData();
 
-  static Future<List<charts.Series<ChartData, String>>> _createSampleData() async {
-    final data = await fetchData(http.Client());
-
-    return [
-      new charts.Series<ChartData, String>(
-          id: 'Sales',
-          domainFn: (ChartData series, _) => series.period,
-          measureFn: (ChartData series, _) => series.count,
-          data: data,
-          labelAccessorFn: (ChartData series, _) => '${series.count.toString()}'
-      )
-    ];
-  }
 }
 
 Future<List<ChartData>> fetchData(http.Client client) async {
