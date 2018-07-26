@@ -19,7 +19,18 @@ class ChartView extends StatelessWidget{
     return new Scaffold(
       appBar: new AppBar(
         title: new Text(title),
+        actions: <Widget>[
+          PopupMenuButton<Choice>(itemBuilder: (BuildContext context) {
+            return choices.map((Choice choice) {
+              return PopupMenuItem<Choice>(
+                value: choice,
+                child: Text(choice.title),
+              );
+            }).toList();
+          },
 
+          )
+        ],
       ),
       body: Center(
         child: FutureBuilder<List<charts.Series>>(
@@ -52,4 +63,14 @@ class ChartView extends StatelessWidget{
     }
 
 }
+// объект для верхнего меню
+class Choice {
+  const Choice({this.title, this.icon});
+  final String title;
+  final IconData icon;
+}
 
+const List<Choice> choices = const <Choice>[
+  const Choice(title: 'По категориям', icon: Icons.directions_car),
+  const Choice(title: 'По месяцам', icon: Icons.directions_bike),
+];
