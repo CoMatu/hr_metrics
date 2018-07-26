@@ -15,9 +15,9 @@ void main() => runApp(new MaterialApp(
 
 class MyApp extends StatelessWidget {
   final String headcountLoadUrl = 'http://skazkimal.ru/hr-metrics/headcount.json';
-  final String salaryLoadUrl = 'http://skazkimal.ru/hr-metrics/headcount.json';
-  final String turnoverLoadUrl = 'http://skazkimal.ru/hr-metrics/headcount.json';
-  final String fotLoadUrl = 'http://skazkimal.ru/hr-metrics/headcount.json';
+  final String salaryLoadUrl = 'http://skazkimal.ru/hr-metrics/salary.json';
+  final String turnoverLoadUrl = 'http://skazkimal.ru/hr-metrics/turnover.json';
+  final String fotLoadUrl = 'http://skazkimal.ru/hr-metrics/fot.json';
 
   @override
   Widget build(BuildContext context) {
