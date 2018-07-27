@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:hr_metrics/FetchChartData.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
+import 'package:hr_metrics/MonthView.dart';
 import 'package:hr_metrics/SimpleBarChart.dart';
 import 'package:http/http.dart' as http;
 
@@ -20,7 +21,9 @@ class ChartView extends StatelessWidget{
       appBar: new AppBar(
         title: new Text(title),
         actions: <Widget>[
-          PopupMenuButton<Choice>(itemBuilder: (BuildContext context) {
+          PopupMenuButton<Choice>(
+            onSelected: selectedChart,
+            itemBuilder: (BuildContext context) {
             return choices.map((Choice choice) {
               return PopupMenuItem<Choice>(
                 value: choice,
@@ -61,6 +64,19 @@ class ChartView extends StatelessWidget{
         )
       ];
     }
+
+  void selectedChart(Choice value) {
+    String gr = value.title;
+print('Вы выбрали: $gr');
+  }
+}
+
+_popupSelected(BuildContext context) {
+  Navigator.push(
+    context,
+    MaterialPageRoute(builder: (context) =>
+        MonthView()),
+  );
 
 }
 // объект для верхнего меню
