@@ -56,7 +56,7 @@ class ChartView extends StatelessWidget{
 
       return [
         new charts.Series<ChartData, String>(
-            id: 'Sales',
+            id: 'Chart Data',
             domainFn: (ChartData series, _) => series.period,
             measureFn: (ChartData series, _) => series.count,
             data: data,

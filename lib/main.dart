@@ -3,6 +3,12 @@ import 'package:hr_metrics/ChartView.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(new MaterialApp(
+  theme: ThemeData(
+    brightness: Brightness.dark,
+    primaryColor: Colors.lightBlue[800],
+    accentColor: Colors.cyan[600],
+    scaffoldBackgroundColor: Colors.white
+  ),
   debugShowCheckedModeBanner: false,
   home: new MyApp(),
 ));

@@ -22,7 +22,7 @@ class SimpleBarChart extends StatefulWidget {
 }
 
 class SimpleBarChartState extends State<SimpleBarChart> {
-  DateTime _time;
+  String _period;
   Map<String, num> _measures;
 
   // Listens to the underlying selection changes, and updates the information
@@ -31,7 +31,7 @@ class SimpleBarChartState extends State<SimpleBarChart> {
   _onSelectionChanged(charts.SelectionModel model) {
     final selectedDatum = model.selectedDatum;
 
-    DateTime time;
+    String period;
     final measures = <String, num>{};
 
     // We get the model that updated with a list of [SeriesDatum] which is
@@ -40,32 +40,55 @@ class SimpleBarChartState extends State<SimpleBarChart> {
     // Walk the selection updating the measures map, storing off the sales and
     // series name for each selection point.
     if (selectedDatum.isNotEmpty) {
-      time = selectedDatum.first.datum.time;
+      period = selectedDatum.first.datum.period;
       selectedDatum.forEach((charts.SeriesDatum datumPair) {
-        measures[datumPair.series.displayName] = datumPair.datum.sales;
+        measures[datumPair.series.displayName] = datumPair.datum.count;
       });
     }
 
     // Request a build.
     setState(() {
-      _time = time;
+      _period = period;
       _measures = measures;
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    return new charts.BarChart(
-      widget.seriesList,
-      animate: widget.animate,
-      selectionModels: [
-        new charts.SelectionModelConfig(
-          type: charts.SelectionModelType.info,
-          listener: _onSelectionChanged,
-        )
-      ],
-      //barRendererDecorator: new charts.BarLabelDecorator<String>(),
-      vertical: false,
+    final children = <Widget>[
+      new Expanded(
+          child: new charts.BarChart(
+            widget.seriesList,
+            animate: widget.animate,
+            selectionModels: [
+              new charts.SelectionModelConfig(
+                type: charts.SelectionModelType.info,
+                listener: _onSelectionChanged,
+              )
+            ],
+            //barRendererDecorator: new charts.BarLabelDecorator<String>(),
+            vertical: true,
+          ),
+      )
+    ];
+    // If there is a selection, then include the details.
+    if (_period != null) {
+      children.add(new Padding(
+          padding: new EdgeInsets.only(top: 5.0),
+          child: new Text(_period)));
+    }
+    _measures?.forEach((String series, num value) {
+      children.add(new Text('$value',
+      style: new TextStyle(
+        fontSize: 22.0,
+        color: Colors.black
+      ),));
+    });
+
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 8.0),
+      child: new Column(children: children),
     );
   }
+
 }

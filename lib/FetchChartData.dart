@@ -16,9 +16,7 @@ class FetchChartData {
     // Use the compute function to run parsePhotos in a separate isolate
     return compute(parseChartData, response.body);
   }
-
 }
-
 
 // A function that will convert a response body into a List<Photo>
 List<ChartData> parseChartData(String responseBody) {
