@@ -23,8 +23,8 @@ class MyApp extends StatelessWidget {
   ];
   final List<String> salaryLoadUrl = [
     'http://skazkimal.ru/hr-metrics/salary.json',
-    'http://skazkimal.ru/hr-metrics/salary.json',
-    'http://skazkimal.ru/hr-metrics/salary.json'
+    'http://skazkimal.ru/hr-metrics/salaryWorkers.json',
+    'http://skazkimal.ru/hr-metrics/salaryITR.json'
   ];
   final List<String> turnoverLoadUrl = [
     'http://skazkimal.ru/hr-metrics/turnover.json'
@@ -53,6 +53,7 @@ class MyApp extends StatelessWidget {
         appBar: AppBar(
           title: Text(title),
         ),
+        //сделано обычными элементами списка, чтобы легче кастомизировать
         body: ListView(
           padding: const EdgeInsets.all(8.0),
           children: <Widget>[
