@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 
 void main() => runApp(new MaterialApp(
   theme: ThemeData(
-    brightness: Brightness.dark,
-    primaryColor: Colors.lightBlue[800],
-    accentColor: Colors.cyan[600],
-    scaffoldBackgroundColor: Colors.white
+    brightness: Brightness.light,
+    primaryColor: Colors.white,
+    accentColor: Colors.white24,
+    scaffoldBackgroundColor: Colors.grey[200]
   ),
   debugShowCheckedModeBanner: false,
   home: new MyApp(),
@@ -45,7 +45,7 @@ class MyApp extends StatelessWidget {
                 );
               },
               child: new SizedBox(
-                height: 150.0,
+                height: 120.0,
                 child: Center(
                   child: new Text('ЗАРПЛАТА',
                     style: new TextStyle(
@@ -67,7 +67,7 @@ class MyApp extends StatelessWidget {
                 );
               },
               child: new SizedBox(
-                height: 150.0,
+                height: 120.0,
                 child: Center(
                   child: new Text('ЧИСЛЕННОСТЬ',
                     style: new TextStyle(
@@ -89,7 +89,7 @@ class MyApp extends StatelessWidget {
                 );
               },
               child: new SizedBox(
-                height: 150.0,
+                height: 120.0,
                 child: Center(
                   child: new Text('ТЕКУЧЕСТЬ',
                     style: new TextStyle(
@@ -111,7 +111,7 @@ class MyApp extends StatelessWidget {
                 );
               },
               child: new SizedBox(
-                height: 150.0,
+                height: 120.0,
                 child: Center(
                   child: new Text('ФОНД ОПЛАТЫ ТРУДА',
                     style: new TextStyle(

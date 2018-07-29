@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:hr_metrics/FetchChartData.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
+import 'package:hr_metrics/ListItem.dart';
 import 'package:hr_metrics/MonthView.dart';
 import 'package:hr_metrics/SimpleBarChart.dart';
 import 'package:http/http.dart' as http;
@@ -36,17 +37,12 @@ class ChartView extends StatelessWidget{
         ],
       ),
       body: Center(
-        child: FutureBuilder<List<charts.Series>>(
-          future: _createData(loadUrl),
-            builder: (context, snapshot){
-              if(snapshot.connectionState == ConnectionState.waiting){
-                return new Text('Data is loading...');
-              }
-              else{
-                return new SimpleBarChart(snapshot.data);
-              }
-            },
-        ),
+        child: ListView(
+          padding: EdgeInsets.all(8.0),
+          children: <Widget>[
+            ListItem(loadUrl, title)
+          ],
+        )
       ),
     );
   }

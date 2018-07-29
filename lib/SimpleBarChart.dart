@@ -81,7 +81,7 @@ class SimpleBarChartState extends State<SimpleBarChart> {
       children.add(new Text('$value',
       style: new TextStyle(
         fontSize: 22.0,
-        color: Colors.black
+        color: Colors.cyan[800]
       ),));
     });
 
