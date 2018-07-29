@@ -15,15 +15,35 @@ void main() => runApp(new MaterialApp(
 //TODO Сделать авторизацию
 //TODO Сделать загрузку информации с сервера
 //TODO Найти АПИ 1С для запросов на обновление базы данных
-//TODO Сделать лэйбл с цифрами при нажатии
 //TODO Сделать текучесть кадров в дробных процентах
-//TODO Сделать изменение типа графика на вертикальный при переходе в альбомную ориентацию
 
 class MyApp extends StatelessWidget {
-  final String headcountLoadUrl = 'http://skazkimal.ru/hr-metrics/headcount.json';
-  final String salaryLoadUrl = 'http://skazkimal.ru/hr-metrics/salary.json';
-  final String turnoverLoadUrl = 'http://skazkimal.ru/hr-metrics/turnover.json';
-  final String fotLoadUrl = 'http://skazkimal.ru/hr-metrics/fot.json';
+  final List<String> headcountLoadUrl = [
+    'http://skazkimal.ru/hr-metrics/headcount.json'
+  ];
+  final List<String> salaryLoadUrl = [
+    'http://skazkimal.ru/hr-metrics/salary.json',
+    'http://skazkimal.ru/hr-metrics/salary.json',
+    'http://skazkimal.ru/hr-metrics/salary.json'
+  ];
+  final List<String> turnoverLoadUrl = [
+    'http://skazkimal.ru/hr-metrics/turnover.json'
+  ];
+  final List<String> fotLoadUrl = [
+    'http://skazkimal.ru/hr-metrics/fot.json'
+  ];
+  //заголовки графиков, количество равно списку url!!!
+  final List<String> headcountTitles = [
+    'ЧИСЛЕННОСТЬ, ВСЕГО',
+  ];  final List<String> salaryTitles = [
+    'СРЕДНЯЯ ЗАРПЛАТА, ВСЕГО',
+    'СРЕДНЯЯ ЗАРПЛАТА, РАБОЧИЕ',
+    'СРЕДНЯЯ ЗАРПЛАТА, ИТР'
+  ];  final List<String> turnoverTitles = [
+    'ТЕКУЧЕСТЬ КАДРОВ, ВСЕГО',
+  ];  final List<String> fotTitles = [
+    'ФОНД ОПЛАТЫ ТРУДА, ВСЕГО',
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +61,12 @@ class MyApp extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) =>
-                      ChartView(salaryLoadUrl, 'СРЕДНЯЯ ЗАРПЛАТА')),
+                      ChartView(
+                          salaryLoadUrl,
+                          salaryTitles,
+                          'СРЕДНЯЯ ЗАРПЛАТА'
+                      )
+                  ),
                 );
               },
               child: new SizedBox(
@@ -63,7 +88,12 @@ class MyApp extends StatelessWidget {
                 Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) =>
-                        ChartView(headcountLoadUrl, 'СРЕДНЕСПИСОЧНАЯ ЧИСЛЕННОСТЬ')),
+                        ChartView(
+                            headcountLoadUrl,
+                            headcountTitles,
+                            'СРЕДНЕСПИСОЧНАЯ ЧИСЛЕННОСТЬ'
+                        )
+                    ),
                 );
               },
               child: new SizedBox(
@@ -84,8 +114,13 @@ class MyApp extends StatelessWidget {
               onPressed: (){
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => ChartView(turnoverLoadUrl,
-                  'ТЕКУЧЕСТЬ КАДРОВ')),
+                  MaterialPageRoute(builder: (context) =>
+                      ChartView(
+                          turnoverLoadUrl,
+                          turnoverTitles,
+                          'ТЕКУЧЕСТЬ КАДРОВ'
+                      )
+                  ),
                 );
               },
               child: new SizedBox(
@@ -106,8 +141,13 @@ class MyApp extends StatelessWidget {
               onPressed: (){
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => ChartView(fotLoadUrl,
-                      'ФОНД ОПЛАТЫ ТРУДА')),
+                  MaterialPageRoute(builder: (context) =>
+                      ChartView(
+                          fotLoadUrl,
+                          fotTitles,
+                          'ФОНД ОПЛАТЫ ТРУДА'
+                      )
+                  ),
                 );
               },
               child: new SizedBox(

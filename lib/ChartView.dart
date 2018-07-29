@@ -1,19 +1,15 @@
-import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:hr_metrics/FetchChartData.dart';
-import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:hr_metrics/ListItem.dart';
 import 'package:hr_metrics/MonthView.dart';
-import 'package:hr_metrics/SimpleBarChart.dart';
-import 'package:http/http.dart' as http;
 
 class ChartView extends StatelessWidget{
 
-  final String loadUrl; // ссылка на данные из интернета
+  final List<String> loadUrl; // ссылка на данные из интернета
+  final List<String> chartTitle;
   final String title;
 
-  ChartView (this.loadUrl, this.title);
+  ChartView (this.loadUrl, this.chartTitle, this.title);
 
   @override
   Widget build(BuildContext context) {
@@ -37,29 +33,17 @@ class ChartView extends StatelessWidget{
         ],
       ),
       body: Center(
-        child: ListView(
+        child: ListView.builder(
+          itemCount: loadUrl.length,
           padding: EdgeInsets.all(8.0),
-          children: <Widget>[
-            ListItem(loadUrl, title)
-          ],
+          itemBuilder: (context, index){
+            return ListItem(loadUrl[index], chartTitle[index]);
+          },
         )
       ),
     );
   }
 
-     static Future<List<charts.Series<ChartData, String>>> _createData(String loadUrl) async {
-      final data = await FetchChartData(loadUrl).fetchData(http.Client());
-
-      return [
-        new charts.Series<ChartData, String>(
-            id: 'Chart Data',
-            domainFn: (ChartData series, _) => series.period,
-            measureFn: (ChartData series, _) => series.count,
-            data: data,
-            labelAccessorFn: (ChartData series, _) => '${series.count.toString()}'
-        )
-      ];
-    }
 
   void selectedChart(Choice value) {
     String gr = value.title;
