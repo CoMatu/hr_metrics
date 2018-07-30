@@ -22,10 +22,8 @@ class ListItem extends StatelessWidget{
         child: Column(
           children: <Widget>[
             Row(
-              mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Expanded(
-                  flex: 3,
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Text(
@@ -64,7 +62,8 @@ class ListItem extends StatelessWidget{
           domainFn: (ChartData series, _) => series.period,
           measureFn: (ChartData series, _) => series.count,
           data: data,
-          labelAccessorFn: (ChartData series, _) => '${series.count.toString()}'
+          labelAccessorFn: (ChartData series, _) => '${series.count.toString()}',
+        colorFn: (_, __) => charts.MaterialPalette.deepOrange.shadeDefault,
       )
     ];
   }

@@ -18,6 +18,7 @@ void main() => runApp(new MaterialApp(
 //TODO Сделать текучесть кадров в дробных процентах
 
 class MyApp extends StatelessWidget {
+  //списки адресов загрузки файлов
   final List<String> headcountLoadUrl = [
     'http://skazkimal.ru/hr-metrics/headcount.json'
   ];
