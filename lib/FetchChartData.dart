@@ -14,7 +14,8 @@ class FetchChartData {
     await client.get(loadUrl);
 
     // Use the compute function to run parsePhotos in a separate isolate
-    return compute(parseChartData, response.body);
+//    return compute(parseChartData, response.body); выдает ошибку
+  return parseChartData(response.body);
   }
 }
 

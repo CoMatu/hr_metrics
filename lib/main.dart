@@ -1,6 +1,21 @@
+import 'package:hr_metrics/ChartEntry.dart';
 import 'package:hr_metrics/ChartView.dart';
-
 import 'package:flutter/material.dart';
+
+List<ChartEntry> dataSalary = [
+  new ChartEntry(
+      20,
+      'http://skazkimal.ru/hr-metrics/salary.json',
+      'Средняя зарплата, руб.'),
+  new ChartEntry(
+      10,
+      'http://skazkimal.ru/hr-metrics/salaryWorkers.json',
+      'Средняя зарплата рабочих, руб.'),
+  new ChartEntry(
+      10,
+      'http://skazkimal.ru/hr-metrics/salaryITR.json',
+      'Средняя зарплата ИТР, руб.')
+];
 
 void main() => runApp(new MaterialApp(
   theme: ThemeData(
@@ -22,11 +37,6 @@ class MyApp extends StatelessWidget {
   final List<String> headcountLoadUrl = [
     'http://skazkimal.ru/hr-metrics/headcount.json'
   ];
-  final List<String> salaryLoadUrl = [
-    'http://skazkimal.ru/hr-metrics/salary.json',
-    'http://skazkimal.ru/hr-metrics/salaryWorkers.json',
-    'http://skazkimal.ru/hr-metrics/salaryITR.json'
-  ];
   final List<String> turnoverLoadUrl = [
     'http://skazkimal.ru/hr-metrics/turnover.json'
   ];
@@ -36,13 +46,11 @@ class MyApp extends StatelessWidget {
   //заголовки графиков, количество равно списку url!!!
   final List<String> headcountTitles = [
     'Численность, чел.',
-  ];  final List<String> salaryTitles = [
-    'Средняя зарплата, руб.',
-    'Средняя зарплата рабочих, руб.',
-    'Средняя зарплата ИТР, руб.'
-  ];  final List<String> turnoverTitles = [
+  ];
+  final List<String> turnoverTitles = [
     'Текучесть кадров, %',
-  ];  final List<String> fotTitles = [
+  ];
+  final List<String> fotTitles = [
     'Фонд оплаты труда, тыс.руб.',
   ];
 
@@ -64,8 +72,7 @@ class MyApp extends StatelessWidget {
                   context,
                   MaterialPageRoute(builder: (context) =>
                       ChartView(
-                          salaryLoadUrl,
-                          salaryTitles,
+                          dataSalary,
                           'СРЕДНЯЯ ЗАРПЛАТА'
                       )
                   ),
@@ -91,8 +98,7 @@ class MyApp extends StatelessWidget {
                     context,
                     MaterialPageRoute(builder: (context) =>
                         ChartView(
-                            headcountLoadUrl,
-                            headcountTitles,
+                            dataSalary,
                             'СРЕДНЕСПИСОЧНАЯ ЧИСЛЕННОСТЬ'
                         )
                     ),
@@ -118,8 +124,7 @@ class MyApp extends StatelessWidget {
                   context,
                   MaterialPageRoute(builder: (context) =>
                       ChartView(
-                          turnoverLoadUrl,
-                          turnoverTitles,
+                          dataSalary,
                           'ТЕКУЧЕСТЬ КАДРОВ'
                       )
                   ),
@@ -145,8 +150,7 @@ class MyApp extends StatelessWidget {
                   context,
                   MaterialPageRoute(builder: (context) =>
                       ChartView(
-                          fotLoadUrl,
-                          fotTitles,
+                          dataSalary,
                           'ФОНД ОПЛАТЫ ТРУДА'
                       )
                   ),

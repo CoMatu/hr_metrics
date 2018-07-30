@@ -4,15 +4,15 @@ import 'package:charts_flutter/flutter.dart' as charts;
 
 class LineChart extends StatefulWidget {
   final List<charts.Series> seriesList;
+  List<charts.Series> seriesListConverted;
   final bool animate;
 
-  LineChart(this.seriesList, {this.animate});
+  LineChart(this.seriesList, {this.animate, this.seriesListConverted});
 
   factory LineChart.withData() {
     var bar = new LineChart.withData();
     return bar;
   }
-
 
   @override
   LineChartState createState() {
@@ -50,6 +50,7 @@ class LineChartState extends State<LineChart> {
     setState(() {
       _period = period;
       _measures = measures;
+      widget.seriesListConverted = _convertData();
     });
   }
 
@@ -57,7 +58,7 @@ class LineChartState extends State<LineChart> {
   Widget build(BuildContext context) {
     final children = <Widget>[
       new Expanded(
-          child: new charts.BarChart(
+          child: new charts.LineChart(
             widget.seriesList,
             animate: widget.animate,
             selectionModels: [
@@ -67,7 +68,6 @@ class LineChartState extends State<LineChart> {
               )
             ],
             //barRendererDecorator: new charts.BarLabelDecorator<String>(),
-            vertical: true,
           ),
       )
     ];
@@ -91,6 +91,12 @@ class LineChartState extends State<LineChart> {
       padding: const EdgeInsets.only(bottom: 8.0),
       child: new Column(children: children),
     );
+  }
+
+  List<charts.Series> _convertData() {
+    widget.seriesList.forEach((item){
+
+    });
   }
 
 }
