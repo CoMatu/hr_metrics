@@ -50,14 +50,17 @@ class LineChartState extends State<LineChart> {
     setState(() {
       _period = period;
       _measures = measures;
-      widget.seriesListConverted = _convertData();
     });
   }
 
   @override
   Widget build(BuildContext context) {
+    widget.seriesListConverted = _convertData();
+
     final children = <Widget>[
       new Expanded(
+        child: new Text('eragvfdesv'),
+/*
           child: new charts.LineChart(
             widget.seriesList,
             animate: widget.animate,
@@ -69,6 +72,7 @@ class LineChartState extends State<LineChart> {
             ],
             //barRendererDecorator: new charts.BarLabelDecorator<String>(),
           ),
+*/
       )
     ];
     // If there is a selection, then include the details.
@@ -94,9 +98,11 @@ class LineChartState extends State<LineChart> {
   }
 
   List<charts.Series> _convertData() {
-    widget.seriesList.forEach((item){
-
-    });
+    for(int i = 0; i < widget.seriesList.length; i++){
+      var _period = widget.seriesList[i];
+      print(_period.data);
+    }
+    return null;
   }
 
 }
