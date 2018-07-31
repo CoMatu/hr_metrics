@@ -12,8 +12,9 @@ class ListItem extends StatelessWidget{
 //  final String loadUrl; // ссылка на данные из интернета
 //  final String title;
   final ChartEntry chartEntry;
+  final color;
 
-  ListItem (this.chartEntry);
+  ListItem (this.chartEntry, this.color);
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +40,7 @@ class ListItem extends StatelessWidget{
             Expanded(
               child:
                 FutureBuilder<List<charts.Series>>(
-                  future: _createData(chartEntry.loadUrl),
+                  future: _createData(chartEntry.loadUrl, color),
                   builder: (context, snapshot){
                     if(snapshot.connectionState == ConnectionState.waiting){
                       return new Text('Data is loading...');
@@ -61,7 +62,7 @@ class ListItem extends StatelessWidget{
       ),
     );
   }
-  static Future<List<charts.Series<ChartData, String>>> _createData(String loadUrl) async {
+  static Future<List<charts.Series<ChartData, String>>> _createData(String loadUrl, var color) async {
     final data = await FetchChartData(loadUrl).fetchData(http.Client());
 
     return [
@@ -71,8 +72,11 @@ class ListItem extends StatelessWidget{
           measureFn: (ChartData series, _) => series.count,
           data: data,
           labelAccessorFn: (ChartData series, _) => '${series.count.toString()}',
-          colorFn: (_, __) =>
-          charts.MaterialPalette.deepOrange.shadeDefault,
+
+          colorFn: (_, __) {
+            return color;
+          },
+
       )
     ];
   }

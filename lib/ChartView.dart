@@ -24,10 +24,11 @@ class ChartView extends StatelessWidget{
       ),
       body: Center(
         child: ListView.builder(
+
           itemCount: chartEntryList.length,
           padding: EdgeInsets.all(8.0),
           itemBuilder: (context, index){
-            return ListItem(chartEntryList[index]);
+            return ListItem(chartEntryList[index], chartEntryList[index].color);
           },
         )
       ),

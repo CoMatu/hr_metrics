@@ -1,20 +1,47 @@
 import 'package:hr_metrics/ChartEntry.dart';
 import 'package:hr_metrics/ChartView.dart';
 import 'package:flutter/material.dart';
+import 'package:charts_flutter/flutter.dart' as charts;
+
 
 List<ChartEntry> dataSalary = [
   new ChartEntry(
-      20,
+      10,
       'http://skazkimal.ru/hr-metrics/salary.json',
-      'Средняя зарплата, руб.'),
+      'Средняя зарплата, руб.',
+      charts.MaterialPalette.deepOrange.shadeDefault),//chart color
   new ChartEntry(
       10,
       'http://skazkimal.ru/hr-metrics/salaryWorkers.json',
-      'Средняя зарплата рабочих, руб.'),
+      'Средняя зарплата рабочих, руб.',
+      charts.MaterialPalette.deepOrange.shadeDefault),
   new ChartEntry(
       10,
       'http://skazkimal.ru/hr-metrics/salaryITR.json',
-      'Средняя зарплата ИТР, руб.')
+      'Средняя зарплата ИТР, руб.',
+      charts.MaterialPalette.deepOrange.shadeDefault)
+];
+
+List<ChartEntry> dataHeadcount = [
+  new ChartEntry(
+      10,
+      'http://skazkimal.ru/hr-metrics/headcount.json',
+      'Численность, чел.',
+      charts.MaterialPalette.blue.shadeDefault),
+];
+List<ChartEntry> dataTurnover = [
+  new ChartEntry(
+      10,
+      'http://skazkimal.ru/hr-metrics/turnover.json',
+      'Текучесть кадров, %',
+      charts.MaterialPalette.pink.shadeDefault),
+];
+List<ChartEntry> dataFot = [
+  new ChartEntry(
+      10,
+      'http://skazkimal.ru/hr-metrics/fot.json',
+      'Фонд оплаты труда, тыс.руб.',
+      charts.MaterialPalette.cyan.shadeDefault),
 ];
 
 void main() => runApp(new MaterialApp(
@@ -34,25 +61,6 @@ void main() => runApp(new MaterialApp(
 
 class MyApp extends StatelessWidget {
   //списки адресов загрузки файлов
-  final List<String> headcountLoadUrl = [
-    'http://skazkimal.ru/hr-metrics/headcount.json'
-  ];
-  final List<String> turnoverLoadUrl = [
-    'http://skazkimal.ru/hr-metrics/turnover.json'
-  ];
-  final List<String> fotLoadUrl = [
-    'http://skazkimal.ru/hr-metrics/fot.json'
-  ];
-  //заголовки графиков, количество равно списку url!!!
-  final List<String> headcountTitles = [
-    'Численность, чел.',
-  ];
-  final List<String> turnoverTitles = [
-    'Текучесть кадров, %',
-  ];
-  final List<String> fotTitles = [
-    'Фонд оплаты труда, тыс.руб.',
-  ];
 
   @override
   Widget build(BuildContext context) {
@@ -98,7 +106,7 @@ class MyApp extends StatelessWidget {
                     context,
                     MaterialPageRoute(builder: (context) =>
                         ChartView(
-                            dataSalary,
+                            dataHeadcount,
                             'СРЕДНЕСПИСОЧНАЯ ЧИСЛЕННОСТЬ'
                         )
                     ),
@@ -124,7 +132,7 @@ class MyApp extends StatelessWidget {
                   context,
                   MaterialPageRoute(builder: (context) =>
                       ChartView(
-                          dataSalary,
+                          dataTurnover,
                           'ТЕКУЧЕСТЬ КАДРОВ'
                       )
                   ),
@@ -150,7 +158,7 @@ class MyApp extends StatelessWidget {
                   context,
                   MaterialPageRoute(builder: (context) =>
                       ChartView(
-                          dataSalary,
+                          dataFot,
                           'ФОНД ОПЛАТЫ ТРУДА'
                       )
                   ),
