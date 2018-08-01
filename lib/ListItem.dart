@@ -1,16 +1,14 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:hr_metrics/ChartEntry.dart';
-import 'package:hr_metrics/FetchChartData.dart';
-import 'package:hr_metrics/LineChart.dart';
-import 'package:hr_metrics/SimpleBarChart.dart';
+import 'package:hr_metrics/ChartsData/ChartEntry.dart';
+import 'package:hr_metrics/Charts/LineChart.dart';
+import 'package:hr_metrics/Charts/SimpleBarChart.dart';
+import 'package:hr_metrics/ChartsData/CreateDataBarChart.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:http/http.dart' as http;
 
 class ListItem extends StatelessWidget{
-//  final String loadUrl; // ссылка на данные из интернета
-//  final String title;
   final ChartEntry chartEntry;
   final color;
 
@@ -18,7 +16,7 @@ class ListItem extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
+
     return SizedBox(
       height: 210.0,
       child: Card(
@@ -63,22 +61,9 @@ class ListItem extends StatelessWidget{
     );
   }
   static Future<List<charts.Series<ChartData, String>>> _createData(String loadUrl, var color) async {
-    final data = await FetchChartData(loadUrl).fetchData(http.Client());
-
-    return [
-      new charts.Series<ChartData, String>(
-          id: 'Chart Data',
-          domainFn: (ChartData series, _) => series.period,
-          measureFn: (ChartData series, _) => series.count,
-          data: data,
-          labelAccessorFn: (ChartData series, _) => '${series.count.toString()}',
-
-          colorFn: (_, __) {
-            return color;
-          },
-
-      )
-    ];
+    Future<List<charts.Series<ChartData, String>>> dataCh;
+    dataCh = CreateDataBarChart.createData(loadUrl, color);
+    return dataCh;
   }
 
 }

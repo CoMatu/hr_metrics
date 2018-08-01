@@ -73,11 +73,6 @@ class SimpleBarChartState extends State<SimpleBarChart> {
     ];
     // If there is a selection, then include the details.
     if (_period != null) {
-/*
-      children.add(new Padding(
-          padding: new EdgeInsets.only(top: 5.0),
-          child: new Text(_period)));
-*/
     }
     _measures?.forEach((String series, num value) {
       children.add(new Text('$value',

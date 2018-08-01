@@ -1,4 +1,4 @@
-import 'package:hr_metrics/ChartEntry.dart';
+import 'package:hr_metrics/ChartsData/ChartEntry.dart';
 import 'package:hr_metrics/ChartView.dart';
 import 'package:flutter/material.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
@@ -14,12 +14,12 @@ List<ChartEntry> dataSalary = [
       10,
       'http://skazkimal.ru/hr-metrics/salaryWorkers.json',
       'Средняя зарплата рабочих, руб.',
-      charts.MaterialPalette.deepOrange.shadeDefault),
+      charts.MaterialPalette.green.shadeDefault),
   new ChartEntry(
       10,
       'http://skazkimal.ru/hr-metrics/salaryITR.json',
       'Средняя зарплата ИТР, руб.',
-      charts.MaterialPalette.deepOrange.shadeDefault)
+      charts.MaterialPalette.gray.shadeDefault)
 ];
 
 List<ChartEntry> dataHeadcount = [
@@ -55,7 +55,6 @@ void main() => runApp(new MaterialApp(
   home: new MyApp(),
 ));
 //TODO Сделать авторизацию
-//TODO Сделать загрузку информации с сервера
 //TODO Найти АПИ 1С для запросов на обновление базы данных
 //TODO Сделать текучесть кадров в дробных процентах
 
