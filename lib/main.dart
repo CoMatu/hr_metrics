@@ -6,7 +6,7 @@ import 'package:charts_flutter/flutter.dart' as charts;
 
 List<ChartEntry> dataSalary = [
   new ChartEntry(
-      10,
+      20,
       'http://skazkimal.ru/hr-metrics/salary.json',
       'Средняя зарплата, руб.',
       charts.MaterialPalette.deepOrange.shadeDefault),//chart color

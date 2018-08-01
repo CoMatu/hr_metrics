@@ -4,10 +4,9 @@ import 'package:charts_flutter/flutter.dart' as charts;
 
 class LineChart extends StatefulWidget {
   final List<charts.Series> seriesList;
-  List<charts.Series> seriesListConverted;
   final bool animate;
 
-  LineChart(this.seriesList, {this.animate, this.seriesListConverted});
+  LineChart(this.seriesList, {this.animate});
 
   factory LineChart.withData() {
     var bar = new LineChart.withData();
@@ -55,13 +54,10 @@ class LineChartState extends State<LineChart> {
 
   @override
   Widget build(BuildContext context) {
-    widget.seriesListConverted = _convertData();
 
     final children = <Widget>[
       new Expanded(
-        child: new Text('eragvfdesv'),
-/*
-          child: new charts.LineChart(
+          child: new charts.TimeSeriesChart(
             widget.seriesList,
             animate: widget.animate,
             selectionModels: [
@@ -72,7 +68,7 @@ class LineChartState extends State<LineChart> {
             ],
             //barRendererDecorator: new charts.BarLabelDecorator<String>(),
           ),
-*/
+
       )
     ];
     // If there is a selection, then include the details.
