@@ -7,7 +7,6 @@ import 'package:hr_metrics/Charts/SimpleBarChart.dart';
 import 'package:hr_metrics/ChartsData/CreateDataBarChart.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:hr_metrics/ChartsData/CreateDataLineChart.dart';
-import 'package:http/http.dart' as http;
 
 class ListItem extends StatelessWidget{
   final ChartEntry chartEntry;
@@ -81,9 +80,9 @@ class ListItem extends StatelessWidget{
     return dataCh;
   }
 
-  static Future<List<charts.Series<ChartData, DateTime>>> _createLineData(String loadUrl, var color, int chartType) async {
-    Future<List<charts.Series<ChartData, DateTime>>> dataLnCh;
-    dataLnCh = CreateDataLineChart.createData(loadUrl, color) as Future<List<charts.Series<ChartData, DateTime>>>;
+  static Future<List<charts.Series<LineChartData, DateTime>>> _createLineData(String loadUrl, var color, int chartType) async {
+    Future<List<charts.Series<LineChartData, DateTime>>> dataLnCh;
+    dataLnCh = CreateDataLineChart.createData(loadUrl, color);
     return dataLnCh;
   }
 

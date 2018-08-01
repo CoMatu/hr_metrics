@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
+import 'package:intl/intl.dart';
+import 'package:intl/date_symbol_data_local.dart';
+
+
+
 //TODO не совпадают серии данных для графика - нужна конвертация
 
 class LineChart extends StatefulWidget {
@@ -33,13 +38,17 @@ class LineChartState extends State<LineChart> {
     String period;
     final measures = <String, num>{};
 
+    initializeDateFormatting();
+    var dateFormat = new DateFormat.y();
+
+
     // We get the model that updated with a list of [SeriesDatum] which is
     // simply a pair of series & datum.
     //
     // Walk the selection updating the measures map, storing off the sales and
     // series name for each selection point.
     if (selectedDatum.isNotEmpty) {
-      period = selectedDatum.first.datum.period;
+      period = dateFormat.format(selectedDatum.first.datum.period);
       selectedDatum.forEach((charts.SeriesDatum datumPair) {
         measures[datumPair.series.displayName] = datumPair.datum.count;
       });
@@ -66,6 +75,7 @@ class LineChartState extends State<LineChart> {
                 listener: _onSelectionChanged,
               )
             ],
+            dateTimeFactory: const charts.LocalDateTimeFactory(),
             //barRendererDecorator: new charts.BarLabelDecorator<String>(),
           ),
 
@@ -73,11 +83,11 @@ class LineChartState extends State<LineChart> {
     ];
     // If there is a selection, then include the details.
     if (_period != null) {
-/*
+
       children.add(new Padding(
           padding: new EdgeInsets.only(top: 5.0),
           child: new Text(_period)));
-*/
+
     }
     _measures?.forEach((String series, num value) {
       children.add(new Text('$value',

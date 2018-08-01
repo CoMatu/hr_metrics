@@ -44,7 +44,8 @@ class LineChartData {
 
   factory LineChartData.fromJson(Map<String, dynamic> json) {
     final count = json['number'];
-    DateTime period = new DateTime(int.parse(json['year']));
+    final year = int.parse(json['year']);
+    DateTime period = new DateTime(year, 1, 1);
 
     // тут важный момент
     print(json);
