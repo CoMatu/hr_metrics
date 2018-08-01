@@ -47,10 +47,12 @@ class LineChartData {
     final year = int.parse(json['year']);
     DateTime period = new DateTime(year, 1, 1);
 
-    // тут важный момент
+/*
+    // проверка значений
     print(json);
     print(period);
     print(count);
+*/
 
     return LineChartData(
         period: period,

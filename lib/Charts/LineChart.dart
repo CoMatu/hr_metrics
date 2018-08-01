@@ -3,10 +3,6 @@ import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:intl/intl.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
-
-
-//TODO не совпадают серии данных для графика - нужна конвертация
-
 class LineChart extends StatefulWidget {
   final List<charts.Series> seriesList;
   final bool animate;
@@ -101,14 +97,6 @@ class LineChartState extends State<LineChart> {
       padding: const EdgeInsets.only(bottom: 8.0),
       child: new Column(children: children),
     );
-  }
-
-  List<charts.Series> _convertData() {
-    for(int i = 0; i < widget.seriesList.length; i++){
-      var _period = widget.seriesList[i];
-      print(_period.data);
-    }
-    return null;
   }
 
 }
