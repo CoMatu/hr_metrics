@@ -7,7 +7,7 @@ import 'package:charts_flutter/flutter.dart' as charts;
 class CreateDataDonutChart {
   static Future<List<charts.Series<DonutChartData, String>>> createData(
       List<String> loadUrl, var color) async {
-    List<charts.Series> seriesData;
+    var seriesData = List<charts.Series>();
 
     for (int i = 0; i < loadUrl.length; i++) {
       final data = await _fetchData(http.Client(), loadUrl[i]);
@@ -18,8 +18,8 @@ class CreateDataDonutChart {
         domainFn: (DonutChartData series, _) => series.period,
         measureFn: (DonutChartData series, _) => series.count,
         data: data,
-        labelAccessorFn: (DonutChartData series, _) => '${series.count
-            .toString()}',
+        labelAccessorFn: (DonutChartData series, _) =>
+            '${series.count.toString()}',
         colorFn: (_, __) => color,
       ));
     }

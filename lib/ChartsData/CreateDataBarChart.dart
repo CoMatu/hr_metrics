@@ -7,7 +7,7 @@ import 'package:charts_flutter/flutter.dart' as charts;
 class CreateDataBarChart {
   static Future<List<charts.Series<ChartData, String>>> createData(
       List<String> loadUrl, var color) async {
-    List<charts.Series<ChartData, String>> seriesCh;
+    var seriesCh = List<charts.Series<ChartData, String>>();
 
     for (int i = 0; i < loadUrl.length; i++) {
       final data = await _fetchData(http.Client(), loadUrl[i]);
