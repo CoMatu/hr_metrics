@@ -30,30 +30,44 @@ class ListItem extends StatelessWidget {
                     padding: const EdgeInsets.all(8.0),
                     child: Text(
                       chartEntry.chartTitle,
-                      style: new TextStyle(fontSize: 16.0),
+                      style: new TextStyle(fontSize: 14.0),
                     ),
                   ),
                 ),
+              IconButton(
+                  icon: new Icon(Icons.fullscreen,
+                  size: 26.0,),
+                  onPressed: (){
+//TODO переход в полноэкранный режим
+                  })
+/*                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Icon(Icons.fullscreen,
+                  size: 26.0,),
+                )*/
               ],
             ),
             Expanded(
-              child: FutureBuilder<List<charts.Series>>(
-                future: _fetchData(),
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return new Text('Data is loading...');
-                  } else {
-                    var command = chartEntry.chartType;
-                    switch (command) {
-                      case 10:
-                        return new SimpleBarChart(snapshot.data);
-                      case 20:
-                        return new LineChart(snapshot.data);
-                      case 30:
-                        return new DonutAutoLabelChart(snapshot.data);
+              child: Padding(
+                padding: const EdgeInsets.all(4.0),
+                child: FutureBuilder<List<charts.Series>>(
+                  future: _fetchData(),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return new Text('Data is loading...');
+                    } else {
+                      var command = chartEntry.chartType;
+                      switch (command) {
+                        case 10:
+                          return new SimpleBarChart(snapshot.data);
+                        case 20:
+                          return new LineChart(snapshot.data);
+                        case 30:
+                          return new DonutAutoLabelChart(snapshot.data);
+                      }
                     }
-                  }
-                },
+                  },
+                ),
               ),
             ),
           ],

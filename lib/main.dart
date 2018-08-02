@@ -87,7 +87,7 @@ class MyApp extends StatelessWidget {
                   MaterialPageRoute(builder: (context) =>
                       ChartView(
                           dataSalary,
-                          'СРЕДНЯЯ ЗАРПЛАТА'
+                          'ЗАРПЛАТА'
                       )
                   ),
                 );
@@ -113,7 +113,7 @@ class MyApp extends StatelessWidget {
                     MaterialPageRoute(builder: (context) =>
                         ChartView(
                             dataHeadcount,
-                            'СРЕДНЕСПИСОЧНАЯ ЧИСЛЕННОСТЬ'
+                            'ЧИСЛЕННОСТЬ'
                         )
                     ),
                 );
