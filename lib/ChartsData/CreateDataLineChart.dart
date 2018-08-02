@@ -6,7 +6,7 @@ import 'package:charts_flutter/flutter.dart' as charts;
 
 class CreateDataLineChart {
   static Future<List<charts.Series<LineChartData, DateTime>>> createData(
-      List<String> loadUrl, var color) async {
+      List<String> loadUrl, List color) async {
     var seriesData = List<charts.Series<LineChartData, DateTime>>();
 
     for (int i = 0; i < loadUrl.length; i++) {
@@ -20,7 +20,7 @@ class CreateDataLineChart {
         data: data,
         labelAccessorFn: (LineChartData series, _) => '${series.count
             .toString()}',
-        colorFn: (_, __) => color,
+        colorFn: (_, __) => color[i],
       ));
     }
     return seriesData;

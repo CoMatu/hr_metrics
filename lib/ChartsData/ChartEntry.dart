@@ -12,7 +12,7 @@ class ChartEntry{
   int chartType;
   List<String> loadUrl;
   String chartTitle;
-  var color;
+  List color;
 
   ChartEntry(this.chartType, this.loadUrl, this.chartTitle, this.color);
 }

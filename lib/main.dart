@@ -9,17 +9,24 @@ List<ChartEntry> dataSalary = [
       20,
       ['http://skazkimal.ru/hr-metrics/salary.json'],
       'Средняя зарплата, руб.',
-      charts.MaterialPalette.deepOrange.shadeDefault),//chart color
+      [charts.MaterialPalette.deepOrange.shadeDefault]),//chart color
   new ChartEntry(
       10,
       ['http://skazkimal.ru/hr-metrics/salaryWorkers.json'],
       'Средняя зарплата рабочих, руб.',
-      charts.MaterialPalette.green.shadeDefault),
+      [charts.MaterialPalette.green.shadeDefault]),
   new ChartEntry(
       10,
       ['http://skazkimal.ru/hr-metrics/salaryITR.json'],
       'Средняя зарплата ИТР, руб.',
-      charts.MaterialPalette.gray.shadeDefault)
+      [charts.MaterialPalette.gray.shadeDefault]),
+  new ChartEntry(
+      10,
+      ['http://skazkimal.ru/hr-metrics/salaryITR.json',
+      'http://skazkimal.ru/hr-metrics/salaryWorkers.json'],
+      'Сравнение ИТР рабочие, руб.',
+      [charts.MaterialPalette.blue.shadeDefault,
+      charts.MaterialPalette.green.shadeDefault])
 ];
 
 List<ChartEntry> dataHeadcount = [
@@ -27,21 +34,21 @@ List<ChartEntry> dataHeadcount = [
       10,
       ['http://skazkimal.ru/hr-metrics/headcount.json'],
       'Численность, чел.',
-      charts.MaterialPalette.blue.shadeDefault),
+      [charts.MaterialPalette.blue.shadeDefault]),
 ];
 List<ChartEntry> dataTurnover = [
   new ChartEntry(
       30,
       ['http://skazkimal.ru/hr-metrics/turnover.json'],
       'Текучесть кадров, %',
-      charts.MaterialPalette.pink.shadeDefault),
+      [charts.MaterialPalette.pink.shadeDefault]),
 ];
 List<ChartEntry> dataFot = [
   new ChartEntry(
       10,
       ['http://skazkimal.ru/hr-metrics/fot.json'],
       'Фонд оплаты труда, тыс.руб.',
-      charts.MaterialPalette.cyan.shadeDefault),
+      [charts.MaterialPalette.cyan.shadeDefault]),
 ];
 
 void main() => runApp(new MaterialApp(
