@@ -4,8 +4,8 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:charts_flutter/flutter.dart' as charts;
 
-class CreateDataLineChart {
-  static Future<List<charts.Series<LineChartData, DateTime>>> createData(
+class CreateDataDonutChart {
+  static Future<List<charts.Series<DonutChartData, String>>> createData(
       List<String> loadUrl, var color) async {
     List<charts.Series> seriesData;
 
@@ -13,12 +13,12 @@ class CreateDataLineChart {
       final data = await _fetchData(http.Client(), loadUrl[i]);
       var id = 'ChartData' + ' ' + i.toString();
 
-      seriesData.add(new charts.Series<LineChartData, DateTime>(
+      seriesData.add(new charts.Series<DonutChartData, String>(
         id: id,
-        domainFn: (LineChartData series, _) => series.period,
-        measureFn: (LineChartData series, _) => series.count,
+        domainFn: (DonutChartData series, _) => series.period,
+        measureFn: (DonutChartData series, _) => series.count,
         data: data,
-        labelAccessorFn: (LineChartData series, _) => '${series.count
+        labelAccessorFn: (DonutChartData series, _) => '${series.count
             .toString()}',
         colorFn: (_, __) => color,
       ));
@@ -26,7 +26,7 @@ class CreateDataLineChart {
     return seriesData;
   }
 
-  static Future<List<LineChartData>> _fetchData(
+  static Future<List<DonutChartData>> _fetchData(
       http.Client client, String loadUrl) async {
     final response = await client.get(loadUrl);
 
@@ -35,24 +35,23 @@ class CreateDataLineChart {
   }
 }
 
-List<LineChartData> parseChartData(String responseBody) {
+List<DonutChartData> parseChartData(String responseBody) {
   final parsed = json.decode(responseBody).cast<Map<String, dynamic>>();
 
   return parsed
-      .map<LineChartData>((json) => LineChartData.fromJson(json))
+      .map<DonutChartData>((json) => DonutChartData.fromJson(json))
       .toList();
 }
 
-class LineChartData {
-  final DateTime period;
+class DonutChartData {
+  final String period;
   final int count;
 
-  LineChartData({this.period, this.count});
+  DonutChartData({this.period, this.count});
 
-  factory LineChartData.fromJson(Map<String, dynamic> json) {
+  factory DonutChartData.fromJson(Map<String, dynamic> json) {
     final count = json['number'];
-    final year = int.parse(json['year']);
-    DateTime period = new DateTime(year, 1, 1);
+    final period = json['year'];
 
 /*
     // проверка значений
@@ -61,6 +60,6 @@ class LineChartData {
     print(count);
 */
 
-    return LineChartData(period: period, count: count);
+    return DonutChartData(period: period, count: count);
   }
 }

@@ -7,17 +7,17 @@ import 'package:charts_flutter/flutter.dart' as charts;
 List<ChartEntry> dataSalary = [
   new ChartEntry(
       20,
-      'http://skazkimal.ru/hr-metrics/salary.json',
+      ['http://skazkimal.ru/hr-metrics/salary.json'],
       'Средняя зарплата, руб.',
       charts.MaterialPalette.deepOrange.shadeDefault),//chart color
   new ChartEntry(
       10,
-      'http://skazkimal.ru/hr-metrics/salaryWorkers.json',
+      ['http://skazkimal.ru/hr-metrics/salaryWorkers.json'],
       'Средняя зарплата рабочих, руб.',
       charts.MaterialPalette.green.shadeDefault),
   new ChartEntry(
       10,
-      'http://skazkimal.ru/hr-metrics/salaryITR.json',
+      ['http://skazkimal.ru/hr-metrics/salaryITR.json'],
       'Средняя зарплата ИТР, руб.',
       charts.MaterialPalette.gray.shadeDefault)
 ];
@@ -25,21 +25,21 @@ List<ChartEntry> dataSalary = [
 List<ChartEntry> dataHeadcount = [
   new ChartEntry(
       10,
-      'http://skazkimal.ru/hr-metrics/headcount.json',
+      ['http://skazkimal.ru/hr-metrics/headcount.json'],
       'Численность, чел.',
       charts.MaterialPalette.blue.shadeDefault),
 ];
 List<ChartEntry> dataTurnover = [
   new ChartEntry(
-      10,
-      'http://skazkimal.ru/hr-metrics/turnover.json',
+      30,
+      ['http://skazkimal.ru/hr-metrics/turnover.json'],
       'Текучесть кадров, %',
       charts.MaterialPalette.pink.shadeDefault),
 ];
 List<ChartEntry> dataFot = [
   new ChartEntry(
       10,
-      'http://skazkimal.ru/hr-metrics/fot.json',
+      ['http://skazkimal.ru/hr-metrics/fot.json'],
       'Фонд оплаты труда, тыс.руб.',
       charts.MaterialPalette.cyan.shadeDefault),
 ];
