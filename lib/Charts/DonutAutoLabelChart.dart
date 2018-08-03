@@ -15,12 +15,10 @@ class DonutAutoLabelChart extends StatefulWidget {
     return bar;
   }
 
-
   @override
   DonutAutoLabelChartState createState() {
     return new DonutAutoLabelChartState();
   }
-
 }
 
 class DonutAutoLabelChartState extends State<DonutAutoLabelChart> {
@@ -44,8 +42,7 @@ class DonutAutoLabelChartState extends State<DonutAutoLabelChart> {
         //          insideLabelStyleSpec: new charts.TextStyleSpec(...),
         //          outsideLabelStyleSpec: new charts.TextStyleSpec(...)),
         defaultRenderer: new charts.ArcRendererConfig(
-          arcWidth: 60,
-
+          arcWidth: 100,
         ));
   }
 }

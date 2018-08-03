@@ -35,7 +35,9 @@ class FullscreenView extends StatelessWidget{
                   future: _fetchData(),
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
-                      return new Text('Data is loading...');
+                      return new Center(
+                        child: CircularProgressIndicator(),
+                      );
                     } else {
                       var command = chartEntry.chartType;
                       switch (command) {
