@@ -18,21 +18,25 @@ class ChartView extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
 
-    return new Scaffold(
-      appBar: new AppBar(
-        title: new Text(title),
-      ),
-      body: Center(
-        child: ListView.builder(
+    List buildChartsView(List<ChartEntry> chartEntryList, String title){
+      List<Widget> items = List();
+      for(int i = 0; i < chartEntryList.length; i++){
+        items.add(new ListItem(chartEntryList[i], chartEntryList[i].color));
+      }
+      return items;
+    }
 
-          itemCount: chartEntryList.length,
-          padding: EdgeInsets.all(8.0),
-          itemBuilder: (context, index){
-            return ListItem(chartEntryList[index], chartEntryList[index].color);
-          },
-        )
-      ),
+    return new Scaffold(
+      body: new CustomScrollView(
+        slivers: <Widget>[
+          SliverAppBar(
+            title: new Text(title),
+          ),
+          SliverList(delegate: new SliverChildListDelegate(buildChartsView(chartEntryList, title)))
+        ],
+      )
+
     );
   }
-
 }
+

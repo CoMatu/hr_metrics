@@ -9,6 +9,7 @@ import 'package:hr_metrics/ChartsData/CreateDataBarChart.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:hr_metrics/ChartsData/CreateDataDonutChart.dart';
 import 'package:hr_metrics/ChartsData/CreateDataLineChart.dart';
+import 'package:hr_metrics/FullscreenView.dart';
 
 class ListItem extends StatelessWidget {
   final ChartEntry chartEntry;
@@ -39,6 +40,12 @@ class ListItem extends StatelessWidget {
                   size: 26.0,),
                   onPressed: (){
 //TODO переход в полноэкранный режим
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) =>
+                          FullscreenView()
+                      ),
+                    );
                   })
 /*                Padding(
                   padding: const EdgeInsets.all(8.0),
