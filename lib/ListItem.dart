@@ -14,7 +14,7 @@ import 'package:hr_metrics/FullscreenView.dart';
 class ListItem extends StatelessWidget {
   final ChartEntry chartEntry;
   final color;
-
+//TODO Как кэшировать данные графиков?
   ListItem(this.chartEntry, this.color);
 
   @override
@@ -43,7 +43,7 @@ class ListItem extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(builder: (context) =>
-                          FullscreenView()
+                          FullscreenView(chartEntry, color)
                       ),
                     );
                   })
