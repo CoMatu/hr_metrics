@@ -82,11 +82,11 @@ class LineChartState extends State<LineChart> {
 
       children.add(new Padding(
           padding: new EdgeInsets.only(top: 5.0),
-          child: new Text(_period)));
+          child: new Text(_period+' год')));
 
     }
     _measures?.forEach((String series, num value) {
-      children.add(new Text('$value',
+      children.add(new Text('$value руб.',
       style: new TextStyle(
         fontSize: 16.0,
         color: Colors.cyan[800]

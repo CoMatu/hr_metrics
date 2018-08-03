@@ -15,6 +15,7 @@ class ListItem extends StatelessWidget {
   final ChartEntry chartEntry;
   final color;
 //TODO Как кэшировать данные графиков?
+  //TODO разные Item для разных карточек
   ListItem(this.chartEntry, this.color);
 
   @override
@@ -39,7 +40,6 @@ class ListItem extends StatelessWidget {
                   icon: new Icon(Icons.fullscreen,
                   size: 26.0,),
                   onPressed: (){
-//TODO переход в полноэкранный режим
                     Navigator.push(
                       context,
                       MaterialPageRoute(builder: (context) =>
