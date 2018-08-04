@@ -19,7 +19,6 @@ class FullscreenView extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return new Scaffold(
       appBar: new AppBar(
         title: new Text(chartEntry.chartTitle),
@@ -42,9 +41,9 @@ class FullscreenView extends StatelessWidget{
                       var command = chartEntry.chartType;
                       switch (command) {
                         case 10:
-                          return new SimpleBarChart(snapshot.data);
+                          return new SimpleBarChart(snapshot.data, chartEntry.units);
                         case 20:
-                          return new LineChart(snapshot.data);
+                          return new LineChart(snapshot.data, chartEntry.units);
                         case 30:
                           return new DonutAutoLabelChart(snapshot.data);
                       }

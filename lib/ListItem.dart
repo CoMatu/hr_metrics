@@ -66,9 +66,9 @@ class ListItem extends StatelessWidget {
                       var command = chartEntry.chartType;
                       switch (command) {
                         case 10:
-                          return new SimpleBarChart(snapshot.data);
+                          return new SimpleBarChart(snapshot.data, chartEntry.units);
                         case 20:
-                          return new LineChart(snapshot.data);
+                          return new LineChart(snapshot.data, chartEntry.units);
                         case 30:
                           return new DonutAutoLabelChart(snapshot.data);
                       }

@@ -9,11 +9,13 @@
 
 // Объект график со своими параметрами
 class ChartEntry{
-  int chartType;
-  List<String> loadUrl;
-  String chartTitle;
-  List color;
+  int chartType; // тип графика
+  List<String> loadUrl; //ссылка на файл
+  String chartTitle; //название графика
+  List color; // цвет графика
+  String units; //единицы измерения
 
-  ChartEntry(this.chartType, this.loadUrl, this.chartTitle, this.color);
+  ChartEntry(this.chartType, this.loadUrl, this.chartTitle, this.color,
+      this.units);
 }
 

@@ -6,8 +6,10 @@ import 'package:intl/date_symbol_data_local.dart';
 class LineChart extends StatefulWidget {
   final List<charts.Series> seriesList;
   final bool animate;
+  String units;
 
-  LineChart(this.seriesList, {this.animate});
+
+  LineChart(this.seriesList, this.units, {this.animate});
 
   factory LineChart.withData() {
     var bar = new LineChart.withData();
@@ -86,7 +88,7 @@ class LineChartState extends State<LineChart> {
 
     }
     _measures?.forEach((String series, num value) {
-      children.add(new Text('$value руб.',
+      children.add(new Text('$value '+widget.units,
       style: new TextStyle(
         fontSize: 16.0,
         color: Colors.cyan[800]

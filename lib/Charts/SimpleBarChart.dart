@@ -6,7 +6,9 @@ class SimpleBarChart extends StatefulWidget {
   final List<charts.Series> seriesList;
   final bool animate;
 
-  SimpleBarChart(this.seriesList, {this.animate});
+  String units;
+
+  SimpleBarChart(this.seriesList, this.units, {this.animate});
 
   factory SimpleBarChart.withData() {
     var bar = new SimpleBarChart.withData();
@@ -75,7 +77,7 @@ class SimpleBarChartState extends State<SimpleBarChart> {
     if (_period != null) {
     }
     _measures?.forEach((String series, num value) {
-      children.add(new Text('$value',
+      children.add(new Text('$value '+widget.units,
       style: new TextStyle(
         fontSize: 16.0,
         color: Colors.cyan[800]

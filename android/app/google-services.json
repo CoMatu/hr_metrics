@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "525720506365",
+    "firebase_url": "https://hr-metrics-85b07.firebaseio.com",
+    "project_id": "hr-metrics-85b07",
+    "storage_bucket": "hr-metrics-85b07.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:525720506365:android:dd3d45e37ad67662",
+        "android_client_info": {
+          "package_name": "ru.characterist.hrmetrics"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "525720506365-d8o16u98qbtnchumgoh5ickosbv213j2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDFl0yHag14-fJylFesOxHlj5MWSvSijIk"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
