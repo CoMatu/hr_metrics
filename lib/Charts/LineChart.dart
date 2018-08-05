@@ -6,7 +6,7 @@ import 'package:intl/date_symbol_data_local.dart';
 class LineChart extends StatefulWidget {
   final List<charts.Series> seriesList;
   final bool animate;
-  String units;
+  final String units;
 
 
   LineChart(this.seriesList, this.units, {this.animate});
@@ -36,7 +36,7 @@ class LineChartState extends State<LineChart> {
     String period;
     final measures = <String, num>{};
 
-    initializeDateFormatting();
+    initializeDateFormatting("ru_RU");
     var dateFormat = new DateFormat.y();
 
 
@@ -61,6 +61,7 @@ class LineChartState extends State<LineChart> {
 
   @override
   Widget build(BuildContext context) {
+    var f = new NumberFormat();
 
     final children = <Widget>[
       new Expanded(
@@ -88,7 +89,8 @@ class LineChartState extends State<LineChart> {
 
     }
     _measures?.forEach((String series, num value) {
-      children.add(new Text('$value '+widget.units,
+      var value1 = f.format(value);
+      children.add(new Text('$value1 '+widget.units,
       style: new TextStyle(
         fontSize: 16.0,
         color: Colors.cyan[800]

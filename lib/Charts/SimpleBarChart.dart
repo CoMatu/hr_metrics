@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
+import 'package:intl/intl.dart';
 
 
 class SimpleBarChart extends StatefulWidget {
   final List<charts.Series> seriesList;
   final bool animate;
-
-  String units;
+  final String units;
 
   SimpleBarChart(this.seriesList, this.units, {this.animate});
 
@@ -57,6 +57,9 @@ class SimpleBarChartState extends State<SimpleBarChart> {
 
   @override
   Widget build(BuildContext context) {
+    Intl.defaultLocale = 'ru';
+    var f = new NumberFormat();
+
     final children = <Widget>[
       new Expanded(
           child: new charts.BarChart(
@@ -77,7 +80,8 @@ class SimpleBarChartState extends State<SimpleBarChart> {
     if (_period != null) {
     }
     _measures?.forEach((String series, num value) {
-      children.add(new Text('$value '+widget.units,
+      var value1 = f.format(value);
+      children.add(new Text('$value1 '+widget.units,
       style: new TextStyle(
         fontSize: 16.0,
         color: Colors.cyan[800]
