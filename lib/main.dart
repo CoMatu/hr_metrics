@@ -68,7 +68,6 @@ void main() => runApp(new MaterialApp(
 //TODO Вынести настройки графиков в preferencies
 
 class MyApp extends StatelessWidget {
-  //списки адресов загрузки файлов
 
   @override
   Widget build(BuildContext context) {

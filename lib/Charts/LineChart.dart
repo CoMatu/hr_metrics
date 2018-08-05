@@ -27,6 +27,8 @@ class LineChartState extends State<LineChart> {
   String _period;
   Map<String, num> _measures;
 
+  var localDateFormat = initializeDateFormatting("ru_RU");
+
   // Listens to the underlying selection changes, and updates the information
   // relevant to building the primitive legend like information under the
   // chart.
@@ -36,7 +38,6 @@ class LineChartState extends State<LineChart> {
     String period;
     final measures = <String, num>{};
 
-    initializeDateFormatting("ru_RU");
     var dateFormat = new DateFormat.y();
 
 
