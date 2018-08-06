@@ -2,6 +2,7 @@ import 'package:hr_metrics/ChartsData/ChartEntry.dart';
 import 'package:hr_metrics/ChartView.dart';
 import 'package:flutter/material.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
+import 'package:hr_metrics/DashboardScreen.dart';
 import 'package:hr_metrics/StartScreen.dart';
 
 List<ChartEntry> dataSalary = [
@@ -62,15 +63,15 @@ void main() => runApp(new MaterialApp(
           scaffoldBackgroundColor: Colors.grey[200]),
       debugShowCheckedModeBanner: false,
 //      home: new MyApp(),
-      home: new StartScreen(),
+      home: new DashboardScreen(),
     ));
 //TODO Сделать авторизацию
 //TODO Найти АПИ 1С для запросов на обновление базы данных
 //TODO Сделать текучесть кадров в дробных процентах
 //TODO Вынести настройки графиков в preferencies
+//TODO вынести навигацию в файл routes
 
 class MyApp extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
     final title = 'HR METRICS';
