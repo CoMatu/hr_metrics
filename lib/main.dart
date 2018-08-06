@@ -2,6 +2,7 @@ import 'package:hr_metrics/ChartsData/ChartEntry.dart';
 import 'package:hr_metrics/ChartView.dart';
 import 'package:flutter/material.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
+import 'package:hr_metrics/StartScreen.dart';
 
 List<ChartEntry> dataSalary = [
   new ChartEntry(
@@ -60,7 +61,8 @@ void main() => runApp(new MaterialApp(
           accentColor: Colors.white24,
           scaffoldBackgroundColor: Colors.grey[200]),
       debugShowCheckedModeBanner: false,
-      home: new MyApp(),
+//      home: new MyApp(),
+      home: new StartScreen(),
     ));
 //TODO Сделать авторизацию
 //TODO Найти АПИ 1С для запросов на обновление базы данных
