@@ -1,7 +1,12 @@
 // карточка для стартового дашборда приложения
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
 class DashboardItem extends StatelessWidget {
+  FirebaseApp app = FirebaseApp(
+    name: 'hr-metrics'
+  );
+
   @override
   Widget build(BuildContext context) {
     // TODO: доработать дизайн виджета визуально
