@@ -1,5 +1,6 @@
 // карточка для стартового дашборда приложения
 import 'package:flutter/material.dart';
+import 'package:firebase/firebase.dart';
 
 class DashboardItem extends StatelessWidget {
   @override
