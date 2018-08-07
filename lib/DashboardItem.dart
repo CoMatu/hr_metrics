@@ -136,7 +136,7 @@ class DashboardItem extends StatelessWidget {
               fontFamily: 'Oswald',
               color: Colors.blue),
         ),
-        Text('28 787',
+        Text('71',
           style: new TextStyle(
               fontSize: 20.0,
               fontFamily: 'Oswald',
@@ -148,7 +148,7 @@ class DashboardItem extends StatelessWidget {
               fontFamily: 'Oswald',
               color: Colors.redAccent),
         ),
-        Text('46 391',
+        Text('69',
           style: new TextStyle(
               fontSize: 20.0,
               fontFamily: 'Oswald',

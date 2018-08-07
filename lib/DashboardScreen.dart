@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hr_metrics/DashboardItem.dart';
-
+// экран дашборд с главными показателями
 class DashboardScreen extends StatelessWidget{
   final List<DashboardItem> dashboardList;
 
