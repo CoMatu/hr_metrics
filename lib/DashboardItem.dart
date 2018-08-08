@@ -1,11 +1,12 @@
 // карточка для стартового дашборда приложения
-import 'package:firebase_core/firebase_core.dart';
+//import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_database/firebase_database.dart';
 
 class DashboardItem extends StatelessWidget {
-  FirebaseApp app = FirebaseApp(
-    name: 'hr-metrics'
-  );
+
+  final FirebaseDatabase database = FirebaseDatabase();
+  final databaseReference = FirebaseDatabase.instance.reference();
 
   @override
   Widget build(BuildContext context) {
@@ -133,9 +134,12 @@ class DashboardItem extends StatelessWidget {
   }
 
   Widget _turnoverWidget() {
+    var dashboardItemTitle = databaseReference.child('dashboardList')
+        .child('turnover').child('dashboardItemTitle');
+
     return Column(
       children: <Widget>[
-        Text('ПРИНЯТО',
+        Text(dashboardItemTitle.toString(),
           style: new TextStyle(
               fontSize: 12.0,
               fontFamily: 'Oswald',
