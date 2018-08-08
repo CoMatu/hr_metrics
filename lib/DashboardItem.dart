@@ -5,9 +5,6 @@ import 'package:firebase_database/firebase_database.dart';
 
 class DashboardItem extends StatelessWidget {
 
-  final FirebaseDatabase database = FirebaseDatabase();
-  final databaseReference = FirebaseDatabase.instance.reference();
-
   @override
   Widget build(BuildContext context) {
     // TODO: доработать дизайн виджета визуально
@@ -134,12 +131,14 @@ class DashboardItem extends StatelessWidget {
   }
 
   Widget _turnoverWidget() {
+/*
     var dashboardItemTitle = databaseReference.child('dashboardList')
         .child('turnover').child('dashboardItemTitle');
+*/
 
     return Column(
       children: <Widget>[
-        Text(dashboardItemTitle.toString(),
+        Text('TITILE',
           style: new TextStyle(
               fontSize: 12.0,
               fontFamily: 'Oswald',
