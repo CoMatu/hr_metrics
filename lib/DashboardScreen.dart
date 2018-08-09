@@ -48,15 +48,19 @@ class DashboardScreen extends StatelessWidget{
             googleAppID: '1:525720506365:android:dd3d45e37ad67662'),
     );
     final FirebaseDatabase database = new FirebaseDatabase(app: app);
-    DatabaseReference _dashboardRef = database.reference().child('dashboardList');
 
-    database.reference().child('dashboardList').once()
+    database.reference().child('dashboardList').child('turnover').once()
         .then((DataSnapshot snapshot) {
-      print('Connected to second database and read ${snapshot.value}');
       //здесь возвращает как json строку и нужно из нее собрать объект DashboardEntry
-      dashboardList = snapshot.value;
+      print('Connected to database and read ${snapshot.value}');
+      String data = snapshot.value.toString();
+      print(data);
+
     });
-    return dashboardList;
+
+
+
+    return null;
  }
 
 }

@@ -19,4 +19,15 @@ class DashboardEntry {
       this.indicator2,
       this.indicator1Title,
       this.indicator2Title);
+
+/*  DashboardEntry.fromJson(Map<dynamic, dynamic> json)
+      : dashboardItemType = json['dashboardItemType'],
+        dashboardItemTitle = json['dashboardItemTitle'],
+        mainIndicator = json['mainIndicator'],
+        mainIndicatorUnit = json['mainIndicatorUnit'],
+        indicator1 = json['indicator1'],
+        indicator2 = json['indicator2'],
+        indicator1Title = json['indicator1Title'],
+        indicator2Title = json['indicator2Title']
+  ;*/
 }
