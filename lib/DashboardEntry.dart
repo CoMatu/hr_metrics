@@ -20,14 +20,25 @@ class DashboardEntry {
       this.indicator1Title,
       this.indicator2Title);
 
-/*  DashboardEntry.fromJson(Map<dynamic, dynamic> json)
-      : dashboardItemType = json['dashboardItemType'],
-        dashboardItemTitle = json['dashboardItemTitle'],
-        mainIndicator = json['mainIndicator'],
-        mainIndicatorUnit = json['mainIndicatorUnit'],
-        indicator1 = json['indicator1'],
-        indicator2 = json['indicator2'],
-        indicator1Title = json['indicator1Title'],
-        indicator2Title = json['indicator2Title']
-  ;*/
+/*  DashboardEntry.fromJson(Map<dynamic, dynamic> jsonMap)
+      : dashboardItemType = jsonMap['dashboardItemType'],
+        dashboardItemTitle = jsonMap['dashboardItemTitle'],
+        mainIndicator = jsonMap['mainIndicator'],
+        mainIndicatorUnit = jsonMap['mainIndicatorUnit'],
+        indicator1 = jsonMap['indicator1'],
+        indicator2 = jsonMap['indicator2'],
+        indicator1Title = jsonMap['indicator1Title'],
+        indicator2Title = jsonMap['indicator2Title']
+  ;
+
+  Map<dynamic, dynamic> toJson() => {
+    'dashboardItemType': dashboardItemType,
+    'dashboardItemTitle': dashboardItemTitle,
+    'mainIndicator': mainIndicator,
+    'mainIndicatorUnit': mainIndicatorUnit,
+    'indicator1': indicator1,
+    'indicator2': indicator2,
+    'indicator1Title': indicator1Title,
+    'indicator2Title': indicator2Title
+  };*/
 }

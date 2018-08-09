@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
 
 class DashboardItem extends StatelessWidget {
+  const DashboardItem({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +51,7 @@ class DashboardItem extends StatelessWidget {
                         ],
                       )),
                   Expanded(
-                      flex: 2,
+                    flex: 2,
                     child: _turnoverWidget(),
                     //TODO add widget
                   ),
@@ -71,25 +72,33 @@ class DashboardItem extends StatelessWidget {
           children: <Widget>[
             Column(
               children: <Widget>[
-                Image(image: maleImg, width: 50.0, height: 70.0,),
-                Text('1600',
-                  style: new TextStyle(
-                  fontFamily: 'Oswald',
-                  fontSize: 16.0,
-                  color: Colors.black54
+                Image(
+                  image: maleImg,
+                  width: 50.0,
+                  height: 70.0,
                 ),
+                Text(
+                  '1600',
+                  style: new TextStyle(
+                      fontFamily: 'Oswald',
+                      fontSize: 16.0,
+                      color: Colors.black54),
                 ),
               ],
             ),
             Column(
               children: <Widget>[
-                Image(image: femaleImg, width: 50.0, height: 70.0,),
-                Text('1230',
+                Image(
+                  image: femaleImg,
+                  width: 50.0,
+                  height: 70.0,
+                ),
+                Text(
+                  '1230',
                   style: new TextStyle(
                       fontFamily: 'Oswald',
                       fontSize: 16.0,
-                      color: Colors.black54
-                  ),
+                      color: Colors.black54),
                 ),
               ],
             )
@@ -102,68 +111,54 @@ class DashboardItem extends StatelessWidget {
   Widget _salaryWidget() {
     return Column(
       children: <Widget>[
-        Text('РАБОЧИЕ',
+        Text(
+          'РАБОЧИЕ',
           style: new TextStyle(
-              fontSize: 12.0,
-              fontFamily: 'Oswald',
-              color: Colors.blue),
+              fontSize: 12.0, fontFamily: 'Oswald', color: Colors.blue),
         ),
-        Text('28 787',
+        Text(
+          '28 787',
           style: new TextStyle(
-              fontSize: 20.0,
-              fontFamily: 'Oswald',
-              color: Colors.black54),
+              fontSize: 20.0, fontFamily: 'Oswald', color: Colors.black54),
         ),
-        Text('ИТР',
+        Text(
+          'ИТР',
           style: new TextStyle(
-              fontSize: 12.0,
-              fontFamily: 'Oswald',
-              color: Colors.blue),
+              fontSize: 12.0, fontFamily: 'Oswald', color: Colors.blue),
         ),
-        Text('46 391',
+        Text(
+          '46 391',
           style: new TextStyle(
-              fontSize: 20.0,
-              fontFamily: 'Oswald',
-              color: Colors.black54),
+              fontSize: 20.0, fontFamily: 'Oswald', color: Colors.black54),
         ),
       ],
     );
   }
 
   Widget _turnoverWidget() {
-/*
-    var dashboardItemTitle = databaseReference.child('dashboardList')
-        .child('turnover').child('dashboardItemTitle');
-*/
-
     return Column(
       children: <Widget>[
-        Text('TITILE',
+        Text(
+          'TITILE',
           style: new TextStyle(
-              fontSize: 12.0,
-              fontFamily: 'Oswald',
-              color: Colors.blue),
+              fontSize: 12.0, fontFamily: 'Oswald', color: Colors.blue),
         ),
-        Text('71',
+        Text(
+          '71',
           style: new TextStyle(
-              fontSize: 20.0,
-              fontFamily: 'Oswald',
-              color: Colors.black54),
+              fontSize: 20.0, fontFamily: 'Oswald', color: Colors.black54),
         ),
-        Text('УВОЛЕНО',
+        Text(
+          'УВОЛЕНО',
           style: new TextStyle(
-              fontSize: 12.0,
-              fontFamily: 'Oswald',
-              color: Colors.redAccent),
+              fontSize: 12.0, fontFamily: 'Oswald', color: Colors.redAccent),
         ),
-        Text('69',
+        Text(
+          '69',
           style: new TextStyle(
-              fontSize: 20.0,
-              fontFamily: 'Oswald',
-              color: Colors.black54),
+              fontSize: 20.0, fontFamily: 'Oswald', color: Colors.black54),
         ),
       ],
     );
   }
-
 }
