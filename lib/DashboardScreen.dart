@@ -50,11 +50,14 @@ class DashboardScreen extends StatelessWidget {
     database
         .reference()
         .child('dashboardList')
+        .child('turnover')
         .once()
         .then((DataSnapshot snapshot) {
       data = snapshot.value.toString();
       print(data);
     });
-    return data;
+    Map dataMap = json.decode(data);
+
+    return null;
   }
 }

@@ -1,6 +1,15 @@
 // объект для дашборда с главными показателями
+import 'package:json_annotation/json_annotation.dart';
 
-class DashboardEntry {
+/// This allows the `User` class to access private members in
+/// the generated file. The value for this is *.g.dart, where
+/// the star denotes the source file name.
+part 'user.g.dart';
+
+/// An annotation for the code generator to know that this class needs the
+/// JSON serialization logic to be generated.
+@JsonSerializable()
+class DashboardEntry extends Object with _$DashboardSerializerMixin {
   final int dashboardItemType;
   final String dashboardItemTitle;
   final mainIndicator;
@@ -19,6 +28,9 @@ class DashboardEntry {
       this.indicator2,
       this.indicator1Title,
       this.indicator2Title);
+
+  factory DashboardEntry.fromJson(Map<dynamic, dynamic> json) =>
+      _$DashboardFromJson(json);
 
 /*  DashboardEntry.fromJson(Map<dynamic, dynamic> jsonMap)
       : dashboardItemType = jsonMap['dashboardItemType'],
