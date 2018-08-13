@@ -62,8 +62,8 @@ void main() => runApp(new MaterialApp(
           accentColor: Colors.white24,
           scaffoldBackgroundColor: Colors.grey[200]),
       debugShowCheckedModeBanner: false,
-//      home: new MyApp(),
-      home: new DashboardScreen(),
+      home: new MyApp(),
+//      home: new DashboardScreen(),
     ));
 //TODO Сделать авторизацию
 //TODO Найти АПИ 1С для запросов на обновление базы данных
