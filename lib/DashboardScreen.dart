@@ -9,9 +9,14 @@ import 'package:hr_metrics/models/dashboard.dart';
 
 // экран дашборд с главными показателями
 class DashboardScreen extends StatelessWidget {
+  DashboardScreen({this.app});
+
+  FirebaseApp app;
 
   @override
   Widget build(BuildContext context) {
+    FirebaseDatabase database = new FirebaseDatabase(app: app);
+
     // TODO: implement build
     return new Scaffold(
       appBar: new AppBar(
@@ -22,45 +27,44 @@ class DashboardScreen extends StatelessWidget {
           ),
       body: Padding(
           padding: const EdgeInsets.all(8.0),
-          child: FutureBuilder(
-              future: _fetchDb(),
-              builder: (context, snapshot) {
-                return ListView.builder(
-                    itemCount: 3,
-                    itemBuilder: (context, index) {
-                      return new DashboardItem(snapshot.data);
-                    });
-              })),
+          child: Center(
+            child: new FutureBuilder(
+                future: FirebaseDatabase.instance.reference()
+                    .child('dashboardList')
+                    .once(),
+                builder: (BuildContext context, AsyncSnapshot snapshot) {
+                  if (snapshot.hasData) {
+                    return _getWidget(snapshot);
+                  }
+                     else {
+                      return new CircularProgressIndicator(
+                          valueColor:
+                              new AlwaysStoppedAnimation(Colors.yellow[700]));
+                    }
+
+                }),
+          )),
     );
   }
 
-  Future _fetchDb() async {
-    String data;
-    Dashboard dashboard;
-
-    final FirebaseApp app = await FirebaseApp.configure(
-      name: 'hr-metrics',
-      options: const FirebaseOptions(
-          apiKey: 'AIzaSyCkbkGrtOChRiDsrRvp_kzMJn_VZqI9M7U',
-          databaseURL: 'https://hr-metrics-85b07.firebaseio.com/',
-          googleAppID: '1:525720506365:android:dd3d45e37ad67662'),
+  Widget _getWidget(AsyncSnapshot snapshot) {
+    String data = snapshot.data.toString();
+    return new Container(
+      child: new Text(data)
     );
-    final FirebaseDatabase database = new FirebaseDatabase(app: app);
+  }
 
+  Future _getData() async {
+    final FirebaseDatabase database = new FirebaseDatabase(app: app);
+    String data;
     database
         .reference()
         .child('dashboardList')
         .child('0')
         .once()
         .then((DataSnapshot snapshot) {
-      data = snapshot.value.toString();
+      data = snapshot.value;
       print(data);
-/*
-      Map dataMap = json.decode(data);
-      dashboard = Dashboard.fromJson(dataMap);
-      print(dashboard);
-*/
-
     });
     return data;
   }

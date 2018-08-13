@@ -1,9 +1,14 @@
+import 'dart:async';
+
 import 'package:hr_metrics/ChartsData/ChartEntry.dart';
 import 'package:hr_metrics/ChartView.dart';
 import 'package:flutter/material.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:hr_metrics/DashboardScreen.dart';
 import 'package:hr_metrics/StartScreen.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_database/firebase_database.dart';
+
 
 List<ChartEntry> dataSalary = [
   new ChartEntry(
@@ -55,16 +60,29 @@ List<ChartEntry> dataFot = [
       'тыс.руб.'),
 ];
 
-void main() => runApp(new MaterialApp(
-      theme: ThemeData(
-          brightness: Brightness.light,
-          primaryColor: Colors.white,
-          accentColor: Colors.white24,
-          scaffoldBackgroundColor: Colors.grey[200]),
-      debugShowCheckedModeBanner: false,
+Future<void> main() async {
+  final FirebaseApp app = await FirebaseApp.configure(
+    name: 'hr-metrics',
+    options: const FirebaseOptions(
+        apiKey: 'AIzaSyCkbkGrtOChRiDsrRvp_kzMJn_VZqI9M7U',
+        databaseURL: 'https://hr-metrics-85b07.firebaseio.com/',
+        googleAppID: '1:525720506365:android:dd3d45e37ad67662'),
+  );
+//  final FirebaseDatabase database = new FirebaseDatabase(app: app);
+
+  runApp (new MaterialApp(
+    theme: ThemeData(
+        brightness: Brightness.light,
+        primaryColor: Colors.white,
+        accentColor: Colors.white24,
+        scaffoldBackgroundColor: Colors.grey[200]),
+    debugShowCheckedModeBanner: false,
 //      home: new MyApp(),
-      home: new DashboardScreen(),
-    ));
+    home: new DashboardScreen(app: app),
+  ));
+}
+
+
 //TODO Сделать авторизацию
 //TODO Найти АПИ 1С для запросов на обновление базы данных
 //TODO Сделать текучесть кадров в дробных процентах
