@@ -5,6 +5,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:hr_metrics/DashboardItem.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:hr_metrics/models/dashboard.dart';
 
 // экран дашборд с главными показателями
 class DashboardScreen extends StatelessWidget {
@@ -27,7 +28,7 @@ class DashboardScreen extends StatelessWidget {
                 return ListView.builder(
                     itemCount: 3,
                     itemBuilder: (context, index) {
-                      return new DashboardItem();
+                      return new DashboardItem(snapshot.data);
                     });
               })),
     );
@@ -35,6 +36,7 @@ class DashboardScreen extends StatelessWidget {
 
   Future _fetchDb() async {
     String data;
+    Dashboard dashboard;
 
     final FirebaseApp app = await FirebaseApp.configure(
       name: 'hr-metrics',
@@ -48,14 +50,18 @@ class DashboardScreen extends StatelessWidget {
     database
         .reference()
         .child('dashboardList')
-        .child('turnover')
+        .child('0')
         .once()
         .then((DataSnapshot snapshot) {
       data = snapshot.value.toString();
       print(data);
-    });
-    Map dataMap = json.decode(data);
+/*
+      Map dataMap = json.decode(data);
+      dashboard = Dashboard.fromJson(dataMap);
+      print(dashboard);
+*/
 
-    return null;
+    });
+    return data;
   }
 }

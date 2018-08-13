@@ -1,10 +1,14 @@
 // карточка для стартового дашборда приложения
 //import 'package:firebase_core/firebase_core.dart';
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:hr_metrics/models/dashboard.dart';
 
 class DashboardItem extends StatelessWidget {
-  const DashboardItem({Key key}) : super(key: key);
+  const DashboardItem(this.data, {Key key}) : super(key: key);
+  final String data;
 
   @override
   Widget build(BuildContext context) {
@@ -136,10 +140,14 @@ class DashboardItem extends StatelessWidget {
   }
 
   Widget _turnoverWidget() {
+    Map dash = json.decode(data);
+    Dashboard dashboard = Dashboard.fromJson(dash);
+    String title = dashboard.dashboardItemTitle;
+
     return Column(
       children: <Widget>[
         Text(
-          'TITILE',
+          title,
           style: new TextStyle(
               fontSize: 12.0, fontFamily: 'Oswald', color: Colors.blue),
         ),
