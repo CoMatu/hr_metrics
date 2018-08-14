@@ -6,16 +6,15 @@ import 'package:flutter/material.dart';
 import 'package:hr_metrics/DashboardItem.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:hr_metrics/models/dashboard.dart';
+import 'package:hr_metrics/models/dashitem.dart';
 
 // экран дашборд с главными показателями
 class DashboardScreen extends StatelessWidget {
-  DashboardScreen({this.app});
-
-  FirebaseApp app;
+  DashboardScreen(this.database);
+  FirebaseDatabase database;
 
   @override
   Widget build(BuildContext context) {
-    FirebaseDatabase database = new FirebaseDatabase(app: app);
 
     // TODO: implement build
     return new Scaffold(
@@ -29,11 +28,20 @@ class DashboardScreen extends StatelessWidget {
           padding: const EdgeInsets.all(8.0),
           child: Center(
             child: new FutureBuilder(
-                future: FirebaseDatabase.instance.reference()
+                future:
+                database
+                    .reference()
                     .child('dashboardList')
-                    .once(),
+                    .child('0')
+                    .once()
+                    .then((DataSnapshot snapshot) {
+                  String data = snapshot.value.toString();
+                  print(data);
+                  return data;
+                })
+                ,
                 builder: (BuildContext context, AsyncSnapshot snapshot) {
-                  if (snapshot.hasData) {
+                  if (snapshot.data != null) {
                     return _getWidget(snapshot);
                   }
                      else {
@@ -48,24 +56,15 @@ class DashboardScreen extends StatelessWidget {
   }
 
   Widget _getWidget(AsyncSnapshot snapshot) {
-    String data = snapshot.data.toString();
+    List<DashItem> dashItemList = parseDashItem(snapshot.data);
     return new Container(
-      child: new Text(data)
-    );
+      child: new Text('+++++++++++++++++++'))
+    ;
   }
 
-  Future _getData() async {
-    final FirebaseDatabase database = new FirebaseDatabase(app: app);
-    String data;
-    database
-        .reference()
-        .child('dashboardList')
-        .child('0')
-        .once()
-        .then((DataSnapshot snapshot) {
-      data = snapshot.value;
-      print(data);
-    });
-    return data;
+  // из ответа датабазы формируем список параметров объекта дашборда
+  List<DashItem> parseDashItem(String responseBody) {
+    final parsed = json.decode(responseBody).cast<Map<String, dynamic>>();
+    return parsed.map<DashItem>((json) => DashItem.fromJson(json)).toList();
   }
 }

@@ -68,7 +68,7 @@ Future<void> main() async {
         databaseURL: 'https://hr-metrics-85b07.firebaseio.com/',
         googleAppID: '1:525720506365:android:dd3d45e37ad67662'),
   );
-//  final FirebaseDatabase database = new FirebaseDatabase(app: app);
+  final FirebaseDatabase database = new FirebaseDatabase(app: app);
 
   runApp (new MaterialApp(
     theme: ThemeData(
@@ -78,7 +78,7 @@ Future<void> main() async {
         scaffoldBackgroundColor: Colors.grey[200]),
     debugShowCheckedModeBanner: false,
 //      home: new MyApp(),
-    home: new DashboardScreen(app: app),
+    home: new DashboardScreen(database),
   ));
 }
 
