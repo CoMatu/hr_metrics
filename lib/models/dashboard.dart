@@ -27,7 +27,7 @@ class Dashboard extends Object with _$DashboardSerializerMixin {
   int dashboardItemType;
   int indicator1;
   int indicator2;
-  var mainIndicator;
+  final mainIndicator;
   String dashboardItemTitle;
   String indicator1Title;
   String indicator2Title;
