@@ -4,7 +4,6 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
-import 'package:hr_metrics/models/dashboard.dart';
 
 class DashboardItem extends StatelessWidget {
   const DashboardItem(this.data, {Key key}) : super(key: key);
@@ -140,9 +139,7 @@ class DashboardItem extends StatelessWidget {
   }
 
   Widget _turnoverWidget() {
-    Map dash = json.decode(data);
-    Dashboard dashboard = Dashboard.fromJson(dash);
-    String title = dashboard.dashboardItemTitle;
+    String title = 'titlewef';
 
     return Column(
       children: <Widget>[

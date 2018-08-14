@@ -2,7 +2,9 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
-import 'package:hr_metrics/models/dashboard.dart';
+import 'package:hr_metrics/models/article.dart';
+import 'package:hr_metrics/models/serializers.dart';
+
 
 // экран дашборд с главными показателями
 class DashboardScreen extends StatelessWidget {
@@ -27,13 +29,13 @@ class DashboardScreen extends StatelessWidget {
                 future:
                 database
                     .reference()
-                    .child('dashboardList')
+                    .child('article')
                     .once()
+/*
                     .then((DataSnapshot snapshot) {
-                  String data = snapshot.value.toString();
-                  print(data);
-                  return data;
+                      return snapshot;
                 })
+*/
                 ,
                 builder: (BuildContext context, AsyncSnapshot snapshot) {
                   if (snapshot.data != null) {
@@ -51,19 +53,27 @@ class DashboardScreen extends StatelessWidget {
   }
 
   Widget _getWidget(AsyncSnapshot snapshot) {
-/*
-    List<Dashboard> dashboard;
-    dashboard = parseDashboard(snapshot.data);
-*/
+
+//    String dashboard = '{"id" : "01", "text" : "поешь этих дурацких булочек", "title" : "название"}';
+//    Map<String, dynamic> data = snapshot.data;
+
+//    DataSnapshot data1 = snapshot.data;
+
+    Map<String, dynamic> data = Map.from(snapshot.data.value);
+
+    Article article = serializers.deserializeWith(Article.serializer,data);
+
     return new Container(
-      child: new Text(snapshot.data)
+      child: new Text(article.text)
     )
     ;
   }
 
   // из ответа датабазы формируем список параметров объектов дашборда
+/*
   List<Dashboard> parseDashboard(String responseBody) {
     final parsed = json.decode(responseBody).cast<Map<String, dynamic>>();
     return parsed.map<Dashboard>((json) => Dashboard.fromJson(json)).toList();
   }
+*/
 }
