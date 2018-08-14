@@ -51,10 +51,12 @@ class DashboardScreen extends StatelessWidget {
   }
 
   Widget _getWidget(AsyncSnapshot snapshot) {
+/*
     List<Dashboard> dashboard;
     dashboard = parseDashboard(snapshot.data);
+*/
     return new Container(
-      child: new Text(dashboard[0].dashboardItemTitle)
+      child: new Text(snapshot.data)
     )
     ;
   }
