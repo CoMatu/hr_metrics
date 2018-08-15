@@ -16,5 +16,6 @@ part of 'serializers.dart';
 // ignore_for_file: prefer_expression_function_bodies
 // ignore_for_file: sort_constructors_first
 
-Serializers _$serializers =
-    (new Serializers().toBuilder()..add(Article.serializer)).build();
+Serializers _$serializers = (new Serializers().toBuilder()
+      ..add(Dashboard.serializer))
+    .build();
