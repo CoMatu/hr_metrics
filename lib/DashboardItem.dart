@@ -45,12 +45,12 @@ class DashboardItem extends StatelessWidget {
                             style: new TextStyle(
                                 fontSize: 48.0,
                                 fontFamily: 'Oswald',
-                                color: Colors.deepOrange[700]),
+                                color: _getColor()),
                           ),
                           Text(
                             dashboard.mainIndicatorUnit,
                             style: new TextStyle(
-                                fontSize: 16.0,
+                                fontSize: 20.0,
                                 fontFamily: 'Oswald',
                                 color: Colors.black45),
                           )
@@ -193,4 +193,21 @@ class DashboardItem extends StatelessWidget {
     }
 
   }
+
+  _getColor() {
+    var result;
+    var chartType = dashboard.dashboardItemType;
+    switch (chartType) {
+      case 1:
+        result = Colors.orange[700];
+        return result;
+      case 2:
+        result = Colors.blue[700];
+        return result;
+      case 3:
+        result = Colors.green[700];
+        return result;
+    }
+  }
+
 }

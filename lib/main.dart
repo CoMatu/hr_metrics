@@ -60,15 +60,7 @@ List<ChartEntry> dataFot = [
       'тыс.руб.'),
 ];
 
-Future<void> main() async {
-  final FirebaseApp app = await FirebaseApp.configure(
-    name: 'hr-metrics',
-    options: const FirebaseOptions(
-        apiKey: 'AIzaSyCkbkGrtOChRiDsrRvp_kzMJn_VZqI9M7U',
-        databaseURL: 'https://hr-metrics-85b07.firebaseio.com/',
-        googleAppID: '1:525720506365:android:dd3d45e37ad67662'),
-  );
-  final FirebaseDatabase database = new FirebaseDatabase(app: app);
+void main() {
 
   runApp (new MaterialApp(
     theme: ThemeData(
@@ -77,14 +69,13 @@ Future<void> main() async {
         accentColor: Colors.white24,
         scaffoldBackgroundColor: Colors.grey[200]),
     debugShowCheckedModeBanner: false,
-//      home: new MyApp(),
-    home: new DashboardScreen(database),
+      home: new StartScreen(),
+//    home: new DashboardScreen(database),
   ));
 }
 
 //TODO Сделать авторизацию
 //TODO Найти АПИ 1С для запросов на обновление базы данных
-//TODO Сделать текучесть кадров в дробных процентах
 //TODO Вынести настройки графиков в preferencies
 //TODO вынести навигацию в файл routes
 

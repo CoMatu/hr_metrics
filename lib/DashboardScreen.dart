@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:hr_metrics/DashboardItem.dart';
@@ -10,7 +8,7 @@ import 'package:hr_metrics/models/serializers.dart';
 class DashboardScreen extends StatelessWidget {
   DashboardScreen(this.database);
 
-  FirebaseDatabase database;
+  final FirebaseDatabase database;
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +34,8 @@ class DashboardScreen extends StatelessWidget {
                   } else {
                     return new CircularProgressIndicator(
                         valueColor:
-                            new AlwaysStoppedAnimation(Colors.yellow[700]));
+                            new AlwaysStoppedAnimation(Colors.yellow[700]),
+                    strokeWidth: 9.0,);
                   }
                 }),
           )),
@@ -58,21 +57,14 @@ class DashboardScreen extends StatelessWidget {
     dashboardList.add(dashboard);
     }
 
-//    Map<String, dynamic> data = Map.from(snapshot.data.value);
     var count = dashboardList.length;
 
-    print(count.toString());
+//    print(count.toString());
 
     return new ListView.builder(
       itemCount: count,
         itemBuilder: (context, index){
           return new DashboardItem(dashboardList[index]);
         });
-/*
-    Dashboard dashboard =
-        serializers.deserializeWith(Dashboard.serializer, data);
-
-    return new Container(child: new Text(dashboard.mainIndicator.toString()));
-*/
   }
 }
