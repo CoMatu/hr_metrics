@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:hr_metrics/DashboardItem.dart';
 import 'package:hr_metrics/models/dashboard.dart';
 import 'package:hr_metrics/models/serializers.dart';
 
@@ -62,7 +63,11 @@ class DashboardScreen extends StatelessWidget {
 
     print(count.toString());
 
-    return new Text('В этом List $count значений)');
+    return new ListView.builder(
+      itemCount: count,
+        itemBuilder: (context, index){
+          return new DashboardItem(dashboardList[index]);
+        });
 /*
     Dashboard dashboard =
         serializers.deserializeWith(Dashboard.serializer, data);

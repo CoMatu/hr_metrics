@@ -1,16 +1,19 @@
 // карточка для стартового дашборда приложения
 //import 'package:firebase_core/firebase_core.dart';
-import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:firebase_database/firebase_database.dart';
+import 'package:hr_metrics/models/dashboard.dart';
+import 'package:intl/intl.dart';
 
 class DashboardItem extends StatelessWidget {
-  const DashboardItem(this.data, {Key key}) : super(key: key);
-  final String data;
+  const DashboardItem(this.dashboard, {Key key}) : super(key: key);
+  final Dashboard dashboard;
 
   @override
   Widget build(BuildContext context) {
+    Intl.defaultLocale = 'ru';
+    var f = new NumberFormat();
+
     // TODO: доработать дизайн виджета визуально
     return SizedBox(
         height: 160.0,
@@ -22,7 +25,7 @@ class DashboardItem extends StatelessWidget {
                 child: Row(
                   children: <Widget>[
                     Text(
-                      ' НАЗВАНИЕ ПАНЕЛИ ',
+                      dashboard.dashboardItemTitle,
                       style: new TextStyle(
                         fontSize: 18.0,
                       ),
@@ -38,14 +41,14 @@ class DashboardItem extends StatelessWidget {
                       child: Column(
                         children: <Widget>[
                           Text(
-                            '2818',
+                            f.format(dashboard.mainIndicator).toString(),
                             style: new TextStyle(
                                 fontSize: 48.0,
                                 fontFamily: 'Oswald',
                                 color: Colors.deepOrange[700]),
                           ),
                           Text(
-                            'чел.',
+                            dashboard.mainIndicatorUnit,
                             style: new TextStyle(
                                 fontSize: 16.0,
                                 fontFamily: 'Oswald',
@@ -55,7 +58,7 @@ class DashboardItem extends StatelessWidget {
                       )),
                   Expanded(
                     flex: 2,
-                    child: _turnoverWidget(),
+                    child: _choiseCardWidget(),
                     //TODO add widget
                   ),
                 ],
@@ -69,6 +72,9 @@ class DashboardItem extends StatelessWidget {
     var maleImg = new AssetImage('assets/male.png');
     var femaleImg = new AssetImage('assets/female.png');
 
+    Intl.defaultLocale = 'ru';
+    var _f = new NumberFormat();
+
     return Column(
       children: <Widget>[
         Row(
@@ -81,7 +87,7 @@ class DashboardItem extends StatelessWidget {
                   height: 70.0,
                 ),
                 Text(
-                  '1600',
+                  _f.format(dashboard.indicator1).toString(),
                   style: new TextStyle(
                       fontFamily: 'Oswald',
                       fontSize: 16.0,
@@ -97,7 +103,7 @@ class DashboardItem extends StatelessWidget {
                   height: 70.0,
                 ),
                 Text(
-                  '1230',
+                  _f.format(dashboard.indicator2).toString(),
                   style: new TextStyle(
                       fontFamily: 'Oswald',
                       fontSize: 16.0,
@@ -112,25 +118,28 @@ class DashboardItem extends StatelessWidget {
   }
 
   Widget _salaryWidget() {
+    Intl.defaultLocale = 'ru';
+    var _f = new NumberFormat();
+
     return Column(
       children: <Widget>[
         Text(
-          'РАБОЧИЕ',
+          dashboard.indicator1Title,
           style: new TextStyle(
               fontSize: 12.0, fontFamily: 'Oswald', color: Colors.blue),
         ),
         Text(
-          '28 787',
+          _f.format(dashboard.indicator1).toString(),
           style: new TextStyle(
               fontSize: 20.0, fontFamily: 'Oswald', color: Colors.black54),
         ),
         Text(
-          'ИТР',
+          dashboard.indicator2Title,
           style: new TextStyle(
               fontSize: 12.0, fontFamily: 'Oswald', color: Colors.blue),
         ),
         Text(
-          '46 391',
+          _f.format(dashboard.indicator2).toString(),
           style: new TextStyle(
               fontSize: 20.0, fontFamily: 'Oswald', color: Colors.black54),
         ),
@@ -139,31 +148,49 @@ class DashboardItem extends StatelessWidget {
   }
 
   Widget _turnoverWidget() {
-    String title = 'titlewef';
+    Intl.defaultLocale = 'ru';
+    var _f = new NumberFormat();
 
     return Column(
       children: <Widget>[
         Text(
-          title,
+          dashboard.indicator1Title,
           style: new TextStyle(
               fontSize: 12.0, fontFamily: 'Oswald', color: Colors.blue),
         ),
         Text(
-          '71',
+          _f.format(dashboard.indicator1).toString(),
           style: new TextStyle(
               fontSize: 20.0, fontFamily: 'Oswald', color: Colors.black54),
         ),
         Text(
-          'УВОЛЕНО',
+          dashboard.indicator2Title,
           style: new TextStyle(
               fontSize: 12.0, fontFamily: 'Oswald', color: Colors.redAccent),
         ),
         Text(
-          '69',
+          _f.format(dashboard.indicator2).toString(),
           style: new TextStyle(
               fontSize: 20.0, fontFamily: 'Oswald', color: Colors.black54),
         ),
       ],
     );
+  }
+
+  _choiseCardWidget() {
+    var result;
+    var chartType = dashboard.dashboardItemType;
+    switch (chartType) {
+      case 1:
+        result = _headcoundWidget();
+        return result;
+      case 2:
+        result = _salaryWidget();
+        return result;
+      case 3:
+        result = _turnoverWidget();
+        return result;
+    }
+
   }
 }
