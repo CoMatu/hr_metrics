@@ -1,4 +1,3 @@
-
 import 'dart:async';
 
 import 'package:firebase_core/firebase_core.dart';
@@ -7,10 +6,13 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:hr_metrics/DashboardScreen.dart';
 import 'package:hr_metrics/LoginScreen.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:hr_metrics/models/userdata.dart';
 
 class CheckAuth extends StatefulWidget {
-
+//  final GoogleSignIn _googleSignIn = GoogleSignIn();
 //  final FirebaseAuth _auth = FirebaseAuth.instance;
+
   @override
   _CheckAuthState createState() => new _CheckAuthState();
 }
@@ -19,25 +21,41 @@ class _CheckAuthState extends State<CheckAuth> {
   FirebaseDatabase database;
   bool isLoggedIn;
 
+  UserData user = new UserData('matu11@mail.ru', '22ll55');
+
   @override
   void initState() {
-    database = _getFirebase();
     isLoggedIn = false;
     FirebaseAuth.instance.currentUser().then((user) => user != null
         ? setState(() {
-      isLoggedIn = true;
-    })
+            isLoggedIn = true;
+            _getFirebase();
+          })
         : null);
     super.initState();
-    // new Future.delayed(const Duration(seconds: 2));
   }
 
   @override
   Widget build(BuildContext context) {
-    return isLoggedIn ? new DashboardScreen(database) : new LoginScreen();
+    return new Scaffold(
+        body: Center(
+      child: FutureBuilder(
+          future: verifyUser(user),
+          // читаем из настроек данные пользователя
+          builder: (BuildContext context, AsyncSnapshot snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return new Text('Запрос к серверу аутенификации');
+            }
+            return isLoggedIn
+                ? new DashboardScreen(database)
+                : new LoginScreen();
+          }),
+    ));
+
+    //   return isLoggedIn ? new DashboardScreen(database) : new LoginScreen();
   }
 
-  Future  _getFirebase() async{
+  Future<void> _getFirebase() async {
     final FirebaseApp app = await FirebaseApp.configure(
       name: 'hr-metrics',
       options: const FirebaseOptions(
@@ -45,8 +63,13 @@ class _CheckAuthState extends State<CheckAuth> {
           databaseURL: 'https://hr-metrics-85b07.firebaseio.com/',
           googleAppID: '1:525720506365:android:dd3d45e37ad67662'),
     );
-    final FirebaseDatabase database = new FirebaseDatabase(app: app);
-    return database;
+    database = new FirebaseDatabase(app: app);
   }
 
+  Future<String> verifyUser(UserData userData) async {
+    FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+    await firebaseAuth.signInWithEmailAndPassword(
+        email: userData.email, password: userData.password);
+    return "Login Successfull";
+  }
 }

@@ -4,6 +4,7 @@ import 'package:hr_metrics/ChartsData/ChartEntry.dart';
 import 'package:hr_metrics/ChartView.dart';
 import 'package:flutter/material.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
+import 'package:hr_metrics/CheckAuth.dart';
 import 'package:hr_metrics/DashboardScreen.dart';
 import 'package:hr_metrics/LoginScreen.dart';
 import 'package:hr_metrics/StartScreen.dart';
@@ -70,7 +71,7 @@ void main() {
         accentColor: Colors.white24,
         scaffoldBackgroundColor: Colors.grey[200]),
     debugShowCheckedModeBanner: false,
-      home: new LoginScreen(),
+      home: new CheckAuth(),
       routes: <String, WidgetBuilder>{
       },
 //    home: new DashboardScreen(database),

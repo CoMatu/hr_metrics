@@ -153,22 +153,22 @@ class DashboardItem extends StatelessWidget {
 
     return Column(
       children: <Widget>[
-        Text(
+        new Text(
           dashboard.indicator1Title,
           style: new TextStyle(
               fontSize: 12.0, fontFamily: 'Oswald', color: Colors.blue),
         ),
-        Text(
+        new Text(
           _f.format(dashboard.indicator1).toString(),
           style: new TextStyle(
               fontSize: 20.0, fontFamily: 'Oswald', color: Colors.black54),
         ),
-        Text(
+        new Text(
           dashboard.indicator2Title,
           style: new TextStyle(
               fontSize: 12.0, fontFamily: 'Oswald', color: Colors.redAccent),
         ),
-        Text(
+        new Text(
           _f.format(dashboard.indicator2).toString(),
           style: new TextStyle(
               fontSize: 20.0, fontFamily: 'Oswald', color: Colors.black54),
