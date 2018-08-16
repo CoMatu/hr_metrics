@@ -8,7 +8,7 @@ import 'package:hr_metrics/DashboardScreen.dart';
 class StartScreen extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
-    var logo = new AssetImage('assets/logo.png');
+   var logo = new AssetImage('assets/logo.png');
     // TODO: implement build
     return new Scaffold(
       body: Container(
