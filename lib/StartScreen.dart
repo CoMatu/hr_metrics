@@ -56,23 +56,3 @@ Future  _getFirebase() async{
 }
 
 }
-
-/*
-Stack(
-children: <Widget>[
-SizedBox(
-height: 250.0,
-width: 250.0,
-child: CircularProgressIndicator(
-valueColor: new AlwaysStoppedAnimation(Colors.yellow[100]),
-strokeWidth: 20.0,
-),
-),
-SizedBox(
-height: 250.0,
-width: 250.0,
-child: Image(image: logo),
-)
-],
-),
-*/

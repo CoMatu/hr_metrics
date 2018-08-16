@@ -1,17 +1,29 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
+  @override
+  LoginScreenState createState() {
+    return new LoginScreenState();
+  }
+}
+
+class LoginScreenState extends State<LoginScreen> {
   var logo = new AssetImage('assets/logo.png');
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
+    //фиксируем портретный режим
+    SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+
     return new Scaffold(
       body: Center(
         child: new Container(
           color: Colors.white,
           child: new Center(
-              child: new Column(
+              child:
+              new Column(
+                mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -22,31 +34,42 @@ class LoginScreen extends StatelessWidget {
                 ),
               ),
               new SizedBox(
-                width: 250.0,
-                height: 50.0,
-                child: TextField(),
+                height: 30.0,
               ),
               new SizedBox(
                 width: 250.0,
                 height: 50.0,
-                child: TextField(),
+                child: TextField(
+                  decoration: new InputDecoration(
+                    hintText: 'Имя пользователя'),
+                  textAlign: TextAlign.center,
+                ),
               ),
               new SizedBox(
-                width: 100.0,
-                height: 70.0,
-                child:
-                new FlatButton(
+                width: 250.0,
+                height: 50.0,
+                child: TextField(
+                  decoration: new InputDecoration(
+                    hintText: 'Пароль'),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+              new SizedBox(
+                width: 250.0,
+                height: 90.0,
+                child: new FlatButton(
                     onPressed: null,
                     child: new Text('ВОЙТИ',
                     style: new TextStyle(
                       fontSize: 18.0,
-                      color: Colors.red[500]
+                      color: Colors.red[500],
                     ),
+                      textAlign: TextAlign.right,
                     )
                 ),
               ),
               new SizedBox(
-                height: 70.0,
+                height: 50.0,
               ),
               new SizedBox(
                 child: new FlatButton(
