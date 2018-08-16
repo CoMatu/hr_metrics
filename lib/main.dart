@@ -70,6 +70,8 @@ void main() {
         scaffoldBackgroundColor: Colors.grey[200]),
     debugShowCheckedModeBanner: false,
       home: new StartScreen(),
+      routes: <String, WidgetBuilder>{
+      },
 //    home: new DashboardScreen(database),
   ));
 }
