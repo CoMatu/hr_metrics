@@ -12,7 +12,8 @@ class DashboardScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
+    var logo = new AssetImage('assets/logo.png');
+
     return new Scaffold(
       appBar: new AppBar(
         title: Text('ИНФОПАНЕЛЬ'),
@@ -32,10 +33,24 @@ class DashboardScreen extends StatelessWidget {
                   if (snapshot.data != null) {
                     return _getWidget(snapshot);
                   } else {
-                    return new CircularProgressIndicator(
-                        valueColor:
-                            new AlwaysStoppedAnimation(Colors.yellow[700]),
-                    strokeWidth: 9.0,);
+                    return
+                    new Stack(
+                        children: <Widget>[
+                          SizedBox(
+                            height: 250.0,
+                            width: 250.0,
+                            child: CircularProgressIndicator(
+                              valueColor: new AlwaysStoppedAnimation(Colors.yellow[100]),
+                              strokeWidth: 20.0,
+                            ),
+                          ),
+                          SizedBox(
+                            height: 250.0,
+                            width: 250.0,
+                            child: Image(image: logo),
+                          )
+                        ]
+                    );
                   }
                 }),
           )),

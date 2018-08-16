@@ -7,6 +7,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:hr_metrics/DashboardScreen.dart';
 import 'package:hr_metrics/LoginScreen.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:hr_metrics/StartScreen.dart';
 import 'package:hr_metrics/models/userdata.dart';
 
 class CheckAuth extends StatefulWidget {
@@ -38,13 +39,14 @@ class _CheckAuthState extends State<CheckAuth> {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
+
         body: Center(
       child: FutureBuilder(
           future: verifyUser(user),
           // читаем из настроек данные пользователя
           builder: (BuildContext context, AsyncSnapshot snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return new Text('Запрос к серверу аутенификации');
+              return new StartScreen();
             }
             return isLoggedIn
                 ? new DashboardScreen(database)
