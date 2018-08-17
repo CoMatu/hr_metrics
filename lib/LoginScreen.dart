@@ -1,9 +1,12 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hr_metrics/DashboardScreen.dart';
 import 'package:hr_metrics/models/userdata.dart';
 import 'package:hr_metrics/services/validations.dart';
 import 'package:hr_metrics/services/authentication.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key key}) : super(key: key);
@@ -90,7 +93,7 @@ class LoginScreenState extends State<LoginScreen> {
                         height: 90.0,
                         child: new FlatButton(
                             onPressed: () {
-                              //TODO проверка логина и пароля
+                              // проверка логина и пароля
                               _handleSubmitted();
                             },
                             child: new Text(
@@ -117,8 +120,9 @@ class LoginScreenState extends State<LoginScreen> {
         ));
   }
 
-  void _handleSubmitted() {
+ Future<void> _handleSubmitted() async{
     final FormState form = formKey.currentState;
+    SharedPreferences prefs;
     if (!form.validate()) {
       autovalidate = true; // Start validating on every change.
       showInSnackBar('Please fix the errors in red before submitting.');
@@ -135,6 +139,9 @@ class LoginScreenState extends State<LoginScreen> {
       }).catchError((PlatformException onError) {
         showInSnackBar(onError.message);
       });
+      prefs = await SharedPreferences.getInstance();
+      prefs.setString("password", user.password);
+      prefs.setString("email", user.email);
     }
   }
 
