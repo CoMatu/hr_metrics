@@ -49,7 +49,9 @@ class DashboardScreenState extends State<DashboardScreen> {
                       style: new TextStyle(fontSize: 20.0),
                     ),
                     accountEmail: null,
-                    currentAccountPicture: new Image(image: logo),
+                    currentAccountPicture: new Icon(Icons.account_circle,
+                    size: 100.0,
+                    color: Colors.white,),
                     decoration: BoxDecoration(color: Colors.grey[300]),
                   );
                 }),
