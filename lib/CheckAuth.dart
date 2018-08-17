@@ -10,47 +10,34 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:hr_metrics/StartScreen.dart';
 import 'package:hr_metrics/models/userdata.dart';
 
-class CheckAuth extends StatefulWidget {
+class CheckAuth extends StatelessWidget {
 //  final GoogleSignIn _googleSignIn = GoogleSignIn();
 //  final FirebaseAuth _auth = FirebaseAuth.instance;
-
-  @override
-  _CheckAuthState createState() => new _CheckAuthState();
-}
-
-class _CheckAuthState extends State<CheckAuth> {
   FirebaseDatabase database;
   bool isLoggedIn;
 
   UserData user = new UserData('matu11@mail.ru', '22ll55');
-
-  @override
-  void initState() {
-    isLoggedIn = false;
-    FirebaseAuth.instance.currentUser().then((user) => user != null
-        ? setState(() {
-            isLoggedIn = true;
-            _getFirebase();
-          })
-        : null);
-    super.initState();
-  }
-
+//TODO убрать артефакт квадрат при запуске приложения(?)
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-
         body: Center(
       child: FutureBuilder(
-          future: verifyUser(user),
+          future: verifyUser(),
           // читаем из настроек данные пользователя
           builder: (BuildContext context, AsyncSnapshot snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return new StartScreen();
             }
-            return isLoggedIn
-                ? new DashboardScreen(database)
-                : new LoginScreen();
+            if (snapshot.data != null) {
+              FirebaseUser _user = snapshot.data;
+              if (_user.email == user.email) {
+                _getFirebase();
+                return new DashboardScreen(database);
+              } else {
+                return new LoginScreen();
+              }
+            }
           }),
     ));
 
@@ -68,10 +55,23 @@ class _CheckAuthState extends State<CheckAuth> {
     database = new FirebaseDatabase(app: app);
   }
 
-  Future<String> verifyUser(UserData userData) async {
+  Future<FirebaseUser> verifyUser() async {
+    //инициализируем датабазу
+    final FirebaseApp app = await FirebaseApp.configure(
+      name: 'hr-metrics',
+      options: const FirebaseOptions(
+          apiKey: 'AIzaSyCkbkGrtOChRiDsrRvp_kzMJn_VZqI9M7U',
+          databaseURL: 'https://hr-metrics-85b07.firebaseio.com/',
+          googleAppID: '1:525720506365:android:dd3d45e37ad67662'),
+    );
+    database = new FirebaseDatabase(app: app);
+
+//проверяем пользователя
     FirebaseAuth firebaseAuth = FirebaseAuth.instance;
-    await firebaseAuth.signInWithEmailAndPassword(
-        email: userData.email, password: userData.password);
-    return "Login Successfull";
+//    await firebaseAuth.signInWithEmailAndPassword(
+//        email: userData.email, password: userData.password);
+    FirebaseUser currentUser = await firebaseAuth.currentUser();
+    print('$currentUser');
+    return currentUser;
   }
 }
