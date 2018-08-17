@@ -1,16 +1,9 @@
-import 'dart:async';
 
 import 'package:hr_metrics/ChartsData/ChartEntry.dart';
 import 'package:hr_metrics/ChartView.dart';
 import 'package:flutter/material.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:hr_metrics/CheckAuth.dart';
-import 'package:hr_metrics/DashboardScreen.dart';
-import 'package:hr_metrics/LoginScreen.dart';
-import 'package:hr_metrics/StartScreen.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_database/firebase_database.dart';
-
 
 List<ChartEntry> dataSalary = [
   new ChartEntry(
