@@ -3,12 +3,29 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:hr_metrics/DashboardItem.dart';
+import 'package:hr_metrics/LoginScreen.dart';
 import 'package:hr_metrics/models/dashboard.dart';
 import 'package:hr_metrics/models/serializers.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 // экран дашборд с главными показателями
-class DashboardScreen extends StatelessWidget {
+class DashboardScreen extends StatefulWidget {
+  @override
+  DashboardScreenState createState() {
+    return new DashboardScreenState();
+  }
+}
+
+class DashboardScreenState extends State<DashboardScreen> {
+  String username;
+  SharedPreferences userPref;
+
+  @override
+  void initState() {
+    super.initState();
+    this._function();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +38,69 @@ class DashboardScreen extends StatelessWidget {
       ),
       drawer: Drawer(
 //TODO боковое меню
-          ),
+        child: Column(
+          children: <Widget>[
+            FutureBuilder(
+                future: _function(),
+                builder: (BuildContext context, AsyncSnapshot snapshot) {
+                  return UserAccountsDrawerHeader(
+                    accountName: new Text(
+                      username,
+                      style: new TextStyle(fontSize: 20.0),
+                    ),
+                    accountEmail: null,
+                    currentAccountPicture: new Image(image: logo),
+                    decoration: BoxDecoration(color: Colors.grey[300]),
+                  );
+                }),
+            ListView(
+              shrinkWrap: true,
+              children: <Widget>[
+                ListTile(
+                  title: new Text(
+                    'ЧИСЛЕННОСТЬ',
+                    style:
+                        new TextStyle(fontSize: 20.0, color: Colors.grey[700]),
+                  ),
+                  onTap: null,
+                ),
+                ListTile(
+                  title: new Text(
+                    'ЗАРПЛАТА',
+                    style:
+                    new TextStyle(fontSize: 20.0, color: Colors.grey[700]),
+                  ),
+                  onTap: null,
+                ),
+                ListTile(
+                  title: new Text(
+                      'ТЕКУЧЕСТЬ',
+                  style:
+                  new TextStyle(fontSize: 20.0, color: Colors.grey[700]),
+                  ),
+                  onTap: null,
+                ),
+                ListTile(
+                  title: new Text(
+                    'Выход из аккаунта',
+                    //TODO сделать логаут в другом месте
+                    style:
+                    new TextStyle(fontSize:18.0, color: Colors.red),
+                  ),
+                  onTap: () {
+                    _logoutUser();
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => new LoginScreen()),
+                    );
+                  },
+                ),
+              ],
+            )
+          ],
+        ),
+      ),
       body: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Center(
@@ -33,29 +112,26 @@ class DashboardScreen extends StatelessWidget {
                   } else {
                     return new Container(
                         color: Colors.white,
-                      width: screenSize.width,
-                      height: screenSize.height,
-                      child: Center(
-                        child:
-                        new Stack(
-                            children: <Widget>[
-                              SizedBox(
-                                height: 250.0,
-                                width: 250.0,
-                                child: CircularProgressIndicator(
-                                  valueColor: new AlwaysStoppedAnimation(Colors.yellow[100]),
-                                  strokeWidth: 20.0,
-                                ),
+                        width: screenSize.width,
+                        height: screenSize.height,
+                        child: Center(
+                          child: new Stack(children: <Widget>[
+                            SizedBox(
+                              height: 250.0,
+                              width: 250.0,
+                              child: CircularProgressIndicator(
+                                valueColor: new AlwaysStoppedAnimation(
+                                    Colors.yellow[100]),
+                                strokeWidth: 20.0,
                               ),
-                              SizedBox(
-                                height: 250.0,
-                                width: 250.0,
-                                child: Image(image: logo),
-                              )
-                            ]
-                        ),
-                      )
-                    );
+                            ),
+                            SizedBox(
+                              height: 250.0,
+                              width: 250.0,
+                              child: Image(image: logo),
+                            )
+                          ]),
+                        ));
                   }
                 }),
           )),
@@ -66,15 +142,15 @@ class DashboardScreen extends StatelessWidget {
     List snapdata = new List();
     List<Dashboard> dashboardList = new List();
 
-    for(var value in snapshot.data.value){
+    for (var value in snapshot.data.value) {
       snapdata.add(value);
     }
 
-    for(int i = 0; i< snapdata.length; i++){
-    Map<String, dynamic> data = Map.from(snapdata[i]);
-    Dashboard dashboard =
-    serializers.deserializeWith(Dashboard.serializer, data);
-    dashboardList.add(dashboard);
+    for (int i = 0; i < snapdata.length; i++) {
+      Map<String, dynamic> data = Map.from(snapdata[i]);
+      Dashboard dashboard =
+          serializers.deserializeWith(Dashboard.serializer, data);
+      dashboardList.add(dashboard);
     }
 
     var count = dashboardList.length;
@@ -82,13 +158,13 @@ class DashboardScreen extends StatelessWidget {
 //    print(count.toString());
 
     return new ListView.builder(
-      itemCount: count,
-        itemBuilder: (context, index){
+        itemCount: count,
+        itemBuilder: (context, index) {
           return new DashboardItem(dashboardList[index]);
         });
   }
 
-  Future<DataSnapshot> _getDatabaseData() async{
+  Future<DataSnapshot> _getDatabaseData() async {
     final FirebaseApp app = await FirebaseApp.configure(
       name: 'hr-metrics',
       options: const FirebaseOptions(
@@ -97,9 +173,24 @@ class DashboardScreen extends StatelessWidget {
           googleAppID: '1:525720506365:android:dd3d45e37ad67662'),
     );
     FirebaseDatabase database = new FirebaseDatabase(app: app);
-    return database
-          .reference()
-          .child('dashboardList')
-          .once();
-}
+    return database.reference().child('dashboardList').once();
+  }
+
+  Future<void> _function() async {
+    userPref = await SharedPreferences.getInstance();
+    this.setState(() {
+      if (userPref != null) {
+        username = userPref.getString("email");
+      }
+      if (userPref.getString("email") == null) {
+        username = '';
+      }
+    });
+  }
+
+  Future<Null> _logoutUser() async {
+    //logout user
+    userPref = await SharedPreferences.getInstance();
+    userPref.clear();
+  }
 }

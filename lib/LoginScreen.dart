@@ -81,6 +81,7 @@ class LoginScreenState extends State<LoginScreen> {
                         width: 250.0,
                         height: 50.0,
                         child: new TextFormField(
+                          obscureText: true,
                           onSaved: (String password) {
                             user.password = password;
                           },
