@@ -16,10 +16,12 @@ class CheckAuth extends StatelessWidget {
   FirebaseDatabase database;
   bool isLoggedIn;
 
-  UserData user = new UserData('matu11@mail.ru', '22ll55');
+  UserData user = new UserData();
 //TODO убрать артефакт квадрат при запуске приложения(?)
   @override
   Widget build(BuildContext context) {
+    user.email = 'matu1333333333@mail.ru';
+    user.password = '22ll55';
     return new Scaffold(
         body: Center(
       child: FutureBuilder(
