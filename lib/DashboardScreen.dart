@@ -2,12 +2,16 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:hr_metrics/ChartView.dart';
+import 'package:hr_metrics/ChartsData/ChartEntry.dart';
 import 'package:hr_metrics/DashboardItem.dart';
 import 'package:hr_metrics/LoginScreen.dart';
 import 'package:hr_metrics/models/dashboard.dart';
 import 'package:hr_metrics/models/serializers.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:charts_flutter/flutter.dart' as charts;
+
 
 // экран дашборд с главными показателями
 class DashboardScreen extends StatefulWidget {
@@ -64,7 +68,15 @@ class DashboardScreenState extends State<DashboardScreen> {
                     style:
                         new TextStyle(fontSize: 20.0, color: Colors.grey[700]),
                   ),
-                  onTap: null,
+                  onTap: (){
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              ChartView(dataHeadcount, 'ЧИСЛЕННОСТЬ')),
+                    );
+
+                  },
                 ),
                 ListTile(
                   title: new Text(
@@ -72,7 +84,13 @@ class DashboardScreenState extends State<DashboardScreen> {
                     style:
                     new TextStyle(fontSize: 20.0, color: Colors.grey[700]),
                   ),
-                  onTap: null,
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => ChartView(dataSalary, 'ЗАРПЛАТА')),
+                    );
+                  },
                 ),
                 ListTile(
                   title: new Text(
@@ -80,7 +98,14 @@ class DashboardScreenState extends State<DashboardScreen> {
                   style:
                   new TextStyle(fontSize: 20.0, color: Colors.grey[700]),
                   ),
-                  onTap: null,
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              ChartView(dataTurnover, 'ТЕКУЧЕСТЬ КАДРОВ')),
+                    );
+                  },
                 ),
                 ListTile(
                   title: new Text(
@@ -196,3 +221,53 @@ class DashboardScreenState extends State<DashboardScreen> {
     userPref.clear();
   }
 }
+
+List<ChartEntry> dataSalary = [
+  new ChartEntry(
+      20,
+      ['http://skazkimal.ru/hr-metrics/salary.json'],
+      'Средняя зарплата, руб.',
+      [charts.MaterialPalette.deepOrange.shadeDefault],
+      'руб.'), //chart color
+  new ChartEntry(
+      10,
+      ['http://skazkimal.ru/hr-metrics/salaryWorkers.json'],
+      'Средняя зарплата рабочих, руб.',
+      [charts.MaterialPalette.green.shadeDefault],
+      'руб.'),
+  new ChartEntry(
+      10,
+      ['http://skazkimal.ru/hr-metrics/salaryITR.json'],
+      'Средняя зарплата ИТР, руб.',
+      [charts.MaterialPalette.gray.shadeDefault],
+      'руб.'),
+  new ChartEntry(
+      10,
+      [
+        'http://skazkimal.ru/hr-metrics/salaryITR.json',
+        'http://skazkimal.ru/hr-metrics/salaryWorkers.json'
+      ],
+      'Сравнение ИТР рабочие, руб.',
+      [
+        charts.MaterialPalette.blue.shadeDefault,
+        charts.MaterialPalette.green.shadeDefault
+      ],
+      'руб.')
+];
+
+List<ChartEntry> dataHeadcount = [
+  new ChartEntry(10, ['http://skazkimal.ru/hr-metrics/headcount.json'],
+      'Численность, чел.', [charts.MaterialPalette.blue.shadeDefault], 'чел.'),
+];
+List<ChartEntry> dataTurnover = [
+  new ChartEntry(20, ['http://skazkimal.ru/hr-metrics/turnover.json'],
+      'Текучесть кадров, %', [charts.MaterialPalette.pink.shadeDefault], '%'),
+];
+List<ChartEntry> dataFot = [
+  new ChartEntry(
+      10,
+      ['http://skazkimal.ru/hr-metrics/fot.json'],
+      'Фонд оплаты труда, тыс.руб.',
+      [charts.MaterialPalette.cyan.shadeDefault],
+      'тыс.руб.'),
+];
