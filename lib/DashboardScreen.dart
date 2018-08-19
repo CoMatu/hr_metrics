@@ -81,6 +81,7 @@ class DashboardScreenState extends State<DashboardScreen> {
                                 ChartView(dataHeadcount, 'ЧИСЛЕННОСТЬ')),
                       );
                     },
+                    trailing: new Icon(Icons.group),
                   ),
                   ListTile(
                     title: new Text(
@@ -115,6 +116,7 @@ class DashboardScreenState extends State<DashboardScreen> {
                                 ChartView(dataTurnover, 'ТЕКУЧЕСТЬ КАДРОВ')),
                       );
                     },
+                    trailing: new Icon(Icons.donut_small),
                   ),
                   ListTile(
                     title: new Text(
