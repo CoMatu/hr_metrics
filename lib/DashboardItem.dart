@@ -11,12 +11,14 @@ class DashboardItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final Size screenSize = MediaQuery.of(context).size;
+
     Intl.defaultLocale = 'ru';
     var f = new NumberFormat();
 
     // TODO: доработать дизайн виджета визуально
     return SizedBox(
-        height: 160.0,
+        height: _itemSize(screenSize),
         child: Card(
           child: Column(
             children: <Widget>[
@@ -28,6 +30,7 @@ class DashboardItem extends StatelessWidget {
                       dashboard.dashboardItemTitle,
                       style: new TextStyle(
                         fontSize: 18.0,
+                        fontFamily: 'Oswald'
                       ),
                       textAlign: TextAlign.left,
                     ),
@@ -38,23 +41,25 @@ class DashboardItem extends StatelessWidget {
                 children: <Widget>[
                   Expanded(
                       flex: 3,
-                      child: Column(
-                        children: <Widget>[
-                          Text(
-                            f.format(dashboard.mainIndicator).toString(),
-                            style: new TextStyle(
-                                fontSize: 48.0,
-                                fontFamily: 'Oswald',
-                                color: _getColor()),
-                          ),
-                          Text(
-                            dashboard.mainIndicatorUnit,
-                            style: new TextStyle(
-                                fontSize: 20.0,
-                                fontFamily: 'Oswald',
-                                color: Colors.black45),
-                          )
-                        ],
+                      child: Center(
+                        child: Column(
+                          children: <Widget>[
+                            Text(
+                              f.format(dashboard.mainIndicator).toString(),
+                              style: new TextStyle(
+                                  fontSize: 48.0,
+                                  fontFamily: 'Oswald',
+                                  color: _getColor()),
+                            ),
+                            Text(
+                              dashboard.mainIndicatorUnit,
+                              style: new TextStyle(
+                                  fontSize: 20.0,
+                                  fontFamily: 'Oswald',
+                                  color: Colors.black45),
+                            )
+                          ],
+                        ),
                       )),
                   Expanded(
                     flex: 2,
@@ -210,4 +215,12 @@ class DashboardItem extends StatelessWidget {
     }
   }
 
+}
+
+_itemSize(Size screenSize) {
+  var size = (screenSize.height-100)/3;
+  if(size < 180.0) {
+    size = 180.0;
+  }
+  return size;
 }

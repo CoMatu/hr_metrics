@@ -15,6 +15,7 @@ class LoginScreen extends StatefulWidget {
   LoginScreenState createState() {
     return new LoginScreenState();
   }
+
 }
 
 class LoginScreenState extends State<LoginScreen> {
@@ -23,17 +24,23 @@ class LoginScreenState extends State<LoginScreen> {
   ScrollController scrollController = new ScrollController();
   bool autovalidate = false;
   UserAuth userAuth = new UserAuth();
-
   Validations validations = new Validations();
-
   UserData user = new UserData();
-
   var logo = new AssetImage('assets/logo.png');
+
+  void initState() {
+    super.initState();
+/*
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+    ]);
+*/
+  }
 
   @override
   Widget build(BuildContext context) {
     //фиксируем портретный режим
-    SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+
     final Size screenSize = MediaQuery.of(context).size;
 
     return new Scaffold(

@@ -33,6 +33,7 @@ class DashboardScreenState extends State<DashboardScreen> {
 
   @override
   Widget build(BuildContext context) {
+
     var logo = new AssetImage('assets/logo.png');
     final Size screenSize = MediaQuery.of(context).size;
 
@@ -59,71 +60,80 @@ class DashboardScreenState extends State<DashboardScreen> {
                     decoration: BoxDecoration(color: Colors.grey[300]),
                   );
                 }),
-            ListView(
-              shrinkWrap: true,
-              children: <Widget>[
-                ListTile(
-                  title: new Text(
-                    'ЧИСЛЕННОСТЬ',
-                    style:
-                        new TextStyle(fontSize: 20.0, color: Colors.grey[700]),
+            Expanded(
+              child:
+              new ListView(
+                shrinkWrap: true,
+                children: <Widget>[
+                  ListTile(
+                    title: new Text(
+                      'ЧИСЛЕННОСТЬ',
+                      style:
+                      new TextStyle(fontSize: 20.0, color: Colors.grey[700],
+                      fontFamily: 'Oswald'),
+                    ),
+                    onTap: (){
+                      Navigator.pop(context);
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                ChartView(dataHeadcount, 'ЧИСЛЕННОСТЬ')),
+                      );
+                    },
                   ),
-                  onTap: (){
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) =>
-                              ChartView(dataHeadcount, 'ЧИСЛЕННОСТЬ')),
-                    );
-
-                  },
-                ),
-                ListTile(
-                  title: new Text(
-                    'ЗАРПЛАТА',
-                    style:
-                    new TextStyle(fontSize: 20.0, color: Colors.grey[700]),
+                  ListTile(
+                    title: new Text(
+                      'ЗАРПЛАТА',
+                      style:
+                      new TextStyle(fontSize: 20.0, color: Colors.grey[700],
+                          fontFamily: 'Oswald'),
+                    ),
+                    onTap: () {
+                      Navigator.pop(context);
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => ChartView(dataSalary, 'ЗАРПЛАТА')),
+                      );
+                    },
+                    trailing: new Icon(Icons.attach_money),
                   ),
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => ChartView(dataSalary, 'ЗАРПЛАТА')),
-                    );
-                  },
-                ),
-                ListTile(
-                  title: new Text(
+                  ListTile(
+                    title: new Text(
                       'ТЕКУЧЕСТЬ',
-                  style:
-                  new TextStyle(fontSize: 20.0, color: Colors.grey[700]),
+                      style:
+                      new TextStyle(fontSize: 20.0, color: Colors.grey[700],
+                          fontFamily: 'Oswald'),
+                    ),
+                    onTap: () {
+                      Navigator.pop(context);
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                ChartView(dataTurnover, 'ТЕКУЧЕСТЬ КАДРОВ')),
+                      );
+                    },
                   ),
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) =>
-                              ChartView(dataTurnover, 'ТЕКУЧЕСТЬ КАДРОВ')),
-                    );
-                  },
-                ),
-                ListTile(
-                  title: new Text(
-                    'Выход из аккаунта',
-                    //TODO сделать логаут в другом месте
-                    style:
-                    new TextStyle(fontSize:18.0, color: Colors.red),
+                  ListTile(
+                    title: new Text(
+                      'Выход из аккаунта',
+                      //TODO сделать логаут в другом месте
+                      style:
+                      new TextStyle(fontSize:18.0, color: Colors.red),
+                    ),
+                    onTap: () {
+                      _logoutUser();
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => new LoginScreen()),
+                      );
+                    },
                   ),
-                  onTap: () {
-                    _logoutUser();
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => new LoginScreen()),
-                    );
-                  },
-                ),
-              ],
+                ],
+              )
             )
           ],
         ),
@@ -220,6 +230,7 @@ class DashboardScreenState extends State<DashboardScreen> {
     userPref = await SharedPreferences.getInstance();
     userPref.clear();
   }
+
 }
 
 List<ChartEntry> dataSalary = [
