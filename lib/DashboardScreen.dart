@@ -156,17 +156,17 @@ class DashboardScreenState extends State<DashboardScreen> {
                         child: Center(
                           child: new Stack(children: <Widget>[
                             SizedBox(
-                              height: 250.0,
-                              width: 250.0,
+                              height: 150.0,
+                              width: 150.0,
                               child: CircularProgressIndicator(
                                 valueColor: new AlwaysStoppedAnimation(
                                     Colors.yellow[100]),
-                                strokeWidth: 20.0,
+                                strokeWidth: 15.0,
                               ),
                             ),
                             SizedBox(
-                              height: 250.0,
-                              width: 250.0,
+                              height: 150.0,
+                              width: 150.0,
                               child: Image(image: logo),
                             )
                           ]),
@@ -237,11 +237,12 @@ class DashboardScreenState extends State<DashboardScreen> {
 
 List<ChartEntry> dataSalary = [
   new ChartEntry(
-      20,
+      10,
       ['http://skazkimal.ru/hr-metrics/salary.json'],
       'Средняя зарплата, руб.',
-      [charts.MaterialPalette.deepOrange.shadeDefault],
+      [charts.MaterialPalette.blue.shadeDefault],
       'руб.'), //chart color
+/*
   new ChartEntry(
       10,
       ['http://skazkimal.ru/hr-metrics/salaryWorkers.json'],
@@ -254,6 +255,7 @@ List<ChartEntry> dataSalary = [
       'Средняя зарплата ИТР, руб.',
       [charts.MaterialPalette.gray.shadeDefault],
       'руб.'),
+*/
   new ChartEntry(
       10,
       [
