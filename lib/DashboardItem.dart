@@ -219,8 +219,8 @@ class DashboardItem extends StatelessWidget {
 
 _itemSize(Size screenSize) {
   var size = (screenSize.height-100)/3;
-  if(size < 180.0) {
-    size = 180.0;
+  if(size < 175.0) {
+    size = 175.0;
   }
   return size;
 }

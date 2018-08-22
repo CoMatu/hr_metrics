@@ -13,16 +13,16 @@ class StartScreen extends StatelessWidget {
       child: Center(
           child: new Stack(children: <Widget>[
         SizedBox(
-          height: 250.0,
-          width: 250.0,
+          height: 150.0,
+          width: 150.0,
           child: CircularProgressIndicator(
             valueColor: new AlwaysStoppedAnimation(Colors.yellow[100]),
             strokeWidth: 20.0,
           ),
         ),
         SizedBox(
-          height: 250.0,
-          width: 250.0,
+          height: 150.0,
+          width: 150.0,
           child: Image(image: logo),
         )
       ])),

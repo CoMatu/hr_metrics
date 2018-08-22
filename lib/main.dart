@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:hr_metrics/CheckAuth.dart';
+import 'package:hr_metrics/components/simpleBars.dart';
 
 void main() {
 
@@ -11,7 +12,8 @@ void main() {
         accentColor: Colors.white24,
         scaffoldBackgroundColor: Colors.grey[200]),
     debugShowCheckedModeBanner: false,
-      home: new CheckAuth(),
+      home: new SimpleBars.withSampleData(),
+//      new CheckAuth(),
       routes: <String, WidgetBuilder>{
       },
   ));
