@@ -13,7 +13,7 @@ void main() {
         scaffoldBackgroundColor: Colors.grey[200]),
     debugShowCheckedModeBanner: false,
       home:
-      SimpleBars(),
+      SimpleBar.withSampleData(),
 //      CheckAuth(),
       routes: <String, WidgetBuilder>{
       },

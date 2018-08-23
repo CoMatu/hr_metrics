@@ -1,3 +1,4 @@
+import 'package:charts_flutter/flutter.dart' as charts;
 /*
   Выбираем тип графика:
   10 - простой вертикальный BarChart https://google.github.io/charts/flutter/example/bar_charts/simple
@@ -12,10 +13,9 @@ class ChartEntry{
   int chartType; // тип графика
   List<String> loadUrl; //ссылка на файл
   String chartTitle; //название графика
-  List color; // цвет графика
+  List<charts.Color> color; // цвет графика
   String units; //единицы измерения
 
   ChartEntry(this.chartType, this.loadUrl, this.chartTitle, this.color,
       this.units);
 }
-

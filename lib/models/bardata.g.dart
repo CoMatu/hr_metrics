@@ -16,7 +16,7 @@ part of 'bardata.dart';
 // ignore_for_file: prefer_expression_function_bodies
 // ignore_for_file: sort_constructors_first
 
-Serializer<BarData> _$barDataSerializer = new _$BarDataSerializer();
+Serializer<BarData> _$barDataSerializer = _$BarDataSerializer();
 
 class _$BarDataSerializer implements StructuredSerializer<BarData> {
   @override
@@ -41,7 +41,7 @@ class _$BarDataSerializer implements StructuredSerializer<BarData> {
   @override
   BarData deserialize(Serializers serializers, Iterable serialized,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = new BarDataBuilder();
+    final result = BarDataBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -71,11 +71,11 @@ class _$BarData extends BarData {
   final int count;
 
   factory _$BarData([void updates(BarDataBuilder b)]) =>
-      (new BarDataBuilder()..update(updates)).build();
+      (BarDataBuilder()..update(updates)).build();
 
   _$BarData._({this.period, this.count}) : super._() {
-    if (period == null) throw new BuiltValueNullFieldError('BarData', 'period');
-    if (count == null) throw new BuiltValueNullFieldError('BarData', 'count');
+    if (period == null) throw BuiltValueNullFieldError('BarData', 'period');
+    if (count == null) throw BuiltValueNullFieldError('BarData', 'count');
   }
 
   @override
@@ -83,7 +83,7 @@ class _$BarData extends BarData {
       (toBuilder()..update(updates)).build();
 
   @override
-  BarDataBuilder toBuilder() => new BarDataBuilder()..replace(this);
+  BarDataBuilder toBuilder() => BarDataBuilder()..replace(this);
 
   @override
   bool operator ==(dynamic other) {
@@ -130,7 +130,7 @@ class BarDataBuilder implements Builder<BarData, BarDataBuilder> {
 
   @override
   void replace(BarData other) {
-    if (other == null) throw new ArgumentError.notNull('other');
+    if (other == null) throw ArgumentError.notNull('other');
     _$v = other as _$BarData;
   }
 
@@ -141,7 +141,7 @@ class BarDataBuilder implements Builder<BarData, BarDataBuilder> {
 
   @override
   _$BarData build() {
-    final _$result = _$v ?? new _$BarData._(period: period, count: count);
+    final _$result = _$v ?? _$BarData._(period: period, count: count);
     replace(_$result);
     return _$result;
   }

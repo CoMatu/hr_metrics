@@ -16,7 +16,7 @@ part of 'linedata.dart';
 // ignore_for_file: prefer_expression_function_bodies
 // ignore_for_file: sort_constructors_first
 
-Serializer<LineData> _$lineDataSerializer = new _$LineDataSerializer();
+Serializer<LineData> _$lineDataSerializer = _$LineDataSerializer();
 
 class _$LineDataSerializer implements StructuredSerializer<LineData> {
   @override
@@ -41,7 +41,7 @@ class _$LineDataSerializer implements StructuredSerializer<LineData> {
   @override
   LineData deserialize(Serializers serializers, Iterable serialized,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = new LineDataBuilder();
+    final result = LineDataBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -71,12 +71,12 @@ class _$LineData extends LineData {
   final int count;
 
   factory _$LineData([void updates(LineDataBuilder b)]) =>
-      (new LineDataBuilder()..update(updates)).build();
+      (LineDataBuilder()..update(updates)).build();
 
   _$LineData._({this.period, this.count}) : super._() {
     if (period == null)
-      throw new BuiltValueNullFieldError('LineData', 'period');
-    if (count == null) throw new BuiltValueNullFieldError('LineData', 'count');
+      throw BuiltValueNullFieldError('LineData', 'period');
+    if (count == null) throw BuiltValueNullFieldError('LineData', 'count');
   }
 
   @override
@@ -84,7 +84,7 @@ class _$LineData extends LineData {
       (toBuilder()..update(updates)).build();
 
   @override
-  LineDataBuilder toBuilder() => new LineDataBuilder()..replace(this);
+  LineDataBuilder toBuilder() => LineDataBuilder()..replace(this);
 
   @override
   bool operator ==(dynamic other) {
@@ -131,7 +131,7 @@ class LineDataBuilder implements Builder<LineData, LineDataBuilder> {
 
   @override
   void replace(LineData other) {
-    if (other == null) throw new ArgumentError.notNull('other');
+    if (other == null) throw ArgumentError.notNull('other');
     _$v = other as _$LineData;
   }
 
@@ -142,7 +142,7 @@ class LineDataBuilder implements Builder<LineData, LineDataBuilder> {
 
   @override
   _$LineData build() {
-    final _$result = _$v ?? new _$LineData._(period: period, count: count);
+    final _$result = _$v ?? _$LineData._(period: period, count: count);
     replace(_$result);
     return _$result;
   }

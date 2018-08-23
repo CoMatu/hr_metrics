@@ -5,81 +5,60 @@ import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:hr_metrics/models/bardata.dart';
-import 'package:hr_metrics/models/serializers.dart';
 
-class SimpleBars extends StatefulWidget {
+class SimpleBar extends StatelessWidget {
   final List<charts.Series<dynamic, String>> seriesList;
   final bool animate;
 
+  SimpleBar(this.seriesList, {this.animate});
 
-  SimpleBars({this.seriesList, this.animate});
-
-/*
   /// Creates a [BarChart] with sample data and no transition.
-  factory SimpleBars.withSampleData() {
-    return SimpleBars(
+  factory SimpleBar.withSampleData() {
+    return SimpleBar(
       _createSampleData(),
       // Disable animations for image tests.
       animate: false,
     );
   }
-*/
 
   @override
-  SimpleBarsState createState() {
-    return SimpleBarsState();
+  Widget build(BuildContext context) {
+
+    return Scaffold(
+        body: FutureBuilder(
+          future: CreateDataBarChart.createData(),
+            builder: (BuildContext context, AsyncSnapshot snapshot) {
+              return charts.BarChart(
+                seriesList,
+                animate: animate,
+              );
+
+            })
+
+    );
   }
 
   /// Create one series with sample hard coded data.
-  static List<charts.Series<BarData, String>> _createSampleData(List<BarData> bardataList) {
-
-    final data = FirebaseDatabase.instance.reference()
-        .child('headcountData')
-        .once()
-        .then((DataSnapshot snapshot) {
-      for (BarData bar in snapshot.value) {
-        bardataList.add(bar);
-      }
-      for (int i = 0; i < bardataList.length; i++) {
-        Map<String, dynamic> data = Map.from(bardataList[i] as Map);
-        BarData barData =
-        serializers.deserializeWith(BarData.serializer, data);
-        bardataList.add(barData);
-      }
-    });
+  static List<charts.Series<OrdinalSales, String>> _createSampleData() {
+    final data = [
+      OrdinalSales('2014', 5),
+      OrdinalSales('2015', 25),
+      OrdinalSales('2016', 100),
+      OrdinalSales('2017', 75),
+    ];
 
     return [
-      charts.Series<BarData, String>(
+      charts.Series<OrdinalSales, String>(
         id: 'Sales',
         colorFn: (_, __) => charts.MaterialPalette.blue.shadeDefault,
-        domainFn: (BarData bars, _) => bars.period,
-        measureFn: (BarData bars, _) => bars.count,
+        domainFn: (OrdinalSales sales, _) => sales.year,
+        measureFn: (OrdinalSales sales, _) => sales.sales,
         data: data,
       )
     ];
   }
 }
 
-class SimpleBarsState extends State<SimpleBars> {
-  List<BarData> bardataList = new List();
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(),
-        body: FutureBuilder(
-            future: null,
-            builder: (BuildContext context, AsyncSnapshot snapshot) {
-              return charts.BarChart(
-                widget.seriesList,
-                animate: widget.animate,
-              );
-            })
-
-    );
-  }
-}
-/*
 /// Sample ordinal data type.
 class OrdinalSales {
   final String year;
@@ -87,4 +66,33 @@ class OrdinalSales {
 
   OrdinalSales(this.year, this.sales);
 }
-*/
+
+class CreateDataBarChart {
+  static Future<List<charts.Series<BarData, String>>> createData() async {
+    var seriesCh = List<charts.Series<BarData, String>>();
+
+    for (int i = 0; i < 3; i++) {
+      final data = await _fetchData();
+      var id = 'ChartData' + ' ' + i.toString();
+      var dataChart = charts.Series<BarData, String>(
+        id: id,
+        domainFn: (BarData series, _) => series.period,
+        measureFn: (BarData series, _) => series.count,
+        data: data,
+        labelAccessorFn: (BarData series, _) => '${series.count.toString()}',
+        colorFn: (_, __) => null,
+      );
+      seriesCh.add(dataChart);
+    }
+    return seriesCh;
+  }
+
+  static Future<List<BarData>> _fetchData() async {
+    List<BarData> bsD = List();
+    FirebaseDatabase database = FirebaseDatabase.instance;
+    var snapshot = await database.reference().child("headcountData").once();
+    bsD = snapshot.value as List<BarData>;
+    print(snapshot);
+    return bsD;
+  }
+}
