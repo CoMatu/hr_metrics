@@ -11,20 +11,20 @@ class DonutAutoLabelChart extends StatefulWidget {
 
   /// Creates a [PieChart] with sample data and no transition.
   factory DonutAutoLabelChart.withData() {
-    var bar = new DonutAutoLabelChart.withData();
+    var bar = DonutAutoLabelChart.withData();
     return bar;
   }
 
   @override
   DonutAutoLabelChartState createState() {
-    return new DonutAutoLabelChartState();
+    return DonutAutoLabelChartState();
   }
 }
 
 class DonutAutoLabelChartState extends State<DonutAutoLabelChart> {
   @override
   Widget build(BuildContext context) {
-    return new charts.PieChart(widget.seriesList,
+    return charts.PieChart(widget.seriesList,
         animate: widget.animate,
         // Configure the width of the pie slices to 60px. The remaining space in
         // the chart will be left as a hole in the center.
@@ -41,7 +41,7 @@ class DonutAutoLabelChartState extends State<DonutAutoLabelChart> {
         //       new charts.ArcLabelDecorator(
         //          insideLabelStyleSpec: new charts.TextStyleSpec(...),
         //          outsideLabelStyleSpec: new charts.TextStyleSpec(...)),
-        defaultRenderer: new charts.ArcRendererConfig(
+        defaultRenderer: charts.ArcRendererConfig(
           arcWidth: 100,
         ));
   }

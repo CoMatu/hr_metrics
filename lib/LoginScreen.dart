@@ -13,20 +13,20 @@ class LoginScreen extends StatefulWidget {
 
   @override
   LoginScreenState createState() {
-    return new LoginScreenState();
+    return LoginScreenState();
   }
 
 }
 
 class LoginScreenState extends State<LoginScreen> {
-  final GlobalKey<FormState> formKey = new GlobalKey<FormState>();
-  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
-  ScrollController scrollController = new ScrollController();
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  ScrollController scrollController = ScrollController();
   bool autovalidate = false;
-  UserAuth userAuth = new UserAuth();
-  Validations validations = new Validations();
-  UserData user = new UserData();
-  var logo = new AssetImage('assets/logo.png');
+  UserAuth userAuth = UserAuth();
+  Validations validations = Validations();
+  UserData user = UserData();
+  var logo = AssetImage('assets/logo.png');
 
   void initState() {
     super.initState();
@@ -43,83 +43,83 @@ class LoginScreenState extends State<LoginScreen> {
 
     final Size screenSize = MediaQuery.of(context).size;
 
-    return new Scaffold(
+    return Scaffold(
         resizeToAvoidBottomPadding: false,
         key: _scaffoldKey,
         body: Center(
-          child: new SingleChildScrollView(
+          child: SingleChildScrollView(
             controller: scrollController,
-            child: new Container(
+            child: Container(
                 height: screenSize.height,
                 color: Colors.white,
-                child: new Form(
+                child: Form(
                   key: formKey,
                   autovalidate: autovalidate,
-                  child: new Center(
-                      child: new Column(
+                  child: Center(
+                      child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: new SizedBox(
+                        child: SizedBox(
                           width: 150.0,
                           height: 150.0,
-                          child: new Image(image: logo),
+                          child: Image(image: logo),
                         ),
                       ),
-                      new SizedBox(
+                      SizedBox(
                         height: 30.0,
                       ),
-                      new SizedBox(
+                      SizedBox(
                         width: 250.0,
                         height: 50.0,
-                        child: new TextFormField(
+                        child: TextFormField(
                           validator: validations.validateEmail,
                           onSaved: (String email) {
                             user.email = email;
                           },
-                          decoration: new InputDecoration(
+                          decoration: InputDecoration(
                             hintText: 'E-mail',
                           ),
                           textAlign: TextAlign.center,
                         ),
                       ),
-                      new SizedBox(
+                      SizedBox(
                         width: 250.0,
                         height: 50.0,
-                        child: new TextFormField(
+                        child: TextFormField(
                           obscureText: true,
                           onSaved: (String password) {
                             user.password = password;
                           },
-                          decoration: new InputDecoration(hintText: 'Пароль'),
+                          decoration: InputDecoration(hintText: 'Пароль'),
                           textAlign: TextAlign.center,
                         ),
                       ),
-                      new SizedBox(
+                      SizedBox(
                         width: 250.0,
                         height: 90.0,
-                        child: new FlatButton(
+                        child: FlatButton(
                             onPressed: () {
                               // проверка логина и пароля
                               _handleSubmitted();
                             },
-                            child: new Text(
+                            child: Text(
                               'ВОЙТИ',
-                              style: new TextStyle(
+                              style: TextStyle(
                                 fontSize: 18.0,
                                 color: Colors.red[500],
                               ),
                               textAlign: TextAlign.right,
                             )),
                       ),
-                      new SizedBox(
+                      SizedBox(
                         height: 50.0,
                       ),
-                      new SizedBox(
-                        child: new FlatButton(
+                      SizedBox(
+                        child: FlatButton(
                             onPressed: null,
-                            child: new Text('ИСПОЛЬЗОВАТЬ ДЕМО')),
+                            child: Text('ИСПОЛЬЗОВАТЬ ДЕМО')),
                       )
                     ],
                   )),
@@ -140,7 +140,7 @@ class LoginScreenState extends State<LoginScreen> {
         if (onValue == "Login Successfull")
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => new DashboardScreen()),
+            MaterialPageRoute(builder: (context) => DashboardScreen()),
           );
         else
           showInSnackBar(onValue);
@@ -155,6 +155,6 @@ class LoginScreenState extends State<LoginScreen> {
 
   void showInSnackBar(String value) {
     _scaffoldKey.currentState
-        .showSnackBar(new SnackBar(content: new Text(value)));
+        .showSnackBar(SnackBar(content: Text(value)));
   }
 }

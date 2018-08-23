@@ -4,7 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
 class LineChart extends StatefulWidget {
-  final List<charts.Series> seriesList;
+  final List<charts.Series<dynamic, DateTime>> seriesList;
   final bool animate;
   final String units;
 
@@ -12,13 +12,13 @@ class LineChart extends StatefulWidget {
   LineChart(this.seriesList, this.units, {this.animate});
 
   factory LineChart.withData() {
-    var bar = new LineChart.withData();
+    var bar = LineChart.withData();
     return bar;
   }
 
   @override
   LineChartState createState() {
-    return new LineChartState();
+    return LineChartState();
   }
 
 }
@@ -38,7 +38,7 @@ class LineChartState extends State<LineChart> {
     String period;
     final measures = <String, num>{};
 
-    var dateFormat = new DateFormat.y();
+    var dateFormat = DateFormat.y();
 
 
     // We get the model that updated with a list of [SeriesDatum] which is
@@ -47,9 +47,9 @@ class LineChartState extends State<LineChart> {
     // Walk the selection updating the measures map, storing off the sales and
     // series name for each selection point.
     if (selectedDatum.isNotEmpty) {
-      period = dateFormat.format(selectedDatum.first.datum.period);
+      period = dateFormat.format(selectedDatum.first.datum.period as DateTime);
       selectedDatum.forEach((charts.SeriesDatum datumPair) {
-        measures[datumPair.series.displayName] = datumPair.datum.count;
+        measures[datumPair.series.displayName] = datumPair.datum.count as num;
       });
     }
 
@@ -62,15 +62,15 @@ class LineChartState extends State<LineChart> {
 
   @override
   Widget build(BuildContext context) {
-    var f = new NumberFormat();
+    var f = NumberFormat();
 
     final children = <Widget>[
-      new Expanded(
-          child: new charts.TimeSeriesChart(
+      Expanded(
+          child: charts.TimeSeriesChart(
             widget.seriesList,
             animate: widget.animate,
             selectionModels: [
-              new charts.SelectionModelConfig(
+              charts.SelectionModelConfig(
                 type: charts.SelectionModelType.info,
                 listener: _onSelectionChanged,
               )
@@ -84,15 +84,15 @@ class LineChartState extends State<LineChart> {
     // If there is a selection, then include the details.
     if (_period != null) {
 
-      children.add(new Padding(
-          padding: new EdgeInsets.only(top: 5.0),
-          child: new Text(_period+' год')));
+      children.add(Padding(
+          padding: EdgeInsets.only(top: 5.0),
+          child: Text(_period+' год')));
 
     }
     _measures?.forEach((String series, num value) {
       var value1 = f.format(value);
-      children.add(new Text('$value1 '+widget.units,
-      style: new TextStyle(
+      children.add(Text('$value1 '+widget.units,
+      style: TextStyle(
         fontSize: 16.0,
         color: Colors.cyan[800]
       ),));
@@ -100,7 +100,7 @@ class LineChartState extends State<LineChart> {
 
     return Padding(
       padding: const EdgeInsets.only(bottom: 8.0),
-      child: new Column(children: children),
+      child: Column(children: children),
     );
   }
 

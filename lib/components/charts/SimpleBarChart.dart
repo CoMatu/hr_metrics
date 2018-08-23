@@ -4,21 +4,15 @@ import 'package:intl/intl.dart';
 
 
 class SimpleBarChart extends StatefulWidget {
-  final List<charts.Series> seriesList;
+  final List<charts.Series<dynamic, String>> seriesList;
   final bool animate;
   final String units;
 
   SimpleBarChart(this.seriesList, this.units, {this.animate});
 
-  factory SimpleBarChart.withData() {
-    var bar = new SimpleBarChart.withData();
-    return bar;
-  }
-
-
   @override
   SimpleBarChartState createState() {
-    return new SimpleBarChartState();
+    return SimpleBarChartState();
   }
 
 }
@@ -42,9 +36,9 @@ class SimpleBarChartState extends State<SimpleBarChart> {
     // Walk the selection updating the measures map, storing off the sales and
     // series name for each selection point.
     if (selectedDatum.isNotEmpty) {
-      period = selectedDatum.first.datum.period;
+      period = selectedDatum.first.datum.period.toString();
       selectedDatum.forEach((charts.SeriesDatum datumPair) {
-        measures[datumPair.series.displayName] = datumPair.datum.count;
+        measures[datumPair.series.displayName] = datumPair.datum.count as num;
       });
     }
 
@@ -58,15 +52,15 @@ class SimpleBarChartState extends State<SimpleBarChart> {
   @override
   Widget build(BuildContext context) {
     Intl.defaultLocale = 'ru';
-    var f = new NumberFormat();
+    var f = NumberFormat();
 
     final children = <Widget>[
-      new Expanded(
-          child: new charts.BarChart(
+      Expanded(
+          child: charts.BarChart(
             widget.seriesList,
             animate: widget.animate,
             selectionModels: [
-              new charts.SelectionModelConfig(
+              charts.SelectionModelConfig(
                 type: charts.SelectionModelType.info,
                 listener: _onSelectionChanged,
               )
@@ -81,8 +75,8 @@ class SimpleBarChartState extends State<SimpleBarChart> {
     }
     _measures?.forEach((String series, num value) {
       var value1 = f.format(value);
-      children.add(new Text('$value1 '+widget.units,
-      style: new TextStyle(
+      children.add(Text('$value1 '+widget.units,
+      style: TextStyle(
         fontSize: 16.0,
         color: Colors.cyan[800]
       ),));
@@ -90,7 +84,7 @@ class SimpleBarChartState extends State<SimpleBarChart> {
 
     return Padding(
       padding: const EdgeInsets.only(bottom: 8.0),
-      child: new Column(children: children),
+      child: Column(children: children),
     );
   }
 

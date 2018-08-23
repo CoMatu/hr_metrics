@@ -9,14 +9,14 @@ import 'package:shared_preferences/shared_preferences.dart';
 class CheckAuth extends StatefulWidget {
   @override
   CheckAuthState createState() {
-    return new CheckAuthState();
+    return CheckAuthState();
   }
 }
 
 class CheckAuthState extends State<CheckAuth> {
   bool isLoggedIn = false;
 
-  UserData user = new UserData();
+  UserData user = UserData();
 
   @override
   void initState() {
@@ -28,9 +28,9 @@ class CheckAuthState extends State<CheckAuth> {
   Widget build(BuildContext context) {
 
     if(isLoggedIn){
-      return new DashboardScreen();
+      return DashboardScreen();
     } else {
-      return new LoginScreen();
+      return LoginScreen();
     }
   }
 
