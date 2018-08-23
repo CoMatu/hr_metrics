@@ -6,16 +6,16 @@ import 'package:charts_flutter/flutter.dart' as charts;
 
 class CreateDataDonutChart {
   static Future<List<charts.Series<DonutChartData, String>>> createData(
-      List<String> loadUrl, List color) async {
+      List<String> loadUrl, List<charts.Color> color) async {
     var seriesData = List<charts.Series<DonutChartData, String>>();
 
     for (int i = 0; i < loadUrl.length; i++) {
       final data = await _fetchData(http.Client(), loadUrl[i]);
       var id = 'ChartData' + ' ' + i.toString();
 
-      seriesData.add(new charts.Series<DonutChartData, String>(
+      seriesData.add(charts.Series<DonutChartData, String>(
         id: id,
-        domainFn: (DonutChartData series, _) => series.period,
+        domainFn: (DonutChartData series, _) => series.period.toString(),
         measureFn: (DonutChartData series, _) => series.count,
         data: data,
         labelAccessorFn: (DonutChartData series, _) =>
@@ -36,20 +36,17 @@ class CreateDataDonutChart {
 }
 
 List<DonutChartData> parseChartData(String responseBody) {
-  final parsed = json.decode(responseBody).cast<Map<String, dynamic>>();
-
-  return parsed
-      .map<DonutChartData>((json) => DonutChartData.fromJson(json))
-      .toList();
+  List<DonutChartData> dataList = json.decode(responseBody) as List;
+  return dataList.cast<Map<String, int>>().map((json) => DonutChartData.fromJson(json)).toList();
 }
 
 class DonutChartData {
-  final String period;
+  final int period;
   final int count;
 
   DonutChartData({this.period, this.count});
 
-  factory DonutChartData.fromJson(Map<String, dynamic> json) {
+  factory DonutChartData.fromJson(Map<String, int> json) {
     final count = json['number'];
     final period = json['year'];
 

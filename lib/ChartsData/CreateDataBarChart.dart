@@ -6,19 +6,18 @@ import 'package:charts_flutter/flutter.dart' as charts;
 
 class CreateDataBarChart {
   static Future<List<charts.Series<ChartData, String>>> createData(
-      List<String> loadUrl, List color) async {
+      List<String> loadUrl, List<charts.Color> color) async {
     var seriesCh = List<charts.Series<ChartData, String>>();
 
     for (int i = 0; i < loadUrl.length; i++) {
       final data = await _fetchData(http.Client(), loadUrl[i]);
       var id = 'ChartData' + ' ' + i.toString();
-      var dataChart = new charts.Series<ChartData, String>(
+      var dataChart = charts.Series<ChartData, String>(
         id: id,
         domainFn: (ChartData series, _) => series.period,
         measureFn: (ChartData series, _) => series.count,
         data: data,
-        labelAccessorFn: (ChartData series, _) => '${series.count
-            .toString()}',
+        labelAccessorFn: (ChartData series, _) => '${series.count.toString()}',
         colorFn: (_, __) => color[i],
       );
       seriesCh.add(dataChart);
@@ -36,9 +35,11 @@ class CreateDataBarChart {
 }
 
 List<ChartData> parseChartData(String responseBody) {
-  final parsed = json.decode(responseBody).cast<Map<String, dynamic>>();
-
-  return parsed.map<ChartData>((json) => ChartData.fromJson(json)).toList();
+  List<ChartData> dataList = json.decode(responseBody) as List;
+  return dataList
+      .cast<Map<String, dynamic>>()
+      .map((json) => ChartData.fromJson(json))
+      .toList();
 }
 
 class ChartData {

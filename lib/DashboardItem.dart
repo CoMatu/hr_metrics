@@ -14,9 +14,8 @@ class DashboardItem extends StatelessWidget {
     final Size screenSize = MediaQuery.of(context).size;
 
     Intl.defaultLocale = 'ru';
-    var f = new NumberFormat();
+    var f = NumberFormat();
 
-    // TODO: доработать дизайн виджета визуально
     return SizedBox(
         height: _itemSize(screenSize),
         child: Card(
@@ -28,7 +27,7 @@ class DashboardItem extends StatelessWidget {
                   children: <Widget>[
                     Text(
                       dashboard.dashboardItemTitle,
-                      style: new TextStyle(
+                      style: TextStyle(
                         fontSize: 18.0,
                         fontFamily: 'Oswald'
                       ),
@@ -46,14 +45,14 @@ class DashboardItem extends StatelessWidget {
                           children: <Widget>[
                             Text(
                               f.format(dashboard.mainIndicator).toString(),
-                              style: new TextStyle(
+                              style: TextStyle(
                                   fontSize: 48.0,
                                   fontFamily: 'Oswald',
                                   color: _getColor()),
                             ),
                             Text(
                               dashboard.mainIndicatorUnit,
-                              style: new TextStyle(
+                              style: TextStyle(
                                   fontSize: 20.0,
                                   fontFamily: 'Oswald',
                                   color: Colors.black45),
@@ -63,8 +62,7 @@ class DashboardItem extends StatelessWidget {
                       )),
                   Expanded(
                     flex: 2,
-                    child: _choiseCardWidget(),
-                    //TODO add widget
+                    child: _choiceCardWidget(),
                   ),
                 ],
               )
@@ -74,11 +72,11 @@ class DashboardItem extends StatelessWidget {
   }
 
   Widget _headcoundWidget() {
-    var maleImg = new AssetImage('assets/male.png');
-    var femaleImg = new AssetImage('assets/female.png');
+    var maleImg = AssetImage('assets/male.png');
+    var femaleImg = AssetImage('assets/female.png');
 
     Intl.defaultLocale = 'ru';
-    var _f = new NumberFormat();
+    var _f = NumberFormat();
 
     return Column(
       children: <Widget>[
@@ -93,7 +91,7 @@ class DashboardItem extends StatelessWidget {
                 ),
                 Text(
                   _f.format(dashboard.indicator1).toString(),
-                  style: new TextStyle(
+                  style: TextStyle(
                       fontFamily: 'Oswald',
                       fontSize: 16.0,
                       color: Colors.black54),
@@ -109,7 +107,7 @@ class DashboardItem extends StatelessWidget {
                 ),
                 Text(
                   _f.format(dashboard.indicator2).toString(),
-                  style: new TextStyle(
+                  style: TextStyle(
                       fontFamily: 'Oswald',
                       fontSize: 16.0,
                       color: Colors.black54),
@@ -124,28 +122,28 @@ class DashboardItem extends StatelessWidget {
 
   Widget _salaryWidget() {
     Intl.defaultLocale = 'ru';
-    var _f = new NumberFormat();
+    var _f = NumberFormat();
 
     return Column(
       children: <Widget>[
         Text(
           dashboard.indicator1Title,
-          style: new TextStyle(
+          style: TextStyle(
               fontSize: 12.0, fontFamily: 'Oswald', color: Colors.blue),
         ),
         Text(
           _f.format(dashboard.indicator1).toString(),
-          style: new TextStyle(
+          style: TextStyle(
               fontSize: 20.0, fontFamily: 'Oswald', color: Colors.black54),
         ),
         Text(
           dashboard.indicator2Title,
-          style: new TextStyle(
+          style: TextStyle(
               fontSize: 12.0, fontFamily: 'Oswald', color: Colors.blue),
         ),
         Text(
           _f.format(dashboard.indicator2).toString(),
-          style: new TextStyle(
+          style: TextStyle(
               fontSize: 20.0, fontFamily: 'Oswald', color: Colors.black54),
         ),
       ],
@@ -154,36 +152,37 @@ class DashboardItem extends StatelessWidget {
 
   Widget _turnoverWidget() {
     Intl.defaultLocale = 'ru';
-    var _f = new NumberFormat();
+    var _f = NumberFormat();
 
     return Column(
       children: <Widget>[
-        new Text(
+        Text(
           dashboard.indicator1Title,
-          style: new TextStyle(
+          style: TextStyle(
               fontSize: 12.0, fontFamily: 'Oswald', color: Colors.blue),
         ),
-        new Text(
+        Text(
           _f.format(dashboard.indicator1).toString(),
-          style: new TextStyle(
+          style: TextStyle(
               fontSize: 20.0, fontFamily: 'Oswald', color: Colors.black54),
         ),
-        new Text(
+        Text(
           dashboard.indicator2Title,
-          style: new TextStyle(
+          style: TextStyle(
               fontSize: 12.0, fontFamily: 'Oswald', color: Colors.redAccent),
         ),
-        new Text(
+        Text(
           _f.format(dashboard.indicator2).toString(),
-          style: new TextStyle(
+          style: TextStyle(
               fontSize: 20.0, fontFamily: 'Oswald', color: Colors.black54),
         ),
       ],
     );
   }
 
-  _choiseCardWidget() {
-    var result;
+  // ignore: missing_return
+  Widget _choiceCardWidget() {
+    Widget result;
     var chartType = dashboard.dashboardItemType;
     switch (chartType) {
       case 1:
@@ -199,8 +198,9 @@ class DashboardItem extends StatelessWidget {
 
   }
 
-  _getColor() {
-    var result;
+  // ignore: missing_return
+  Color _getColor() {
+    Color result;
     var chartType = dashboard.dashboardItemType;
     switch (chartType) {
       case 1:
@@ -217,7 +217,7 @@ class DashboardItem extends StatelessWidget {
 
 }
 
-_itemSize(Size screenSize) {
+double _itemSize(Size screenSize) {
   var size = (screenSize.height-100)/3;
   if(size < 175.0) {
     size = 175.0;

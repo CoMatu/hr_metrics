@@ -17,7 +17,7 @@ import 'package:charts_flutter/flutter.dart' as charts;
 class DashboardScreen extends StatefulWidget {
   @override
   DashboardScreenState createState() {
-    return new DashboardScreenState();
+    return DashboardScreenState();
   }
 }
 
@@ -34,11 +34,11 @@ class DashboardScreenState extends State<DashboardScreen> {
   @override
   Widget build(BuildContext context) {
 
-    var logo = new AssetImage('assets/logo.png');
+    var logo = AssetImage('assets/logo.png');
     final Size screenSize = MediaQuery.of(context).size;
 
-    return new Scaffold(
-      appBar: new AppBar(
+    return Scaffold(
+      appBar: AppBar(
         title: Text('ИНФОПАНЕЛЬ'),
       ),
       drawer: Drawer(
@@ -49,12 +49,12 @@ class DashboardScreenState extends State<DashboardScreen> {
                 future: _function(),
                 builder: (BuildContext context, AsyncSnapshot snapshot) {
                   return UserAccountsDrawerHeader(
-                    accountName: new Text(
+                    accountName: Text(
                       username,
-                      style: new TextStyle(fontSize: 20.0),
+                      style: TextStyle(fontSize: 20.0),
                     ),
                     accountEmail: null,
-                    currentAccountPicture: new Icon(Icons.account_circle,
+                    currentAccountPicture: Icon(Icons.account_circle,
                     size: 100.0,
                     color: Colors.white,),
                     decoration: BoxDecoration(color: Colors.grey[300]),
@@ -62,14 +62,14 @@ class DashboardScreenState extends State<DashboardScreen> {
                 }),
             Expanded(
               child:
-              new ListView(
+              ListView(
                 shrinkWrap: true,
                 children: <Widget>[
                   ListTile(
-                    title: new Text(
+                    title: Text(
                       'ЧИСЛЕННОСТЬ',
                       style:
-                      new TextStyle(fontSize: 20.0, color: Colors.grey[700],
+                      TextStyle(fontSize: 20.0, color: Colors.grey[700],
                       fontFamily: 'Oswald'),
                     ),
                     onTap: (){
@@ -81,13 +81,13 @@ class DashboardScreenState extends State<DashboardScreen> {
                                 ChartView(dataHeadcount, 'ЧИСЛЕННОСТЬ')),
                       );
                     },
-                    trailing: new Icon(Icons.group),
+                    trailing: Icon(Icons.group),
                   ),
                   ListTile(
-                    title: new Text(
+                    title: Text(
                       'ЗАРПЛАТА',
                       style:
-                      new TextStyle(fontSize: 20.0, color: Colors.grey[700],
+                      TextStyle(fontSize: 20.0, color: Colors.grey[700],
                           fontFamily: 'Oswald'),
                     ),
                     onTap: () {
@@ -98,13 +98,13 @@ class DashboardScreenState extends State<DashboardScreen> {
                             builder: (context) => ChartView(dataSalary, 'ЗАРПЛАТА')),
                       );
                     },
-                    trailing: new Icon(Icons.attach_money),
+                    trailing: Icon(Icons.attach_money),
                   ),
                   ListTile(
-                    title: new Text(
+                    title: Text(
                       'ТЕКУЧЕСТЬ',
                       style:
-                      new TextStyle(fontSize: 20.0, color: Colors.grey[700],
+                      TextStyle(fontSize: 20.0, color: Colors.grey[700],
                           fontFamily: 'Oswald'),
                     ),
                     onTap: () {
@@ -116,21 +116,21 @@ class DashboardScreenState extends State<DashboardScreen> {
                                 ChartView(dataTurnover, 'ТЕКУЧЕСТЬ КАДРОВ')),
                       );
                     },
-                    trailing: new Icon(Icons.donut_small),
+                    trailing: Icon(Icons.donut_small),
                   ),
                   ListTile(
-                    title: new Text(
+                    title: Text(
                       'Выход из аккаунта',
                       //TODO сделать логаут в другом месте
                       style:
-                      new TextStyle(fontSize:18.0, color: Colors.red),
+                      TextStyle(fontSize:18.0, color: Colors.red),
                     ),
                     onTap: () {
                       _logoutUser();
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => new LoginScreen()),
+                            builder: (context) => LoginScreen()),
                       );
                     },
                   ),
@@ -143,23 +143,23 @@ class DashboardScreenState extends State<DashboardScreen> {
       body: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Center(
-            child: new FutureBuilder(
+            child: FutureBuilder(
                 future: _getDatabaseData(),
                 builder: (BuildContext context, AsyncSnapshot snapshot) {
                   if (snapshot.data != null) {
                     return _getWidget(snapshot);
                   } else {
-                    return new Container(
+                    return Container(
                         color: Colors.white,
                         width: screenSize.width,
                         height: screenSize.height,
                         child: Center(
-                          child: new Stack(children: <Widget>[
+                          child: Stack(children: <Widget>[
                             SizedBox(
                               height: 150.0,
                               width: 150.0,
                               child: CircularProgressIndicator(
-                                valueColor: new AlwaysStoppedAnimation(
+                                valueColor: AlwaysStoppedAnimation(
                                     Colors.yellow[100]),
                                 strokeWidth: 15.0,
                               ),
@@ -178,15 +178,15 @@ class DashboardScreenState extends State<DashboardScreen> {
   }
 
   Widget _getWidget(AsyncSnapshot snapshot) {
-    List snapdata = new List();
-    List<Dashboard> dashboardList = new List();
+    List snapdata = List();
+    List<Dashboard> dashboardList = List();
 
     for (var value in snapshot.data.value) {
       snapdata.add(value);
     }
 
     for (int i = 0; i < snapdata.length; i++) {
-      Map<String, dynamic> data = Map.from(snapdata[i]);
+      Map<String, dynamic> data = Map.from(snapdata[i] as Map);
       Dashboard dashboard =
           serializers.deserializeWith(Dashboard.serializer, data);
       dashboardList.add(dashboard);
@@ -196,10 +196,10 @@ class DashboardScreenState extends State<DashboardScreen> {
 
 //    print(count.toString());
 
-    return new ListView.builder(
+    return ListView.builder(
         itemCount: count,
         itemBuilder: (context, index) {
-          return new DashboardItem(dashboardList[index]);
+          return DashboardItem(dashboardList[index]);
         });
   }
 
@@ -211,7 +211,7 @@ class DashboardScreenState extends State<DashboardScreen> {
           databaseURL: 'https://hr-metrics-85b07.firebaseio.com/',
           googleAppID: '1:525720506365:android:dd3d45e37ad67662'),
     );
-    FirebaseDatabase database = new FirebaseDatabase(app: app);
+    FirebaseDatabase database = FirebaseDatabase(app: app);
     return database.reference().child('dashboardList').once();
   }
 
@@ -236,7 +236,7 @@ class DashboardScreenState extends State<DashboardScreen> {
 }
 
 List<ChartEntry> dataSalary = [
-  new ChartEntry(
+  ChartEntry(
       10,
       ['http://skazkimal.ru/hr-metrics/salary.json'],
       'Средняя зарплата, руб.',
@@ -256,7 +256,7 @@ List<ChartEntry> dataSalary = [
       [charts.MaterialPalette.gray.shadeDefault],
       'руб.'),
 */
-  new ChartEntry(
+  ChartEntry(
       10,
       [
         'http://skazkimal.ru/hr-metrics/salaryITR.json',
@@ -271,15 +271,15 @@ List<ChartEntry> dataSalary = [
 ];
 
 List<ChartEntry> dataHeadcount = [
-  new ChartEntry(10, ['http://skazkimal.ru/hr-metrics/headcount.json'],
+  ChartEntry(10, ['http://skazkimal.ru/hr-metrics/headcount.json'],
       'Численность, чел.', [charts.MaterialPalette.blue.shadeDefault], 'чел.'),
 ];
 List<ChartEntry> dataTurnover = [
-  new ChartEntry(20, ['http://skazkimal.ru/hr-metrics/turnover.json'],
+  ChartEntry(20, ['http://skazkimal.ru/hr-metrics/turnover.json'],
       'Текучесть кадров, %', [charts.MaterialPalette.pink.shadeDefault], '%'),
 ];
 List<ChartEntry> dataFot = [
-  new ChartEntry(
+  ChartEntry(
       10,
       ['http://skazkimal.ru/hr-metrics/fot.json'],
       'Фонд оплаты труда, тыс.руб.',

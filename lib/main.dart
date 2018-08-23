@@ -5,15 +5,16 @@ import 'package:hr_metrics/components/simpleBars.dart';
 
 void main() {
 
-  runApp (new MaterialApp(
+  runApp (MaterialApp(
     theme: ThemeData(
         brightness: Brightness.light,
         primaryColor: Colors.white,
         accentColor: Colors.white24,
         scaffoldBackgroundColor: Colors.grey[200]),
     debugShowCheckedModeBanner: false,
-      home: new SimpleBars.withSampleData(),
-//      new CheckAuth(),
+      home:
+      SimpleBars.withSampleData(),
+//      CheckAuth(),
       routes: <String, WidgetBuilder>{
       },
   ));

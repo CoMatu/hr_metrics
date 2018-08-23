@@ -1,31 +1,33 @@
 import 'package:flutter/material.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:intl/intl.dart';
+import 'package:intl/date_symbol_data_local.dart';
 
-
-class SimpleBarChart extends StatefulWidget {
-  final List<charts.Series> seriesList;
+class LineChart extends StatefulWidget {
+  final List<charts.Series<dynamic, DateTime>> seriesList;
   final bool animate;
   final String units;
 
-  SimpleBarChart(this.seriesList, this.units, {this.animate});
 
-  factory SimpleBarChart.withData() {
-    var bar = new SimpleBarChart.withData();
+  LineChart(this.seriesList, this.units, {this.animate});
+
+  factory LineChart.withData() {
+    var bar = LineChart.withData();
     return bar;
   }
 
-
   @override
-  SimpleBarChartState createState() {
-    return new SimpleBarChartState();
+  LineChartState createState() {
+    return LineChartState();
   }
 
 }
 
-class SimpleBarChartState extends State<SimpleBarChart> {
+class LineChartState extends State<LineChart> {
   String _period;
   Map<String, num> _measures;
+
+  var localDateFormat = initializeDateFormatting("ru_RU");
 
   // Listens to the underlying selection changes, and updates the information
   // relevant to building the primitive legend like information under the
@@ -36,15 +38,18 @@ class SimpleBarChartState extends State<SimpleBarChart> {
     String period;
     final measures = <String, num>{};
 
+    var dateFormat = DateFormat.y();
+
+
     // We get the model that updated with a list of [SeriesDatum] which is
     // simply a pair of series & datum.
     //
     // Walk the selection updating the measures map, storing off the sales and
     // series name for each selection point.
     if (selectedDatum.isNotEmpty) {
-      period = selectedDatum.first.datum.period;
+      period = dateFormat.format(selectedDatum.first.datum.period as DateTime);
       selectedDatum.forEach((charts.SeriesDatum datumPair) {
-        measures[datumPair.series.displayName] = datumPair.datum.count;
+        measures[datumPair.series.displayName] = datumPair.datum.count as num;
       });
     }
 
@@ -57,32 +62,37 @@ class SimpleBarChartState extends State<SimpleBarChart> {
 
   @override
   Widget build(BuildContext context) {
-    Intl.defaultLocale = 'ru';
-    var f = new NumberFormat();
+    var f = NumberFormat();
 
     final children = <Widget>[
-      new Expanded(
-          child: new charts.BarChart(
+      Expanded(
+          child: charts.TimeSeriesChart(
             widget.seriesList,
             animate: widget.animate,
             selectionModels: [
-              new charts.SelectionModelConfig(
+              charts.SelectionModelConfig(
                 type: charts.SelectionModelType.info,
                 listener: _onSelectionChanged,
               )
             ],
+            dateTimeFactory: const charts.LocalDateTimeFactory(),
             //barRendererDecorator: new charts.BarLabelDecorator<String>(),
-            vertical: true,
           ),
+
       )
     ];
     // If there is a selection, then include the details.
     if (_period != null) {
+
+      children.add(Padding(
+          padding: EdgeInsets.only(top: 5.0),
+          child: Text(_period+' год')));
+
     }
     _measures?.forEach((String series, num value) {
       var value1 = f.format(value);
-      children.add(new Text('$value1 '+widget.units,
-      style: new TextStyle(
+      children.add(Text('$value1 '+widget.units,
+      style: TextStyle(
         fontSize: 16.0,
         color: Colors.cyan[800]
       ),));
@@ -90,7 +100,7 @@ class SimpleBarChartState extends State<SimpleBarChart> {
 
     return Padding(
       padding: const EdgeInsets.only(bottom: 8.0),
-      child: new Column(children: children),
+      child: Column(children: children),
     );
   }
 

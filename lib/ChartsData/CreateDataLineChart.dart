@@ -6,14 +6,14 @@ import 'package:charts_flutter/flutter.dart' as charts;
 
 class CreateDataLineChart {
   static Future<List<charts.Series<LineChartData, DateTime>>> createData(
-      List<String> loadUrl, List color) async {
+      List<String> loadUrl, List<charts.Color> color) async {
     var seriesData = List<charts.Series<LineChartData, DateTime>>();
 
     for (int i = 0; i < loadUrl.length; i++) {
       final data = await _fetchData(http.Client(), loadUrl[i]);
       var id = 'ChartData' + ' ' + i.toString();
 
-      seriesData.add(new charts.Series<LineChartData, DateTime>(
+      seriesData.add(charts.Series<LineChartData, DateTime>(
         id: id,
         domainFn: (LineChartData series, _) => series.period,
         measureFn: (LineChartData series, _) => series.count,
@@ -36,11 +36,8 @@ class CreateDataLineChart {
 }
 
 List<LineChartData> parseChartData(String responseBody) {
-  final parsed = json.decode(responseBody).cast<Map<String, dynamic>>();
-
-  return parsed
-      .map<LineChartData>((json) => LineChartData.fromJson(json))
-      .toList();
+  List<LineChartData> dataList = json.decode(responseBody) as List;
+  return dataList.cast<Map<String, int>>().map((json) => LineChartData.fromJson(json)).toList();
 }
 
 class LineChartData {
@@ -49,10 +46,10 @@ class LineChartData {
 
   LineChartData({this.period, this.count});
 
-  factory LineChartData.fromJson(Map<String, dynamic> json) {
+  factory LineChartData.fromJson(Map<String, int> json) {
     final count = json['number'];
-    final year = int.parse(json['year']);
-    DateTime period = new DateTime(year, 1, 1);
+    final year = json['year'];
+    DateTime period = DateTime(year, 1, 1);
 
 /*
     // проверка значений

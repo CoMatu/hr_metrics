@@ -5,8 +5,8 @@ import 'package:hr_metrics/LoginScreen.dart';
 
 class Routes {
   var routes = <String, WidgetBuilder>{
-    "/Login": (BuildContext context) => new LoginScreen(),
-    "/Dashboard": (BuildContext context) => new DashboardScreen(),
-    "/CheckAuth": (BuildContext context) => new CheckAuth(),
+    "/Login": (BuildContext context) => LoginScreen(),
+    "/Dashboard": (BuildContext context) => DashboardScreen(),
+    "/CheckAuth": (BuildContext context) => CheckAuth(),
   };
 }
