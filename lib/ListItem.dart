@@ -14,8 +14,7 @@ import 'package:hr_metrics/FullscreenView.dart';
 class ListItem extends StatelessWidget {
   final ChartEntry chartEntry;
   final List<charts.Color> color;
-//TODO Как кэшировать данные графиков?
-  //TODO разные Item для разных карточек
+
   ListItem(this.chartEntry, this.color);
 
   @override
@@ -36,17 +35,19 @@ class ListItem extends StatelessWidget {
                     ),
                   ),
                 ),
-              IconButton(
-                  icon: Icon(Icons.fullscreen,
-                  size: 26.0,),
-                  onPressed: (){
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) =>
-                          FullscreenView(chartEntry, color)
-                      ),
-                    );
-                  })
+                IconButton(
+                    icon: Icon(
+                      Icons.fullscreen,
+                      size: 26.0,
+                    ),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                FullscreenView(chartEntry, color)),
+                      );
+                    })
 /*                Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Icon(Icons.fullscreen,
@@ -67,11 +68,18 @@ class ListItem extends StatelessWidget {
                       var command = chartEntry.chartType;
                       switch (command) {
                         case 10:
-                          return SimpleBarChart(snapshot.data as List<charts.Series<dynamic, String>>, chartEntry.units);
+                          return SimpleBarChart(
+                              snapshot.data
+                                  as List<charts.Series<dynamic, String>>,
+                              chartEntry.units);
                         case 20:
-                          return LineChart(snapshot.data as List<charts.Series<dynamic, DateTime>>, chartEntry.units);
+                          return LineChart(
+                              snapshot.data
+                                  as List<charts.Series<dynamic, DateTime>>,
+                              chartEntry.units);
                         case 30:
-                          return DonutAutoLabelChart(snapshot.data as List<charts.Series>);
+                          return DonutAutoLabelChart(
+                              snapshot.data as List<charts.Series>);
                       }
                     }
                   },
@@ -94,11 +102,11 @@ class ListItem extends StatelessWidget {
         return result;
       case 20:
         result = await _createLineData(chartEntry.loadUrl, color, chartType)
-        as List<charts.Series<ChartData, String>>;
+            as List<charts.Series<ChartData, String>>;
         return result;
       case 30:
         result = await _createDonutData(chartEntry.loadUrl, color, chartType)
-        as List<charts.Series<ChartData, String>>;
+            as List<charts.Series<ChartData, String>>;
         return result;
     }
   }
@@ -106,7 +114,7 @@ class ListItem extends StatelessWidget {
   static Future<List<charts.Series<ChartData, String>>> _createData(
       List<String> loadUrl, List<charts.Color> color, int chartType) async {
     Future<List<charts.Series<ChartData, String>>> dataCh =
-    CreateDataBarChart.createData(loadUrl, color);
+        CreateDataBarChart.createData(loadUrl, color);
     return dataCh;
   }
 

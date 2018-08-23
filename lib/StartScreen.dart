@@ -5,7 +5,6 @@ class StartScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var logo = AssetImage('assets/logo.png');
-    // TODO: implement build
     return Scaffold(
       appBar: AppBar(),
         body: Container(

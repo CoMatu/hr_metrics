@@ -42,7 +42,6 @@ class DashboardScreenState extends State<DashboardScreen> {
         title: Text('ИНФОПАНЕЛЬ'),
       ),
       drawer: Drawer(
-//TODO боковое меню
         child: Column(
           children: <Widget>[
             FutureBuilder(
