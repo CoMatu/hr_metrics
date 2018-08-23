@@ -16,6 +16,8 @@ part of 'serializers.dart';
 // ignore_for_file: prefer_expression_function_bodies
 // ignore_for_file: sort_constructors_first
 
-Serializers _$serializers = (Serializers().toBuilder()
-      ..add(Dashboard.serializer))
+Serializers _$serializers = (new Serializers().toBuilder()
+      ..add(BarData.serializer)
+      ..add(Dashboard.serializer)
+      ..add(LineData.serializer))
     .build();

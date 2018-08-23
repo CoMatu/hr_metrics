@@ -10,12 +10,6 @@ class SimpleBarChart extends StatefulWidget {
 
   SimpleBarChart(this.seriesList, this.units, {this.animate});
 
-  factory SimpleBarChart.withData() {
-    var bar = SimpleBarChart.withData();
-    return bar;
-  }
-
-
   @override
   SimpleBarChartState createState() {
     return SimpleBarChartState();
