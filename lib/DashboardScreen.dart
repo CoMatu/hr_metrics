@@ -8,7 +8,6 @@ import 'package:hr_metrics/DashboardItem.dart';
 import 'package:hr_metrics/LoginScreen.dart';
 import 'package:hr_metrics/models/dashboard.dart';
 import 'package:hr_metrics/models/serializers.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 
@@ -47,95 +46,96 @@ class DashboardScreenState extends State<DashboardScreen> {
             FutureBuilder(
                 future: _function(),
                 builder: (BuildContext context, AsyncSnapshot snapshot) {
-                  return UserAccountsDrawerHeader(
-                    accountName: Text(
-                      username,
-                      style: TextStyle(fontSize: 20.0),
-                    ),
+                  return Expanded(
+                      child:
+                      ListView(
+                        shrinkWrap: true,
+                        children: <Widget>[
+                      UserAccountsDrawerHeader(
+                      accountName: Text(
+                        username,
+                        style: TextStyle(fontSize: 20.0),
+                      ),
                     accountEmail: null,
                     currentAccountPicture: Icon(Icons.account_circle,
-                    size: 100.0,
-                    color: Colors.white,),
+                      size: 100.0,
+                      color: Colors.white,),
                     decoration: BoxDecoration(color: Colors.grey[300]),
+                  ),
+                          ListTile(
+                            title: Text(
+                              'ЧИСЛЕННОСТЬ',
+                              style:
+                              TextStyle(fontSize: 20.0, color: Colors.grey[700],
+                                  fontFamily: 'Oswald'),
+                            ),
+                            onTap: (){
+                              Navigator.pop(context);
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        ChartView(dataHeadcount, 'ЧИСЛЕННОСТЬ')),
+                              );
+                            },
+                            trailing: Icon(Icons.group),
+                          ),
+                          ListTile(
+                            title: Text(
+                              'ЗАРПЛАТА',
+                              style:
+                              TextStyle(fontSize: 20.0, color: Colors.grey[700],
+                                  fontFamily: 'Oswald'),
+                            ),
+                            onTap: () {
+                              Navigator.pop(context);
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => ChartView(dataSalary, 'ЗАРПЛАТА')),
+                              );
+                            },
+                            trailing: Icon(Icons.attach_money),
+                          ),
+                          ListTile(
+                            title: Text(
+                              'ТЕКУЧЕСТЬ',
+                              style:
+                              TextStyle(fontSize: 20.0, color: Colors.grey[700],
+                                  fontFamily: 'Oswald'),
+                            ),
+                            onTap: () {
+                              Navigator.pop(context);
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        ChartView(dataTurnover, 'ТЕКУЧЕСТЬ КАДРОВ')),
+                              );
+                            },
+                            trailing: Icon(Icons.donut_small),
+                          ),
+                          ListTile(
+                            title: Text(
+                              'Выход из аккаунта',
+                              //TODO сделать логаут в другом месте
+                              style:
+                              TextStyle(fontSize:18.0, color: Colors.red),
+                            ),
+                            onTap: () {
+                              _logoutUser();
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => LoginScreen()),
+                              );
+                            },
+                          ),
+                        ],
+                      )
                   );
+
                 }),
-            Expanded(
-              child:
-              ListView(
-                shrinkWrap: true,
-                children: <Widget>[
-                  ListTile(
-                    title: Text(
-                      'ЧИСЛЕННОСТЬ',
-                      style:
-                      TextStyle(fontSize: 20.0, color: Colors.grey[700],
-                      fontFamily: 'Oswald'),
-                    ),
-                    onTap: (){
-                      Navigator.pop(context);
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) =>
-                                ChartView(dataHeadcount, 'ЧИСЛЕННОСТЬ')),
-                      );
-                    },
-                    trailing: Icon(Icons.group),
-                  ),
-                  ListTile(
-                    title: Text(
-                      'ЗАРПЛАТА',
-                      style:
-                      TextStyle(fontSize: 20.0, color: Colors.grey[700],
-                          fontFamily: 'Oswald'),
-                    ),
-                    onTap: () {
-                      Navigator.pop(context);
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => ChartView(dataSalary, 'ЗАРПЛАТА')),
-                      );
-                    },
-                    trailing: Icon(Icons.attach_money),
-                  ),
-                  ListTile(
-                    title: Text(
-                      'ТЕКУЧЕСТЬ',
-                      style:
-                      TextStyle(fontSize: 20.0, color: Colors.grey[700],
-                          fontFamily: 'Oswald'),
-                    ),
-                    onTap: () {
-                      Navigator.pop(context);
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) =>
-                                ChartView(dataTurnover, 'ТЕКУЧЕСТЬ КАДРОВ')),
-                      );
-                    },
-                    trailing: Icon(Icons.donut_small),
-                  ),
-                  ListTile(
-                    title: Text(
-                      'Выход из аккаунта',
-                      //TODO сделать логаут в другом месте
-                      style:
-                      TextStyle(fontSize:18.0, color: Colors.red),
-                    ),
-                    onTap: () {
-                      _logoutUser();
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => LoginScreen()),
-                      );
-                    },
-                  ),
-                ],
-              )
-            )
           ],
         ),
       ),
@@ -203,14 +203,7 @@ class DashboardScreenState extends State<DashboardScreen> {
   }
 
   Future<DataSnapshot> _getDatabaseData() async {
-    final FirebaseApp app = await FirebaseApp.configure(
-      name: 'hr-metrics',
-      options: const FirebaseOptions(
-          apiKey: 'AIzaSyCkbkGrtOChRiDsrRvp_kzMJn_VZqI9M7U',
-          databaseURL: 'https://hr-metrics-85b07.firebaseio.com/',
-          googleAppID: '1:525720506365:android:dd3d45e37ad67662'),
-    );
-    FirebaseDatabase database = FirebaseDatabase(app: app);
+    FirebaseDatabase database = FirebaseDatabase();
     return database.reference().child('dashboardList').once();
   }
 
@@ -277,6 +270,7 @@ List<ChartEntry> dataTurnover = [
   ChartEntry(20, ['turnoverData'],
       'Текучесть кадров, %', [charts.MaterialPalette.pink.shadeDefault], '%'),
 ];
+/*
 List<ChartEntry> dataFot = [
   ChartEntry(
       10,
@@ -285,3 +279,4 @@ List<ChartEntry> dataFot = [
       [charts.MaterialPalette.cyan.shadeDefault],
       'тыс.руб.'),
 ];
+*/

@@ -1,20 +1,17 @@
 import 'dart:async';
-import 'dart:convert';
 
 import 'package:firebase_database/firebase_database.dart';
-import 'package:hr_metrics/models/bardata.dart';
 import 'package:hr_metrics/models/linedata.dart';
 import 'package:hr_metrics/models/serializers.dart';
-import 'package:http/http.dart' as http;
 import 'package:charts_flutter/flutter.dart' as charts;
 
 class CreateDataLineChart {
   static Future<List<charts.Series<LineData, DateTime>>> createData(
-      List<String> loadUrl, List<charts.Color> color) async {
+      List<String> databaseRefName, List<charts.Color> color) async {
     var seriesData = List<charts.Series<LineData, DateTime>>();
 
-    for (int i = 0; i < loadUrl.length; i++) {
-      final data = await _fetchData(loadUrl[i]);
+    for (int i = 0; i < databaseRefName.length; i++) {
+      final data = await _fetchData(databaseRefName[i]);
       var id = 'ChartData' + ' ' + i.toString();
 
       seriesData.add(charts.Series<LineData, DateTime>(

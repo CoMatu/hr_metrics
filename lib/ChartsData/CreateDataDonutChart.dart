@@ -6,11 +6,11 @@ import 'package:charts_flutter/flutter.dart' as charts;
 
 class CreateDataDonutChart {
   static Future<List<charts.Series<DonutChartData, String>>> createData(
-      List<String> loadUrl, List<charts.Color> color) async {
+      List<String> databaseRefName, List<charts.Color> color) async {
     var seriesData = List<charts.Series<DonutChartData, String>>();
 
-    for (int i = 0; i < loadUrl.length; i++) {
-      final data = await _fetchData(http.Client(), loadUrl[i]);
+    for (int i = 0; i < databaseRefName.length; i++) {
+      final data = await _fetchData(http.Client(), databaseRefName[i]);
       var id = 'ChartData' + ' ' + i.toString();
 
       seriesData.add(charts.Series<DonutChartData, String>(

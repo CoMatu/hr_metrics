@@ -11,10 +11,12 @@ class LineChart extends StatefulWidget {
 
   LineChart(this.seriesList, this.units, {this.animate});
 
+/*
   factory LineChart.withData() {
     var bar = LineChart.withData();
     return bar;
   }
+*/
 
   @override
   LineChartState createState() {

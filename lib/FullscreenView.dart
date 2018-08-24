@@ -17,7 +17,7 @@ class FullscreenView extends StatelessWidget {
   final List<charts.Color> color;
   final Key key;
 
-  FullscreenView(this.chartEntry, this.color, {this.key});
+  FullscreenView(this.chartEntry, {this.color, this.key});
 
   @override
   Widget build(BuildContext context) {
@@ -72,13 +72,13 @@ class FullscreenView extends StatelessWidget {
     var chartType = chartEntry.chartType;
     switch (chartType) {
       case 10:
-        result = await _createData(chartEntry.loadUrl, color, chartType);
+        result = await _createData(chartEntry.databaseRefName, chartEntry.color, chartType);
         return result;
       case 20:
-        result =await _createLineData(chartEntry.loadUrl, color, chartType);
+        result =await _createLineData(chartEntry.databaseRefName, chartEntry.color, chartType);
         return result;
       case 30:
-        result = await _createDonutData(chartEntry.loadUrl, color, chartType);
+        result = await _createDonutData(chartEntry.databaseRefName, chartEntry.color, chartType);
         return result;
     }
   }

@@ -1,19 +1,17 @@
 import 'dart:async';
-import 'dart:convert';
 
 import 'package:firebase_database/firebase_database.dart';
 import 'package:hr_metrics/models/bardata.dart';
 import 'package:hr_metrics/models/serializers.dart';
-import 'package:http/http.dart' as http;
 import 'package:charts_flutter/flutter.dart' as charts;
 
 class CreateDataBarChart {
   static Future<List<charts.Series<BarData, String>>> createData(
-      List<String> loadUrl, List<charts.Color> color) async {
+      List<String> databaseRefName, List<charts.Color> color) async {
     var seriesCh = List<charts.Series<BarData, String>>();
 
-    for (int i = 0; i < loadUrl.length; i++) {
-      final data = await _fetchData(loadUrl[i]);
+    for (int i = 0; i < databaseRefName.length; i++) {
+      final data = await _fetchData(databaseRefName[i]);
       var id = 'ChartData' + ' ' + i.toString();
       var dataChart = charts.Series<BarData, String>(
         id: id,

@@ -46,8 +46,7 @@ class ListItem extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) =>
-                                FullscreenView(chartEntry, color)),
+                            builder: (context) => FullscreenView(chartEntry)),
                       );
                     })
 /*                Padding(
@@ -96,21 +95,19 @@ class ListItem extends StatelessWidget {
 
   // ignore: missing_return
   Future _fetchData() async {
-    List<charts.Series<BarData, String>> result;
     var chartType = chartEntry.chartType;
     switch (chartType) {
       case 10:
-        result =
-            await _createData(chartEntry.loadUrl, chartEntry.color, chartType);
+        List<charts.Series<BarData, String>> result =
+            await _createData(chartEntry.databaseRefName, chartEntry.color, chartType);
         return result;
       case 20:
-        result = await _createLineData(
-                chartEntry.loadUrl, chartEntry.color, chartType)
-            as List<charts.Series<BarData, String>>;
+        List<charts.Series<LineData, DateTime>> result = await _createLineData(
+            chartEntry.databaseRefName, chartEntry.color, chartType);
         return result;
       case 30:
-        result = await _createDonutData(
-                chartEntry.loadUrl, chartEntry.color, chartType)
+        List<charts.Series<BarData, String>> result = await _createDonutData(
+                chartEntry.databaseRefName, chartEntry.color, chartType)
             as List<charts.Series<BarData, String>>;
         return result;
     }
@@ -125,15 +122,15 @@ class ListItem extends StatelessWidget {
 
   static Future<List<charts.Series<LineData, DateTime>>> _createLineData(
       List<String> loadUrl, List<charts.Color> color, int chartType) async {
-    Future<List<charts.Series<LineData, DateTime>>> dataLnCh;
-    dataLnCh = CreateDataLineChart.createData(loadUrl, color);
+    Future<List<charts.Series<LineData, DateTime>>> dataLnCh =
+        CreateDataLineChart.createData(loadUrl, color);
     return dataLnCh;
   }
 
   static Future<List<charts.Series<DonutChartData, String>>> _createDonutData(
       List<String> loadUrl, List<charts.Color> color, int chartType) async {
-    Future<List<charts.Series<DonutChartData, String>>> dataDnCh;
-    dataDnCh = CreateDataDonutChart.createData(loadUrl, color);
+    Future<List<charts.Series<DonutChartData, String>>> dataDnCh =
+        CreateDataDonutChart.createData(loadUrl, color);
     return dataDnCh;
   }
 }
