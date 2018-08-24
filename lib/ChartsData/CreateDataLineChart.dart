@@ -1,24 +1,28 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:firebase_database/firebase_database.dart';
+import 'package:hr_metrics/models/bardata.dart';
+import 'package:hr_metrics/models/linedata.dart';
+import 'package:hr_metrics/models/serializers.dart';
 import 'package:http/http.dart' as http;
 import 'package:charts_flutter/flutter.dart' as charts;
 
 class CreateDataLineChart {
-  static Future<List<charts.Series<LineChartData, DateTime>>> createData(
+  static Future<List<charts.Series<LineData, DateTime>>> createData(
       List<String> loadUrl, List<charts.Color> color) async {
-    var seriesData = List<charts.Series<LineChartData, DateTime>>();
+    var seriesData = List<charts.Series<LineData, DateTime>>();
 
     for (int i = 0; i < loadUrl.length; i++) {
-      final data = await _fetchData(http.Client(), loadUrl[i]);
+      final data = await _fetchData(loadUrl[i]);
       var id = 'ChartData' + ' ' + i.toString();
 
-      seriesData.add(charts.Series<LineChartData, DateTime>(
+      seriesData.add(charts.Series<LineData, DateTime>(
         id: id,
-        domainFn: (LineChartData series, _) => series.period,
-        measureFn: (LineChartData series, _) => series.count,
+        domainFn: (LineData series, _) => series.period,
+        measureFn: (LineData series, _) => series.count,
         data: data,
-        labelAccessorFn: (LineChartData series, _) => '${series.count
+        labelAccessorFn: (LineData series, _) => '${series.count
             .toString()}',
         colorFn: (_, __) => color[i],
       ));
@@ -26,15 +30,27 @@ class CreateDataLineChart {
     return seriesData;
   }
 
-  static Future<List<LineChartData>> _fetchData(
-      http.Client client, String loadUrl) async {
-    final response = await client.get(loadUrl);
+  static Future<List<LineData>> _fetchData(String loadUrl) async {
+    List snapdata = List();
+    List<LineData> linedataList = List();
+    FirebaseDatabase database = FirebaseDatabase.instance;
+    var snapshot = await database.reference().child(loadUrl).once();
 
-//    return compute(parseChartData, response.body); выдает ошибку
-    return parseChartData(response.body);
+    for (var value in snapshot.value) {
+      snapdata.add(value);
+    }
+    for (int i = 0; i < snapdata.length; i++) {
+      Map<String, dynamic> data = Map.from(snapdata[i] as Map);
+      LineData lineData =
+      serializers.deserializeWith(LineData.serializer, data);
+      linedataList.add(lineData);
+    }
+    return linedataList;
+
   }
 }
 
+/*
 List<LineChartData> parseChartData(String responseBody) {
   List<LineChartData> dataList = json.decode(responseBody) as List;
   return dataList.cast<Map<String, int>>().map((json) => LineChartData.fromJson(json)).toList();
@@ -51,13 +67,16 @@ class LineChartData {
     final year = json['year'];
     DateTime period = DateTime(year, 1, 1);
 
+*/
 /*
     // проверка значений
     print(json);
     print(period);
     print(count);
-*/
+*//*
+
 
     return LineChartData(period: period, count: count);
   }
 }
+*/

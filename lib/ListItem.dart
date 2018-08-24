@@ -11,6 +11,7 @@ import 'package:hr_metrics/ChartsData/CreateDataDonutChart.dart';
 import 'package:hr_metrics/ChartsData/CreateDataLineChart.dart';
 import 'package:hr_metrics/FullscreenView.dart';
 import 'package:hr_metrics/models/bardata.dart';
+import 'package:hr_metrics/models/linedata.dart';
 
 class ListItem extends StatelessWidget {
   final ChartEntry chartEntry;
@@ -99,14 +100,17 @@ class ListItem extends StatelessWidget {
     var chartType = chartEntry.chartType;
     switch (chartType) {
       case 10:
-        result = await _createData(chartEntry.loadUrl, chartEntry.color, chartType);
+        result =
+            await _createData(chartEntry.loadUrl, chartEntry.color, chartType);
         return result;
       case 20:
-        result = await _createLineData(chartEntry.loadUrl, color, chartType)
+        result = await _createLineData(
+                chartEntry.loadUrl, chartEntry.color, chartType)
             as List<charts.Series<BarData, String>>;
         return result;
       case 30:
-        result = await _createDonutData(chartEntry.loadUrl, color, chartType)
+        result = await _createDonutData(
+                chartEntry.loadUrl, chartEntry.color, chartType)
             as List<charts.Series<BarData, String>>;
         return result;
     }
@@ -119,9 +123,9 @@ class ListItem extends StatelessWidget {
     return dataCh;
   }
 
-  static Future<List<charts.Series<LineChartData, DateTime>>> _createLineData(
+  static Future<List<charts.Series<LineData, DateTime>>> _createLineData(
       List<String> loadUrl, List<charts.Color> color, int chartType) async {
-    Future<List<charts.Series<LineChartData, DateTime>>> dataLnCh;
+    Future<List<charts.Series<LineData, DateTime>>> dataLnCh;
     dataLnCh = CreateDataLineChart.createData(loadUrl, color);
     return dataLnCh;
   }

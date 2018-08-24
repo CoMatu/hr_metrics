@@ -10,6 +10,7 @@ import 'package:hr_metrics/ChartsData/CreateDataBarChart.dart';
 import 'package:hr_metrics/ChartsData/CreateDataDonutChart.dart';
 import 'package:hr_metrics/ChartsData/CreateDataLineChart.dart';
 import 'package:hr_metrics/models/bardata.dart';
+import 'package:hr_metrics/models/linedata.dart';
 
 class FullscreenView extends StatelessWidget {
   final ChartEntry chartEntry;
@@ -89,9 +90,9 @@ class FullscreenView extends StatelessWidget {
     return dataCh;
   }
 
-  static Future<List<charts.Series<LineChartData, DateTime>>> _createLineData(
+  static Future<List<charts.Series<LineData, DateTime>>> _createLineData(
       List<String> loadUrl, List<charts.Color> color, int chartType) async {
-    Future<List<charts.Series<LineChartData, DateTime>>> dataLnCh =
+    Future<List<charts.Series<LineData, DateTime>>> dataLnCh =
         CreateDataLineChart.createData(loadUrl, color);
     return dataLnCh;
   }
