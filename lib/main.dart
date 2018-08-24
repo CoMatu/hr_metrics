@@ -13,8 +13,8 @@ void main() {
         scaffoldBackgroundColor: Colors.grey[200]),
     debugShowCheckedModeBanner: false,
       home:
-      SimpleBar.withSampleData(),
-//      CheckAuth(),
+//      SimpleBar.withSampleData(),
+      CheckAuth(),
       routes: <String, WidgetBuilder>{
       },
   ));

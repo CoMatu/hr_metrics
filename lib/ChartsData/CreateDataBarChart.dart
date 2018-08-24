@@ -2,23 +2,25 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:firebase_database/firebase_database.dart';
+import 'package:hr_metrics/models/bardata.dart';
+import 'package:hr_metrics/models/serializers.dart';
 import 'package:http/http.dart' as http;
 import 'package:charts_flutter/flutter.dart' as charts;
 
 class CreateDataBarChart {
-  static Future<List<charts.Series<ChartData, String>>> createData(
+  static Future<List<charts.Series<BarData, String>>> createData(
       List<String> loadUrl, List<charts.Color> color) async {
-    var seriesCh = List<charts.Series<ChartData, String>>();
+    var seriesCh = List<charts.Series<BarData, String>>();
 
     for (int i = 0; i < loadUrl.length; i++) {
-      final data = await _fetchData(http.Client(), loadUrl[i]);
+      final data = await _fetchData(loadUrl[i]);
       var id = 'ChartData' + ' ' + i.toString();
-      var dataChart = charts.Series<ChartData, String>(
+      var dataChart = charts.Series<BarData, String>(
         id: id,
-        domainFn: (ChartData series, _) => series.period,
-        measureFn: (ChartData series, _) => series.count,
+        domainFn: (BarData series, _) => series.period,
+        measureFn: (BarData series, _) => series.count,
         data: data,
-        labelAccessorFn: (ChartData series, _) => '${series.count.toString()}',
+        labelAccessorFn: (BarData series, _) => '${series.count.toString()}',
         colorFn: (_, __) => color[i],
       );
       seriesCh.add(dataChart);
@@ -26,6 +28,25 @@ class CreateDataBarChart {
     return seriesCh;
   }
 
+  static Future<List<BarData>> _fetchData(String loadUrl) async {
+    List snapdata = List();
+    List<BarData> bardataList = List();
+    FirebaseDatabase database = FirebaseDatabase.instance;
+    var snapshot = await database.reference().child(loadUrl).once();
+
+    for (var value in snapshot.value) {
+      snapdata.add(value);
+    }
+    for (int i = 0; i < snapdata.length; i++) {
+      Map<String, dynamic> data = Map.from(snapdata[i] as Map);
+      BarData barData =
+      serializers.deserializeWith(BarData.serializer, data);
+      bardataList.add(barData);
+    }
+    return bardataList;
+  }
+
+/*
   static Future<List<ChartData>> _fetchData(
       http.Client client, String loadUrl) async {
     final response = await client.get(loadUrl);
@@ -33,8 +54,10 @@ class CreateDataBarChart {
 //    return compute(parseChartData, response.body); выдает ошибку
     return parseChartData(response.body);
   }
+*/
 }
 
+/*
 List<ChartData> parseChartData(String responseBody) {
   List<ChartData> dataList = json.decode(responseBody) as List;
   return dataList
@@ -56,3 +79,4 @@ class ChartData {
     );
   }
 }
+*/

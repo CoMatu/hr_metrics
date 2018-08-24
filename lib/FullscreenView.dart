@@ -9,6 +9,7 @@ import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:hr_metrics/ChartsData/CreateDataBarChart.dart';
 import 'package:hr_metrics/ChartsData/CreateDataDonutChart.dart';
 import 'package:hr_metrics/ChartsData/CreateDataLineChart.dart';
+import 'package:hr_metrics/models/bardata.dart';
 
 class FullscreenView extends StatelessWidget {
   final ChartEntry chartEntry;
@@ -81,9 +82,9 @@ class FullscreenView extends StatelessWidget {
     }
   }
 
-  static Future<List<charts.Series<ChartData, String>>> _createData(
+  static Future<List<charts.Series<BarData, String>>> _createData(
       List<String> loadUrl, List<charts.Color> color, int chartType) async {
-    Future<List<charts.Series<ChartData, String>>> dataCh =
+    Future<List<charts.Series<BarData, String>>> dataCh =
         CreateDataBarChart.createData(loadUrl, color);
     return dataCh;
   }

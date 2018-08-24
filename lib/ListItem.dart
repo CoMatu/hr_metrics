@@ -10,12 +10,13 @@ import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:hr_metrics/ChartsData/CreateDataDonutChart.dart';
 import 'package:hr_metrics/ChartsData/CreateDataLineChart.dart';
 import 'package:hr_metrics/FullscreenView.dart';
+import 'package:hr_metrics/models/bardata.dart';
 
 class ListItem extends StatelessWidget {
   final ChartEntry chartEntry;
   final List<charts.Color> color;
 
-  ListItem(this.chartEntry, this.color);
+  ListItem(this.chartEntry, {this.color});
 
   @override
   Widget build(BuildContext context) {
@@ -94,26 +95,26 @@ class ListItem extends StatelessWidget {
 
   // ignore: missing_return
   Future _fetchData() async {
-    List<charts.Series<ChartData, String>> result;
+    List<charts.Series<BarData, String>> result;
     var chartType = chartEntry.chartType;
     switch (chartType) {
       case 10:
-        result = await _createData(chartEntry.loadUrl, color, chartType);
+        result = await _createData(chartEntry.loadUrl, chartEntry.color, chartType);
         return result;
       case 20:
         result = await _createLineData(chartEntry.loadUrl, color, chartType)
-            as List<charts.Series<ChartData, String>>;
+            as List<charts.Series<BarData, String>>;
         return result;
       case 30:
         result = await _createDonutData(chartEntry.loadUrl, color, chartType)
-            as List<charts.Series<ChartData, String>>;
+            as List<charts.Series<BarData, String>>;
         return result;
     }
   }
 
-  static Future<List<charts.Series<ChartData, String>>> _createData(
+  static Future<List<charts.Series<BarData, String>>> _createData(
       List<String> loadUrl, List<charts.Color> color, int chartType) async {
-    Future<List<charts.Series<ChartData, String>>> dataCh =
+    Future<List<charts.Series<BarData, String>>> dataCh =
         CreateDataBarChart.createData(loadUrl, color);
     return dataCh;
   }

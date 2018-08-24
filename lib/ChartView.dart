@@ -16,7 +16,7 @@ class ChartView extends StatelessWidget {
         List<ChartEntry> chartEntryList, String title) {
       List<Widget> items = List();
       for (int i = 0; i < chartEntryList.length; i++) {
-        items.add(ListItem(chartEntryList[i], color));
+        items.add(ListItem(chartEntryList[i]));
       }
       return items;
     }

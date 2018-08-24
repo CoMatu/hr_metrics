@@ -5,6 +5,7 @@ import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:hr_metrics/models/bardata.dart';
+import 'package:hr_metrics/models/serializers.dart';
 
 class SimpleBar extends StatelessWidget {
   final List<charts.Series<dynamic, String>> seriesList;
@@ -70,9 +71,9 @@ class OrdinalSales {
 class CreateDataBarChart {
   static Future<List<charts.Series<BarData, String>>> createData() async {
     var seriesCh = List<charts.Series<BarData, String>>();
+    final data = await _fetchData();
 
     for (int i = 0; i < 3; i++) {
-      final data = await _fetchData();
       var id = 'ChartData' + ' ' + i.toString();
       var dataChart = charts.Series<BarData, String>(
         id: id,
@@ -86,13 +87,22 @@ class CreateDataBarChart {
     }
     return seriesCh;
   }
-
+//формирует список объектов BarData
   static Future<List<BarData>> _fetchData() async {
-    List<BarData> bsD = List();
+    List snapdata = List();
+    List<BarData> bardataList = List();
     FirebaseDatabase database = FirebaseDatabase.instance;
     var snapshot = await database.reference().child("headcountData").once();
-    bsD = snapshot.value as List<BarData>;
-    print(snapshot);
-    return bsD;
+
+    for (var value in snapshot.value) {
+      snapdata.add(value);
+    }
+    for (int i = 0; i < snapdata.length; i++) {
+      Map<String, dynamic> data = Map.from(snapdata[i] as Map);
+      BarData barData =
+      serializers.deserializeWith(BarData.serializer, data);
+      bardataList.add(barData);
+    }
+return bardataList;
   }
 }

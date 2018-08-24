@@ -270,7 +270,7 @@ List<ChartEntry> dataSalary = [
 ];
 
 List<ChartEntry> dataHeadcount = [
-  ChartEntry(10, ['http://skazkimal.ru/hr-metrics/headcount.json'],
+  ChartEntry(10, ['headcountData'],
       'Численность, чел.', [charts.MaterialPalette.blue.shadeDefault], 'чел.'),
 ];
 List<ChartEntry> dataTurnover = [
