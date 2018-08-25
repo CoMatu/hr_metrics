@@ -15,7 +15,7 @@
     <application
         android:name="io.flutter.app.FlutterApplication"
         android:label="hr_metrics"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/icon_metrics">
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"

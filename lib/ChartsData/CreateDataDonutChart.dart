@@ -22,7 +22,7 @@ class CreateDataDonutChart {
         data: data,
         labelAccessorFn: (DonutData series, _) =>
             '${series.count.toString()}',
-        colorFn: (_, __) => color[i],
+//        colorFn: (_, __) => color[i],
       ));
     }
     return seriesData;

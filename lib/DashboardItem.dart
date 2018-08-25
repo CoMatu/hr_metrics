@@ -2,6 +2,8 @@
 //import 'package:firebase_core/firebase_core.dart';
 
 import 'package:flutter/material.dart';
+import 'package:hr_metrics/ChartView.dart';
+import 'package:hr_metrics/DashboardScreen.dart';
 import 'package:hr_metrics/models/dashboard.dart';
 import 'package:intl/intl.dart';
 
@@ -43,12 +45,17 @@ class DashboardItem extends StatelessWidget {
                       child: Center(
                         child: Column(
                           children: <Widget>[
-                            Text(
-                              f.format(dashboard.mainIndicator).toString(),
-                              style: TextStyle(
-                                  fontSize: 48.0,
-                                  fontFamily: 'Oswald',
-                                  color: _getColor()),
+                            FlatButton(
+                              child: Text(
+                                f.format(dashboard.mainIndicator).toString(),
+                                style: TextStyle(
+                                    fontSize: 48.0,
+                                    fontFamily: 'Oswald',
+                                    color: _getColor()),
+                              ),
+                              onPressed: (){
+                                _getRoute(context);
+                              },
                             ),
                             Text(
                               dashboard.mainIndicatorUnit,
@@ -215,11 +222,45 @@ class DashboardItem extends StatelessWidget {
     }
   }
 
+  void _getRoute(BuildContext context) {
+    var getRoute;
+    var chartType = dashboard.dashboardItemType;
+    switch (chartType) {
+      case 1:
+        getRoute = Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) =>
+                  ChartView(dataHeadcount, 'ЧИСЛЕННОСТЬ')),
+        );
+        return getRoute;
+      case 2:
+        getRoute = Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) =>
+                  ChartView(dataSalary, 'ЗАРПЛАТА')),
+        );
+        return getRoute;
+      case 3:
+        getRoute = Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) =>
+                  ChartView(dataTurnover, 'ТЕКУЧЕСТЬ КАДРОВ')),
+        );
+        return getRoute;
+    }
+
+  }
+
 }
 
 double _itemSize(Size screenSize) {
   var size = (screenSize.height-100)/3;
   if(size < 175.0) {
+    size = 175.0;
+  } if(size > 195.0){
     size = 175.0;
   }
   return size;

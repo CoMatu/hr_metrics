@@ -267,7 +267,7 @@ List<ChartEntry> dataHeadcount = [
       'Численность, чел.', [charts.MaterialPalette.blue.shadeDefault], 'чел.'),
 ];
 List<ChartEntry> dataTurnover = [
-  ChartEntry(30, ['turnoverData'],
+  ChartEntry(20, ['turnoverData'],
       'Текучесть кадров, %', [charts.MaterialPalette.pink.shadeDefault], '%'),
 ];
 /*
