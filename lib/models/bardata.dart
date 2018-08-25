@@ -6,7 +6,7 @@ part 'bardata.g.dart';
 abstract class BarData implements Built<BarData, BarDataBuilder> {
 
   String get period;
-  int get count;
+  double get count;
 
   static Serializer<BarData> get serializer => _$barDataSerializer;
   BarData._();

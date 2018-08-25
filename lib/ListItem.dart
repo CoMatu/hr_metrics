@@ -11,6 +11,7 @@ import 'package:hr_metrics/ChartsData/CreateDataDonutChart.dart';
 import 'package:hr_metrics/ChartsData/CreateDataLineChart.dart';
 import 'package:hr_metrics/FullscreenView.dart';
 import 'package:hr_metrics/models/bardata.dart';
+import 'package:hr_metrics/models/donutdata.dart';
 import 'package:hr_metrics/models/linedata.dart';
 
 class ListItem extends StatelessWidget {
@@ -106,9 +107,8 @@ class ListItem extends StatelessWidget {
             chartEntry.databaseRefName, chartEntry.color, chartType);
         return result;
       case 30:
-        List<charts.Series<BarData, String>> result = await _createDonutData(
-                chartEntry.databaseRefName, chartEntry.color, chartType)
-            as List<charts.Series<BarData, String>>;
+        List<charts.Series<DonutData, String>> result = await _createDonutData(
+                chartEntry.databaseRefName, chartEntry.color, chartType);
         return result;
     }
   }
@@ -127,9 +127,9 @@ class ListItem extends StatelessWidget {
     return dataLnCh;
   }
 
-  static Future<List<charts.Series<DonutChartData, String>>> _createDonutData(
+  static Future<List<charts.Series<DonutData, String>>> _createDonutData(
       List<String> loadUrl, List<charts.Color> color, int chartType) async {
-    Future<List<charts.Series<DonutChartData, String>>> dataDnCh =
+    Future<List<charts.Series<DonutData, String>>> dataDnCh =
         CreateDataDonutChart.createData(loadUrl, color);
     return dataDnCh;
   }

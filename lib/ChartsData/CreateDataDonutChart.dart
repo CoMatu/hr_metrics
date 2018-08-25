@@ -1,24 +1,26 @@
 import 'dart:async';
-import 'dart:convert';
 
-import 'package:http/http.dart' as http;
+import 'package:firebase_database/firebase_database.dart';
+import 'package:hr_metrics/models/bardata.dart';
+import 'package:hr_metrics/models/donutdata.dart';
+import 'package:hr_metrics/models/serializers.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 
 class CreateDataDonutChart {
-  static Future<List<charts.Series<DonutChartData, String>>> createData(
+  static Future<List<charts.Series<DonutData, String>>> createData(
       List<String> databaseRefName, List<charts.Color> color) async {
-    var seriesData = List<charts.Series<DonutChartData, String>>();
+    var seriesData = List<charts.Series<DonutData, String>>();
 
     for (int i = 0; i < databaseRefName.length; i++) {
-      final data = await _fetchData(http.Client(), databaseRefName[i]);
+      final data = await _fetchData(databaseRefName[i]);
       var id = 'ChartData' + ' ' + i.toString();
 
-      seriesData.add(charts.Series<DonutChartData, String>(
+      seriesData.add(charts.Series<DonutData, String>(
         id: id,
-        domainFn: (DonutChartData series, _) => series.period.toString(),
-        measureFn: (DonutChartData series, _) => series.count,
+        domainFn: (DonutData series, _) => series.period.toString(),
+        measureFn: (DonutData series, _) => series.count,
         data: data,
-        labelAccessorFn: (DonutChartData series, _) =>
+        labelAccessorFn: (DonutData series, _) =>
             '${series.count.toString()}',
         colorFn: (_, __) => color[i],
       ));
@@ -26,15 +28,31 @@ class CreateDataDonutChart {
     return seriesData;
   }
 
-  static Future<List<DonutChartData>> _fetchData(
-      http.Client client, String loadUrl) async {
-    final response = await client.get(loadUrl);
 
-//    return compute(parseChartData, response.body); выдает ошибку
-    return parseChartData(response.body);
+  static Future<List<DonutData>> _fetchData(String loadUrl) async {
+    List snapdata = List();
+    List<DonutData> donutdataList = List();
+    FirebaseDatabase database = FirebaseDatabase.instance;
+    var snapshot = await database.reference().child(loadUrl).once();
+
+    for (var value in snapshot.value) {
+      snapdata.add(value);
+    }
+    for (int i = 0; i < snapdata.length; i++) {
+      Map<String, dynamic> data = Map.from(snapdata[i] as Map);
+      BarData barData =
+      serializers.deserializeWith(BarData.serializer, data);
+      var periodD = int.parse(barData.period);
+      var countD = barData.count.toInt(); // без округления!!! подавать только целые числа
+      DonutData donutData = DonutData(
+          countD, periodD);
+      donutdataList.add(donutData);
+    }
+    return donutdataList;
+
   }
 }
-
+/*
 List<DonutChartData> parseChartData(String responseBody) {
   List<DonutChartData> dataList = json.decode(responseBody) as List;
   return dataList.cast<Map<String, int>>().map((json) => DonutChartData.fromJson(json)).toList();
@@ -50,13 +68,16 @@ class DonutChartData {
     final count = json['number'];
     final period = json['year'];
 
+*/
 /*
     // проверка значений
     print(json);
     print(period);
     print(count);
-*/
+*//*
+
 
     return DonutChartData(period: period, count: count);
   }
 }
+*/

@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:firebase_database/firebase_database.dart';
+import 'package:hr_metrics/models/bardata.dart';
 import 'package:hr_metrics/models/linedata.dart';
 import 'package:hr_metrics/models/serializers.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
@@ -38,8 +39,14 @@ class CreateDataLineChart {
     }
     for (int i = 0; i < snapdata.length; i++) {
       Map<String, dynamic> data = Map.from(snapdata[i] as Map);
-      LineData lineData =
-      serializers.deserializeWith(LineData.serializer, data);
+      BarData barData =
+      serializers.deserializeWith(BarData.serializer, data);
+      var year = int.parse(barData.period);
+      DateTime period = DateTime(year, 1, 1);
+      LineData lineData = LineData(
+          period: period,
+          count: barData.count.toDouble()
+      );
       linedataList.add(lineData);
     }
     return linedataList;

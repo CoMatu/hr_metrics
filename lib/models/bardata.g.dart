@@ -16,7 +16,7 @@ part of 'bardata.dart';
 // ignore_for_file: prefer_expression_function_bodies
 // ignore_for_file: sort_constructors_first
 
-Serializer<BarData> _$barDataSerializer = _$BarDataSerializer();
+Serializer<BarData> _$barDataSerializer = new _$BarDataSerializer();
 
 class _$BarDataSerializer implements StructuredSerializer<BarData> {
   @override
@@ -32,7 +32,8 @@ class _$BarDataSerializer implements StructuredSerializer<BarData> {
       serializers.serialize(object.period,
           specifiedType: const FullType(String)),
       'count',
-      serializers.serialize(object.count, specifiedType: const FullType(int)),
+      serializers.serialize(object.count,
+          specifiedType: const FullType(double)),
     ];
 
     return result;
@@ -41,7 +42,7 @@ class _$BarDataSerializer implements StructuredSerializer<BarData> {
   @override
   BarData deserialize(Serializers serializers, Iterable serialized,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = BarDataBuilder();
+    final result = new BarDataBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -55,7 +56,7 @@ class _$BarDataSerializer implements StructuredSerializer<BarData> {
           break;
         case 'count':
           result.count = serializers.deserialize(value,
-              specifiedType: const FullType(int)) as int;
+              specifiedType: const FullType(double)) as double;
           break;
       }
     }
@@ -68,14 +69,14 @@ class _$BarData extends BarData {
   @override
   final String period;
   @override
-  final int count;
+  final double count;
 
   factory _$BarData([void updates(BarDataBuilder b)]) =>
-      (BarDataBuilder()..update(updates)).build();
+      (new BarDataBuilder()..update(updates)).build();
 
   _$BarData._({this.period, this.count}) : super._() {
-    if (period == null) throw BuiltValueNullFieldError('BarData', 'period');
-    if (count == null) throw BuiltValueNullFieldError('BarData', 'count');
+    if (period == null) throw new BuiltValueNullFieldError('BarData', 'period');
+    if (count == null) throw new BuiltValueNullFieldError('BarData', 'count');
   }
 
   @override
@@ -83,7 +84,7 @@ class _$BarData extends BarData {
       (toBuilder()..update(updates)).build();
 
   @override
-  BarDataBuilder toBuilder() => BarDataBuilder()..replace(this);
+  BarDataBuilder toBuilder() => new BarDataBuilder()..replace(this);
 
   @override
   bool operator ==(dynamic other) {
@@ -113,9 +114,9 @@ class BarDataBuilder implements Builder<BarData, BarDataBuilder> {
   String get period => _$this._period;
   set period(String period) => _$this._period = period;
 
-  int _count;
-  int get count => _$this._count;
-  set count(int count) => _$this._count = count;
+  double _count;
+  double get count => _$this._count;
+  set count(double count) => _$this._count = count;
 
   BarDataBuilder();
 
@@ -130,7 +131,7 @@ class BarDataBuilder implements Builder<BarData, BarDataBuilder> {
 
   @override
   void replace(BarData other) {
-    if (other == null) throw ArgumentError.notNull('other');
+    if (other == null) throw new ArgumentError.notNull('other');
     _$v = other as _$BarData;
   }
 
@@ -141,7 +142,7 @@ class BarDataBuilder implements Builder<BarData, BarDataBuilder> {
 
   @override
   _$BarData build() {
-    final _$result = _$v ?? _$BarData._(period: period, count: count);
+    final _$result = _$v ?? new _$BarData._(period: period, count: count);
     replace(_$result);
     return _$result;
   }
