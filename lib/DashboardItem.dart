@@ -78,12 +78,10 @@ class DashboardItem extends StatelessWidget {
         ));
   }
 
-  Widget _headcoundWidget() {
+  Widget _headcoundWidget(_f) {
     var maleImg = AssetImage('assets/male.png');
     var femaleImg = AssetImage('assets/female.png');
-
     Intl.defaultLocale = 'ru';
-    var _f = NumberFormat();
 
     return Column(
       children: <Widget>[
@@ -127,16 +125,15 @@ class DashboardItem extends StatelessWidget {
     );
   }
 
-  Widget _salaryWidget() {
+  Widget _salaryWidget(_f) {
     Intl.defaultLocale = 'ru';
-    var _f = NumberFormat();
 
     return Column(
       children: <Widget>[
         Text(
           dashboard.indicator1Title,
           style: TextStyle(
-              fontSize: 12.0, fontFamily: 'Oswald', color: Colors.blue),
+              fontSize: 14.0, fontFamily: 'Oswald', color: Colors.blue),
         ),
         Text(
           _f.format(dashboard.indicator1).toString(),
@@ -146,7 +143,7 @@ class DashboardItem extends StatelessWidget {
         Text(
           dashboard.indicator2Title,
           style: TextStyle(
-              fontSize: 12.0, fontFamily: 'Oswald', color: Colors.blue),
+              fontSize: 14.0, fontFamily: 'Oswald', color: Colors.blue),
         ),
         Text(
           _f.format(dashboard.indicator2).toString(),
@@ -157,16 +154,14 @@ class DashboardItem extends StatelessWidget {
     );
   }
 
-  Widget _turnoverWidget() {
+  Widget _turnoverWidget(_f) {
     Intl.defaultLocale = 'ru';
-    var _f = NumberFormat();
-
     return Column(
       children: <Widget>[
         Text(
           dashboard.indicator1Title,
           style: TextStyle(
-              fontSize: 12.0, fontFamily: 'Oswald', color: Colors.blue),
+              fontSize: 14.0, fontFamily: 'Oswald', color: Colors.blue),
         ),
         Text(
           _f.format(dashboard.indicator1).toString(),
@@ -176,7 +171,7 @@ class DashboardItem extends StatelessWidget {
         Text(
           dashboard.indicator2Title,
           style: TextStyle(
-              fontSize: 12.0, fontFamily: 'Oswald', color: Colors.redAccent),
+              fontSize: 14.0, fontFamily: 'Oswald', color: Colors.redAccent),
         ),
         Text(
           _f.format(dashboard.indicator2).toString(),
@@ -189,17 +184,21 @@ class DashboardItem extends StatelessWidget {
 
   // ignore: missing_return
   Widget _choiceCardWidget() {
+    NumberFormat _f = NumberFormat();
     Widget result;
     var chartType = dashboard.dashboardItemType;
     switch (chartType) {
       case 1:
-        result = _headcoundWidget();
+        result = _headcoundWidget(_f);
         return result;
       case 2:
-        result = _salaryWidget();
+        result = _salaryWidget(_f);
         return result;
       case 3:
-        result = _turnoverWidget();
+        result = _turnoverWidget(_f);
+        return result;
+      case 4:
+        result = _turnoverWidget(_f);
         return result;
     }
 
@@ -255,7 +254,6 @@ class DashboardItem extends StatelessWidget {
   }
 
 }
-
 double _itemSize(Size screenSize) {
   var size = (screenSize.height-100)/3;
   if(size < 175.0) {

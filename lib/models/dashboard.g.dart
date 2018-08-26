@@ -16,7 +16,7 @@ part of 'dashboard.dart';
 // ignore_for_file: prefer_expression_function_bodies
 // ignore_for_file: sort_constructors_first
 
-Serializer<Dashboard> _$dashboardSerializer = new _$DashboardSerializer();
+Serializer<Dashboard> _$dashboardSerializer = _$DashboardSerializer();
 
 class _$DashboardSerializer implements StructuredSerializer<Dashboard> {
   @override
@@ -60,7 +60,7 @@ class _$DashboardSerializer implements StructuredSerializer<Dashboard> {
   @override
   Dashboard deserialize(Serializers serializers, Iterable serialized,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = new DashboardBuilder();
+    final result = DashboardBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -126,7 +126,7 @@ class _$Dashboard extends Dashboard {
   final double indicator2;
 
   factory _$Dashboard([void updates(DashboardBuilder b)]) =>
-      (new DashboardBuilder()..update(updates)).build();
+      (DashboardBuilder()..update(updates)).build();
 
   _$Dashboard._(
       {this.dashboardItemTitle,
@@ -139,21 +139,21 @@ class _$Dashboard extends Dashboard {
       this.indicator2})
       : super._() {
     if (dashboardItemTitle == null)
-      throw new BuiltValueNullFieldError('Dashboard', 'dashboardItemTitle');
+      throw BuiltValueNullFieldError('Dashboard', 'dashboardItemTitle');
     if (indicator1Title == null)
-      throw new BuiltValueNullFieldError('Dashboard', 'indicator1Title');
+      throw BuiltValueNullFieldError('Dashboard', 'indicator1Title');
     if (indicator2Title == null)
-      throw new BuiltValueNullFieldError('Dashboard', 'indicator2Title');
+      throw BuiltValueNullFieldError('Dashboard', 'indicator2Title');
     if (mainIndicatorUnit == null)
-      throw new BuiltValueNullFieldError('Dashboard', 'mainIndicatorUnit');
+      throw BuiltValueNullFieldError('Dashboard', 'mainIndicatorUnit');
     if (dashboardItemType == null)
-      throw new BuiltValueNullFieldError('Dashboard', 'dashboardItemType');
+      throw BuiltValueNullFieldError('Dashboard', 'dashboardItemType');
     if (mainIndicator == null)
-      throw new BuiltValueNullFieldError('Dashboard', 'mainIndicator');
+      throw BuiltValueNullFieldError('Dashboard', 'mainIndicator');
     if (indicator1 == null)
-      throw new BuiltValueNullFieldError('Dashboard', 'indicator1');
+      throw BuiltValueNullFieldError('Dashboard', 'indicator1');
     if (indicator2 == null)
-      throw new BuiltValueNullFieldError('Dashboard', 'indicator2');
+      throw BuiltValueNullFieldError('Dashboard', 'indicator2');
   }
 
   @override
@@ -161,7 +161,7 @@ class _$Dashboard extends Dashboard {
       (toBuilder()..update(updates)).build();
 
   @override
-  DashboardBuilder toBuilder() => new DashboardBuilder()..replace(this);
+  DashboardBuilder toBuilder() => DashboardBuilder()..replace(this);
 
   @override
   bool operator ==(dynamic other) {
@@ -270,7 +270,7 @@ class DashboardBuilder implements Builder<Dashboard, DashboardBuilder> {
 
   @override
   void replace(Dashboard other) {
-    if (other == null) throw new ArgumentError.notNull('other');
+    if (other == null) throw ArgumentError.notNull('other');
     _$v = other as _$Dashboard;
   }
 
@@ -282,7 +282,7 @@ class DashboardBuilder implements Builder<Dashboard, DashboardBuilder> {
   @override
   _$Dashboard build() {
     final _$result = _$v ??
-        new _$Dashboard._(
+        _$Dashboard._(
             dashboardItemTitle: dashboardItemTitle,
             indicator1Title: indicator1Title,
             indicator2Title: indicator2Title,

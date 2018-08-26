@@ -10,6 +10,7 @@ import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:hr_metrics/ChartsData/CreateDataDonutChart.dart';
 import 'package:hr_metrics/ChartsData/CreateDataLineChart.dart';
 import 'package:hr_metrics/FullscreenView.dart';
+import 'package:hr_metrics/components/charts/StackedBarChart.dart';
 import 'package:hr_metrics/models/bardata.dart';
 import 'package:hr_metrics/models/donutdata.dart';
 import 'package:hr_metrics/models/linedata.dart';
@@ -82,6 +83,11 @@ class ListItem extends StatelessWidget {
                         case 30:
                           return DonutAutoLabelChart(
                               snapshot.data as List<charts.Series>);
+                        case 40:
+                          return StackedBarChart(
+                              snapshot.data
+                              as List<charts.Series<dynamic, String>>,
+                              chartEntry.units);
                       }
                     }
                   },
@@ -109,6 +115,10 @@ class ListItem extends StatelessWidget {
       case 30:
         List<charts.Series<DonutData, String>> result = await _createDonutData(
                 chartEntry.databaseRefName, chartEntry.color, chartType);
+        return result;
+      case 40:
+        List<charts.Series<BarData, String>> result =
+        await _createData(chartEntry.databaseRefName, chartEntry.color, chartType);
         return result;
     }
   }

@@ -11,7 +11,6 @@ import 'package:hr_metrics/models/serializers.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 
-
 // экран дашборд с главными показателями
 class DashboardScreen extends StatefulWidget {
   @override
@@ -27,12 +26,11 @@ class DashboardScreenState extends State<DashboardScreen> {
   @override
   void initState() {
     super.initState();
-    this._function();
+//    this._function();
   }
 
   @override
   Widget build(BuildContext context) {
-
     var logo = AssetImage('assets/logo.png');
     final Size screenSize = MediaQuery.of(context).size;
 
@@ -47,94 +45,96 @@ class DashboardScreenState extends State<DashboardScreen> {
                 future: _function(),
                 builder: (BuildContext context, AsyncSnapshot snapshot) {
                   return Expanded(
-                      child:
-                      ListView(
-                        shrinkWrap: true,
-                        children: <Widget>[
+                      child: ListView(
+                    shrinkWrap: true,
+                    children: <Widget>[
                       UserAccountsDrawerHeader(
-                      accountName: Text(
-                        username,
-                        style: TextStyle(fontSize: 20.0),
+                        accountName: Text(
+                          username,
+                          style: TextStyle(fontSize: 20.0),
+                        ),
+                        accountEmail: null,
+                        currentAccountPicture: Icon(
+                          Icons.account_circle,
+                          size: 100.0,
+                          color: Colors.white,
+                        ),
+                        decoration: BoxDecoration(color: Colors.grey[300]),
                       ),
-                    accountEmail: null,
-                    currentAccountPicture: Icon(Icons.account_circle,
-                      size: 100.0,
-                      color: Colors.white,),
-                    decoration: BoxDecoration(color: Colors.grey[300]),
-                  ),
-                          ListTile(
-                            title: Text(
-                              'ЧИСЛЕННОСТЬ',
-                              style:
-                              TextStyle(fontSize: 20.0, color: Colors.grey[700],
-                                  fontFamily: 'Oswald'),
-                            ),
-                            onTap: (){
-                              Navigator.pop(context);
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        ChartView(dataHeadcount, 'ЧИСЛЕННОСТЬ')),
-                              );
-                            },
-                            trailing: Icon(Icons.group),
-                          ),
-                          ListTile(
-                            title: Text(
-                              'ЗАРПЛАТА',
-                              style:
-                              TextStyle(fontSize: 20.0, color: Colors.grey[700],
-                                  fontFamily: 'Oswald'),
-                            ),
-                            onTap: () {
-                              Navigator.pop(context);
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => ChartView(dataSalary, 'ЗАРПЛАТА')),
-                              );
-                            },
-                            trailing: Icon(Icons.attach_money),
-                          ),
-                          ListTile(
-                            title: Text(
-                              'ТЕКУЧЕСТЬ',
-                              style:
-                              TextStyle(fontSize: 20.0, color: Colors.grey[700],
-                                  fontFamily: 'Oswald'),
-                            ),
-                            onTap: () {
-                              Navigator.pop(context);
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        ChartView(dataTurnover, 'ТЕКУЧЕСТЬ КАДРОВ')),
-                              );
-                            },
-                            trailing: Icon(Icons.donut_small),
-                          ),
-                          ListTile(
-                            title: Text(
-                              'Выход из аккаунта',
-                              //TODO сделать логаут в другом месте
-                              style:
-                              TextStyle(fontSize:18.0, color: Colors.red),
-                            ),
-                            onTap: () {
-                              _logoutUser();
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => LoginScreen()),
-                              );
-                            },
-                          ),
-                        ],
-                      )
-                  );
-
+                      ListTile(
+                        title: Text(
+                          'ЧИСЛЕННОСТЬ',
+                          style: TextStyle(
+                              fontSize: 20.0,
+                              color: Colors.grey[700],
+                              fontFamily: 'Oswald'),
+                        ),
+                        onTap: () {
+                          Navigator.pop(context);
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    ChartView(dataHeadcount, 'ЧИСЛЕННОСТЬ')),
+                          );
+                        },
+                        trailing: Icon(Icons.group),
+                      ),
+                      ListTile(
+                        title: Text(
+                          'ЗАРПЛАТА',
+                          style: TextStyle(
+                              fontSize: 20.0,
+                              color: Colors.grey[700],
+                              fontFamily: 'Oswald'),
+                        ),
+                        onTap: () {
+                          Navigator.pop(context);
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    ChartView(dataSalary, 'ЗАРПЛАТА')),
+                          );
+                        },
+                        trailing: Icon(Icons.attach_money),
+                      ),
+                      ListTile(
+                        title: Text(
+                          'ТЕКУЧЕСТЬ',
+                          style: TextStyle(
+                              fontSize: 20.0,
+                              color: Colors.grey[700],
+                              fontFamily: 'Oswald'),
+                        ),
+                        onTap: () {
+                          Navigator.pop(context);
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => ChartView(
+                                    dataTurnover, 'ТЕКУЧЕСТЬ КАДРОВ')),
+                          );
+                        },
+                        trailing: Icon(Icons.donut_small),
+                      ),
+                      ListTile(
+                        title: Text(
+                          'Выход из аккаунта',
+                          //TODO сделать логаут в другом месте
+                          style: TextStyle(fontSize: 18.0, color: Colors.red),
+                        ),
+                        onTap: () {
+                          _logoutUser();
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => LoginScreen()),
+                          );
+                        },
+                      ),
+                    ],
+                  ));
                 }),
           ],
         ),
@@ -158,8 +158,8 @@ class DashboardScreenState extends State<DashboardScreen> {
                               height: 150.0,
                               width: 150.0,
                               child: CircularProgressIndicator(
-                                valueColor: AlwaysStoppedAnimation(
-                                    Colors.yellow[100]),
+                                valueColor:
+                                    AlwaysStoppedAnimation(Colors.yellow[100]),
                                 strokeWidth: 15.0,
                               ),
                             ),
@@ -203,7 +203,11 @@ class DashboardScreenState extends State<DashboardScreen> {
   }
 
   Future<DataSnapshot> _getDatabaseData() async {
-    FirebaseDatabase database = FirebaseDatabase();
+    FirebaseDatabase database;
+    database = FirebaseDatabase.instance;
+    database.setPersistenceEnabled(true);
+    database.setPersistenceCacheSizeBytes(50000000);
+
     return database.reference().child('dashboardList').once();
   }
 
@@ -224,16 +228,11 @@ class DashboardScreenState extends State<DashboardScreen> {
     userPref = await SharedPreferences.getInstance();
     userPref.clear();
   }
-
 }
 
 List<ChartEntry> dataSalary = [
-  ChartEntry(
-      10,
-      ['salaryData'],
-      'Средняя зарплата, руб.',
-      [charts.MaterialPalette.blue.shadeDefault],
-      'руб.'), //chart color
+  ChartEntry(10, ['salaryData'], 'Средняя зарплата, руб.',
+      [charts.MaterialPalette.blue.shadeDefault], 'руб.'), //chart color
 /*
   new ChartEntry(
       10,
@@ -250,10 +249,7 @@ List<ChartEntry> dataSalary = [
 */
   ChartEntry(
       10,
-      [
-        'salaryITRData',
-        'salaryWorkersData'
-      ],
+      ['salaryITRData', 'salaryWorkersData'],
       'Сравнение ИТР рабочие, руб.',
       [
         charts.MaterialPalette.blue.shadeDefault,
@@ -263,12 +259,21 @@ List<ChartEntry> dataSalary = [
 ];
 
 List<ChartEntry> dataHeadcount = [
-  ChartEntry(10, ['headcountData'],
-      'Численность, чел.', [charts.MaterialPalette.blue.shadeDefault], 'чел.'),
+  ChartEntry(10, ['headcountData'], 'Численность, чел.',
+      [charts.MaterialPalette.blue.shadeDefault], 'чел.'),
+  ChartEntry(
+      40,
+      ['headcountITRData', 'headcountWorkersData'],
+      'Численность по категориям ИТР/рабочие',
+      [
+        charts.MaterialPalette.blue.shadeDefault,
+        charts.MaterialPalette.blue.shadeDefault.lighter
+      ],
+      'чел.')
 ];
 List<ChartEntry> dataTurnover = [
-  ChartEntry(20, ['turnoverData'],
-      'Текучесть кадров, %', [charts.MaterialPalette.pink.shadeDefault], '%'),
+  ChartEntry(20, ['turnoverData'], 'Текучесть кадров, %',
+      [charts.MaterialPalette.pink.shadeDefault], '%'),
 ];
 /*
 List<ChartEntry> dataFot = [

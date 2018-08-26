@@ -6,6 +6,7 @@ import 'package:charts_flutter/flutter.dart' as charts;
   12 - группированный BarChart https://google.github.io/charts/flutter/example/bar_charts/grouped
   2 - простой LineChart https://google.github.io/charts/flutter/example/time_series_charts/simple
   30 - donutchart https://google.github.io/charts/flutter/example/pie_charts/donut
+  40 - простой группированный BarChart https://google.github.io/charts/flutter/gallery.html
    */
 
 // Объект график со своими параметрами
