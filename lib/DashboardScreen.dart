@@ -266,8 +266,8 @@ List<ChartEntry> dataHeadcount = [
       ['headcountITRData', 'headcountWorkersData'],
       'Численность по категориям ИТР/рабочие',
       [
-        charts.MaterialPalette.blue.shadeDefault,
-        charts.MaterialPalette.blue.shadeDefault.lighter
+        charts.MaterialPalette.blue.shadeDefault.lighter,
+        charts.MaterialPalette.blue.shadeDefault
       ],
       'чел.')
 ];
