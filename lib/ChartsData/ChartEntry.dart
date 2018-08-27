@@ -11,12 +11,13 @@ import 'package:charts_flutter/flutter.dart' as charts;
 
 // Объект график со своими параметрами
 class ChartEntry{
-  int chartType; // тип графика
+  int chartType;
+  List<String> id;// подписи для легенды графика
   List<String> databaseRefName; //ссылка на файл
   String chartTitle; //название графика
   List<charts.Color> color; // цвет графика
-  String units; //единицы измерения
+  String units;
 
-  ChartEntry(this.chartType, this.databaseRefName, this.chartTitle, this.color,
+  ChartEntry(this.chartType,this.id, this.databaseRefName, this.chartTitle, this.color,
       this.units);
 }

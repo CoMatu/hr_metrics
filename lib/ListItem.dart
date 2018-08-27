@@ -106,7 +106,7 @@ class ListItem extends StatelessWidget {
     switch (chartType) {
       case 10:
         List<charts.Series<BarData, String>> result =
-            await _createData(chartEntry.databaseRefName, chartEntry.color, chartType);
+            await _createData(chartEntry.databaseRefName, chartEntry.color, chartType, chartEntry.id);
         return result;
       case 20:
         List<charts.Series<LineData, DateTime>> result = await _createLineData(
@@ -118,15 +118,15 @@ class ListItem extends StatelessWidget {
         return result;
       case 40:
         List<charts.Series<BarData, String>> result =
-        await _createData(chartEntry.databaseRefName, chartEntry.color, chartType);
+        await _createData(chartEntry.databaseRefName, chartEntry.color, chartType, chartEntry.id);
         return result;
     }
   }
 
   static Future<List<charts.Series<BarData, String>>> _createData(
-      List<String> loadUrl, List<charts.Color> color, int chartType) async {
+      List<String> loadUrl, List<charts.Color> color, int chartType, List<String> id) async {
     Future<List<charts.Series<BarData, String>>> dataCh =
-        CreateDataBarChart.createData(loadUrl, color);
+        CreateDataBarChart.createData(loadUrl, color, id);
     return dataCh;
   }
 

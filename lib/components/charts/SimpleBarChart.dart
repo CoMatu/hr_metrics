@@ -75,7 +75,7 @@ class SimpleBarChartState extends State<SimpleBarChart> {
     }
     _measures?.forEach((String series, num value) {
       var value1 = f.format(value);
-      children.add(Text('$value1 '+widget.units,
+      children.add(Text('${series} $value1 '+widget.units,
       style: TextStyle(
         fontSize: 16.0,
         color: Colors.cyan[800]

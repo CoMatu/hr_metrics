@@ -61,7 +61,7 @@ class FullscreenView extends StatelessWidget {
                           case 40:
                             return StackedBarChart(
                                 snapshot.data
-                                as List<charts.Series<dynamic, String>>,
+                                    as List<charts.Series<dynamic, String>>,
                                 chartEntry.units);
                         }
                       }
@@ -74,29 +74,36 @@ class FullscreenView extends StatelessWidget {
         ));
   }
 
-  Future _fetchData() async{
+  Future _fetchData() async {
     var result;
     var chartType = chartEntry.chartType;
     switch (chartType) {
       case 10:
-        result = await _createData(chartEntry.databaseRefName, chartEntry.color, chartType);
+        result = await _createData(chartEntry.databaseRefName, chartEntry.color,
+            chartType, chartEntry.id);
         return result;
       case 20:
-        result =await _createLineData(chartEntry.databaseRefName, chartEntry.color, chartType);
+        result = await _createLineData(
+            chartEntry.databaseRefName, chartEntry.color, chartType);
         return result;
       case 30:
-        result = await _createDonutData(chartEntry.databaseRefName, chartEntry.color, chartType);
+        result = await _createDonutData(
+            chartEntry.databaseRefName, chartEntry.color, chartType);
         return result;
       case 40:
-        result = await _createData(chartEntry.databaseRefName, chartEntry.color, chartType);
+        result = await _createData(chartEntry.databaseRefName, chartEntry.color,
+            chartType, chartEntry.id);
         return result;
     }
   }
 
   static Future<List<charts.Series<BarData, String>>> _createData(
-      List<String> loadUrl, List<charts.Color> color, int chartType) async {
+      List<String> databaseRefName,
+      List<charts.Color> color,
+      int chartType,
+      List<String> id) async {
     Future<List<charts.Series<BarData, String>>> dataCh =
-        CreateDataBarChart.createData(loadUrl, color);
+        CreateDataBarChart.createData(databaseRefName, color, id);
     return dataCh;
   }
 

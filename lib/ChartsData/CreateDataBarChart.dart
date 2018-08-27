@@ -7,14 +7,13 @@ import 'package:charts_flutter/flutter.dart' as charts;
 
 class CreateDataBarChart {
   static Future<List<charts.Series<BarData, String>>> createData(
-      List<String> databaseRefName, List<charts.Color> color) async {
+      List<String> databaseRefName, List<charts.Color> color, List<String> id) async {
     var seriesCh = List<charts.Series<BarData, String>>();
 
     for (int i = 0; i < databaseRefName.length; i++) {
       final data = await _fetchData(databaseRefName[i]);
-      var id = 'ChartData' + ' ' + i.toString();
       var dataChart = charts.Series<BarData, String>(
-        id: id,
+        id: id[i],
         domainFn: (BarData series, _) => series.period,
         measureFn: (BarData series, _) => series.count,
         data: data,

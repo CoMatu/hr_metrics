@@ -231,8 +231,8 @@ class DashboardScreenState extends State<DashboardScreen> {
 }
 
 List<ChartEntry> dataSalary = [
-  ChartEntry(10, ['salaryData'], 'Средняя зарплата, руб.',
-      [charts.MaterialPalette.blue.shadeDefault], 'руб.'), //chart color
+  ChartEntry(10, [''], ['salaryData'], 'Средняя зарплата, руб.',
+      [charts.MaterialPalette.blue.shadeDefault], 'руб.',), //chart color
 /*
   new ChartEntry(
       10,
@@ -249,6 +249,7 @@ List<ChartEntry> dataSalary = [
 */
   ChartEntry(
       10,
+      ['ИТР', 'рабочие'],
       ['salaryITRData', 'salaryWorkersData'],
       'Сравнение ИТР рабочие, руб.',
       [
@@ -259,10 +260,11 @@ List<ChartEntry> dataSalary = [
 ];
 
 List<ChartEntry> dataHeadcount = [
-  ChartEntry(10, ['headcountData'], 'Численность, чел.',
+  ChartEntry(10, [''], ['headcountData'], 'Численность, чел.',
       [charts.MaterialPalette.blue.shadeDefault], 'чел.'),
   ChartEntry(
       40,
+      ['ИТР', 'рабочие'],
       ['headcountITRData', 'headcountWorkersData'],
       'Численность по категориям ИТР/рабочие',
       [
@@ -272,8 +274,14 @@ List<ChartEntry> dataHeadcount = [
       'чел.')
 ];
 List<ChartEntry> dataTurnover = [
-  ChartEntry(20, ['turnoverData'], 'Текучесть кадров, %',
+  ChartEntry(20, [''], ['turnoverData'], 'Текучесть кадров, %',
       [charts.MaterialPalette.pink.shadeDefault], '%'),
+  ChartEntry(10, ['принято', 'уволено'], ['turnover_in', 'turnover_out'],
+    'Принято и уволено', [charts.MaterialPalette.blue.shadeDefault.lighter,
+    charts.MaterialPalette.blue.shadeDefault
+    ], 'чел.'
+
+  )
 ];
 /*
 List<ChartEntry> dataFot = [
