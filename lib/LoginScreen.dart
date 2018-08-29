@@ -44,6 +44,7 @@ class LoginScreenState extends State<LoginScreen> {
     final Size screenSize = MediaQuery.of(context).size;
 
     return Scaffold(
+      backgroundColor: Colors.white,
         resizeToAvoidBottomPadding: false,
         key: _scaffoldKey,
         body: Center(
@@ -55,77 +56,78 @@ class LoginScreenState extends State<LoginScreen> {
                 child: Form(
                   key: formKey,
                   autovalidate: autovalidate,
-                  child: Center(
-                      child: Column(
+                  child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: SizedBox(
-                          width: 150.0,
-                          height: 150.0,
-                          child: Image(image: logo),
-                        ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: SizedBox(
+                      width: 150.0,
+                      height: 150.0,
+                      child: Image(image: logo),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 30.0,
+                  ),
+                  SizedBox(
+                    width: 250.0,
+                    height: 50.0,
+                    child: TextFormField(
+                      validator: validations.validateEmail,
+                      onSaved: (String email) {
+                        user.email = email;
+                      },
+                      decoration: InputDecoration(
+                        hintText: 'E-mail',
                       ),
-                      SizedBox(
-                        height: 30.0,
-                      ),
-                      SizedBox(
-                        width: 250.0,
-                        height: 50.0,
-                        child: TextFormField(
-                          validator: validations.validateEmail,
-                          onSaved: (String email) {
-                            user.email = email;
-                          },
-                          decoration: InputDecoration(
-                            hintText: 'E-mail',
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                  SizedBox(
+                    width: 250.0,
+                    height: 50.0,
+                    child: TextFormField(
+                      obscureText: true,
+                      onSaved: (String password) {
+                        user.password = password;
+                      },
+                      decoration: InputDecoration(hintText: 'Пароль'),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                  SizedBox(
+                    width: 250.0,
+                    height: 90.0,
+                    child: FlatButton(
+                        onPressed: () {
+                          // проверка логина и пароля
+                          _handleSubmitted();
+                        },
+                        child: Text(
+                          'ВОЙТИ',
+                          style: TextStyle(
+                            fontSize: 18.0,
+                            color: Colors.red[500],
                           ),
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
-                      SizedBox(
-                        width: 250.0,
-                        height: 50.0,
-                        child: TextFormField(
-                          obscureText: true,
-                          onSaved: (String password) {
-                            user.password = password;
-                          },
-                          decoration: InputDecoration(hintText: 'Пароль'),
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
-                      SizedBox(
-                        width: 250.0,
-                        height: 90.0,
-                        child: FlatButton(
-                            onPressed: () {
-                              // проверка логина и пароля
-                              _handleSubmitted();
-                            },
-                            child: Text(
-                              'ВОЙТИ',
-                              style: TextStyle(
-                                fontSize: 18.0,
-                                color: Colors.red[500],
-                              ),
-                              textAlign: TextAlign.right,
-                            )),
-                      ),
-                      SizedBox(
-                        height: 50.0,
-                      ),
-                      SizedBox(
-                        child: FlatButton(
-                            onPressed: null,
-                            child: Text('ИСПОЛЬЗОВАТЬ ДЕМО')),
-                      )
+                          textAlign: TextAlign.right,
+                        )),
+                  ),
+                  SizedBox(
+                    height: 50.0,
+                  ),
+                  SizedBox(
+                    child: FlatButton(
+                        onPressed: null,
+                        child: Text('ИСПОЛЬЗОВАТЬ ДЕМО')),
+                  )
                     ],
-                  )),
-                )),
+                  ),
+                )
+            ),
           ),
-        ));
+        )
+    );
   }
 
  Future<void> _handleSubmitted() async{

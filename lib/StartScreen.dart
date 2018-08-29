@@ -3,6 +3,8 @@ import 'dart:io';
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:hr_metrics/models/userdata.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class StartScreen extends StatefulWidget {
   @override
@@ -12,6 +14,10 @@ class StartScreen extends StatefulWidget {
 }
 
 class StartScreenState extends State<StartScreen> {
+
+  bool isLoggedIn = false;
+  UserData user = UserData();
+
   startTime() async {
     await FirebaseApp.configure(
       name: 'hr-metrics',
@@ -25,13 +31,23 @@ class StartScreenState extends State<StartScreen> {
           databaseURL: 'https://hr-metrics-85b07.firebaseio.com/',
           googleAppID: '1:525720506365:android:dd3d45e37ad67662'),
     );
-
+    SharedPreferences prefs;
+    prefs = await SharedPreferences.getInstance();
+    if (prefs.getString("email") != null) {
+      isLoggedIn = true;
+    } else {
+      isLoggedIn = false;
+    }
     var _duration = Duration(seconds: 2);
     return Timer(_duration, navigationPage);
   }
 
   void navigationPage() {
-    Navigator.of(context).pushReplacementNamed('/CheckAuth');
+    if(isLoggedIn){
+      Navigator.of(context).pushReplacementNamed('/DashboardScreen');
+    } else {
+      Navigator.of(context).pushReplacementNamed('/LoginScreen');
+    }
   }
 
   @override
@@ -39,6 +55,7 @@ class StartScreenState extends State<StartScreen> {
     super.initState();
     startTime();
   }
+
 
   @override
   Widget build(BuildContext context) {

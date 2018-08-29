@@ -233,20 +233,6 @@ class DashboardScreenState extends State<DashboardScreen> {
 List<ChartEntry> dataSalary = [
   ChartEntry(10, [''], ['salaryData'], 'Средняя зарплата, руб.',
       [charts.MaterialPalette.blue.shadeDefault], 'руб.',), //chart color
-/*
-  new ChartEntry(
-      10,
-      ['http://skazkimal.ru/hr-metrics/salaryWorkers.json'],
-      'Средняя зарплата рабочих, руб.',
-      [charts.MaterialPalette.green.shadeDefault],
-      'руб.'),
-  new ChartEntry(
-      10,
-      ['http://skazkimal.ru/hr-metrics/salaryITR.json'],
-      'Средняя зарплата ИТР, руб.',
-      [charts.MaterialPalette.gray.shadeDefault],
-      'руб.'),
-*/
   ChartEntry(
       10,
       ['ИТР', 'рабочие'],
@@ -283,13 +269,3 @@ List<ChartEntry> dataTurnover = [
 
   )
 ];
-/*
-List<ChartEntry> dataFot = [
-  ChartEntry(
-      10,
-      ['http://skazkimal.ru/hr-metrics/fot.json'],
-      'Фонд оплаты труда, тыс.руб.',
-      [charts.MaterialPalette.cyan.shadeDefault],
-      'тыс.руб.'),
-];
-*/
