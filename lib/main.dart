@@ -1,8 +1,8 @@
 
 import 'package:flutter/material.dart';
-import 'package:hr_metrics/DashboardScreen.dart';
-import 'package:hr_metrics/LoginScreen.dart';
-import 'package:hr_metrics/StartScreen.dart';
+import 'package:hr_metrics/screens/DashboardScreen.dart';
+import 'package:hr_metrics/screens/LoginScreen.dart';
+import 'package:hr_metrics/screens/StartScreen.dart';
 
 void main() {
   runApp(MaterialApp(
@@ -17,5 +17,6 @@ void main() {
       '/LoginScreen': (BuildContext context) => LoginScreen(),
       '/DashboardScreen': (BuildContext context) => DashboardScreen()
     },
-  ));
+  )
+  );
 }

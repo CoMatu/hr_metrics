@@ -2,10 +2,10 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
-import 'package:hr_metrics/ChartView.dart';
+import 'package:hr_metrics/screens/ChartView.dart';
 import 'package:hr_metrics/ChartsData/ChartEntry.dart';
-import 'package:hr_metrics/DashboardItem.dart';
-import 'package:hr_metrics/LoginScreen.dart';
+import 'package:hr_metrics/components/DashboardItem.dart';
+import 'package:hr_metrics/screens/LoginScreen.dart';
 import 'package:hr_metrics/models/dashboard.dart';
 import 'package:hr_metrics/models/serializers.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -203,12 +203,9 @@ class DashboardScreenState extends State<DashboardScreen> {
   }
 
   Future<DataSnapshot> _getDatabaseData() async {
-    FirebaseDatabase database;
-    database = FirebaseDatabase.instance;
-    database.setPersistenceEnabled(true);
-    database.setPersistenceCacheSizeBytes(50000000);
 
-    return database.reference().child('dashboardList').once();
+    return FirebaseDatabase.instance.reference().child('dashboardList').once();
+
   }
 
   Future<void> _function() async {
@@ -257,7 +254,10 @@ List<ChartEntry> dataHeadcount = [
         charts.MaterialPalette.blue.shadeDefault.lighter,
         charts.MaterialPalette.blue.shadeDefault
       ],
-      'чел.')
+      'чел.'),
+  ChartEntry(10, [''], ['headcountTemp'], 'Численность временных сотрудников',
+    [charts.MaterialPalette.green.shadeDefault.lighter], 'чел.'
+  )
 ];
 List<ChartEntry> dataTurnover = [
   ChartEntry(20, [''], ['turnoverData'], 'Текучесть кадров, %',

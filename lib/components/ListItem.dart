@@ -9,7 +9,7 @@ import 'package:hr_metrics/ChartsData/CreateDataBarChart.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:hr_metrics/ChartsData/CreateDataDonutChart.dart';
 import 'package:hr_metrics/ChartsData/CreateDataLineChart.dart';
-import 'package:hr_metrics/FullscreenView.dart';
+import 'package:hr_metrics/screens/FullscreenView.dart';
 import 'package:hr_metrics/components/charts/StackedBarChart.dart';
 import 'package:hr_metrics/models/bardata.dart';
 import 'package:hr_metrics/models/donutdata.dart';

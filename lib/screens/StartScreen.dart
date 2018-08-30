@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:hr_metrics/models/userdata.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -31,6 +32,7 @@ class StartScreenState extends State<StartScreen> {
           databaseURL: 'https://hr-metrics-85b07.firebaseio.com/',
           googleAppID: '1:525720506365:android:dd3d45e37ad67662'),
     );
+
     SharedPreferences prefs;
     prefs = await SharedPreferences.getInstance();
     if (prefs.getString("email") != null) {
@@ -44,6 +46,12 @@ class StartScreenState extends State<StartScreen> {
 
   void navigationPage() {
     if(isLoggedIn){
+      // инциируем офлайн режим
+      FirebaseDatabase database;
+      database = FirebaseDatabase.instance;
+      database.setPersistenceEnabled(true);
+      database.setPersistenceCacheSizeBytes(10000000);
+
       Navigator.of(context).pushReplacementNamed('/DashboardScreen');
     } else {
       Navigator.of(context).pushReplacementNamed('/LoginScreen');
@@ -59,6 +67,7 @@ class StartScreenState extends State<StartScreen> {
 
   @override
   Widget build(BuildContext context) {
+
     var logo = AssetImage('assets/logo.png');
     return Scaffold(
         body: Container(

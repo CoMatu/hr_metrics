@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hr_metrics/ChartsData/ChartEntry.dart';
-import 'package:hr_metrics/ListItem.dart';
+import 'package:hr_metrics/components/ListItem.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 
 class ChartView extends StatelessWidget {

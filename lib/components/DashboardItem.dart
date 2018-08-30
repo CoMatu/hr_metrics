@@ -2,8 +2,8 @@
 //import 'package:firebase_core/firebase_core.dart';
 
 import 'package:flutter/material.dart';
-import 'package:hr_metrics/ChartView.dart';
-import 'package:hr_metrics/DashboardScreen.dart';
+import 'package:hr_metrics/screens/ChartView.dart';
+import 'package:hr_metrics/screens/DashboardScreen.dart';
 import 'package:hr_metrics/models/dashboard.dart';
 import 'package:intl/intl.dart';
 
