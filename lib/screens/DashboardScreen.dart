@@ -169,7 +169,8 @@ class DashboardScreenState extends State<DashboardScreen> {
                               child: Image(image: logo),
                             )
                           ]),
-                        ));
+                        )
+                    );
                   }
                 }),
           )),
