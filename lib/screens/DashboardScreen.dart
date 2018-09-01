@@ -121,7 +121,6 @@ class DashboardScreenState extends State<DashboardScreen> {
                       ListTile(
                         title: Text(
                           'Выход из аккаунта',
-                          //TODO сделать логаут в другом месте
                           style: TextStyle(fontSize: 18.0, color: Colors.red),
                         ),
                         onTap: () {
@@ -169,8 +168,7 @@ class DashboardScreenState extends State<DashboardScreen> {
                               child: Image(image: logo),
                             )
                           ]),
-                        )
-                    );
+                        ));
                   }
                 }),
           )),
@@ -204,9 +202,11 @@ class DashboardScreenState extends State<DashboardScreen> {
   }
 
   Future<DataSnapshot> _getDatabaseData() async {
-
-    return FirebaseDatabase.instance.reference().child('dashboardList').once();
-
+    var _database = await FirebaseDatabase.instance
+        .reference()
+        .child('dashboardList')
+        .once();
+    return _database;
   }
 
   Future<void> _function() async {
@@ -229,8 +229,14 @@ class DashboardScreenState extends State<DashboardScreen> {
 }
 
 List<ChartEntry> dataSalary = [
-  ChartEntry(10, [''], ['salaryData'], 'Средняя зарплата, руб.',
-      [charts.MaterialPalette.blue.shadeDefault], 'руб.',), //chart color
+  ChartEntry(
+    10,
+    [''],
+    ['salaryData'],
+    'Средняя зарплата, руб.',
+    [charts.MaterialPalette.blue.shadeDefault],
+    'руб.',
+  ), //chart color
   ChartEntry(
       10,
       ['ИТР', 'рабочие'],
@@ -257,16 +263,19 @@ List<ChartEntry> dataHeadcount = [
       ],
       'чел.'),
   ChartEntry(10, [''], ['headcountTemp'], 'Численность временных сотрудников',
-    [charts.MaterialPalette.green.shadeDefault.lighter], 'чел.'
-  )
+      [charts.MaterialPalette.green.shadeDefault.lighter], 'чел.')
 ];
 List<ChartEntry> dataTurnover = [
   ChartEntry(20, [''], ['turnoverData'], 'Текучесть кадров, %',
       [charts.MaterialPalette.pink.shadeDefault], '%'),
-  ChartEntry(10, ['принято', 'уволено'], ['turnover_in', 'turnover_out'],
-    'Принято и уволено', [charts.MaterialPalette.blue.shadeDefault.lighter,
-    charts.MaterialPalette.blue.shadeDefault
-    ], 'чел.'
-
-  )
+  ChartEntry(
+      10,
+      ['принято', 'уволено'],
+      ['turnover_in', 'turnover_out'],
+      'Принято и уволено',
+      [
+        charts.MaterialPalette.blue.shadeDefault.lighter,
+        charts.MaterialPalette.blue.shadeDefault
+      ],
+      'чел.')
 ];

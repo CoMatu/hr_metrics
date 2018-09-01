@@ -111,11 +111,13 @@ class LoginScreenState extends State<LoginScreen> {
                   SizedBox(
                     height: 50.0,
                   ),
+/*
                   SizedBox(
                     child: FlatButton(
                         onPressed: null,
                         child: Text('ИСПОЛЬЗОВАТЬ ДЕМО')),
                   )
+*/
                     ],
                   ),
                 )
@@ -128,25 +130,27 @@ class LoginScreenState extends State<LoginScreen> {
  Future<void> _handleSubmitted() async{
     final FormState form = formKey.currentState;
     SharedPreferences prefs;
+    prefs = await SharedPreferences.getInstance();
+
     if (!form.validate()) {
       autovalidate = true; // Start validating on every change.
-      showInSnackBar('Please fix the errors in red before submitting.');
+      showInSnackBar('Это не адрес эл.почты!');
     } else {
       form.save();
       userAuth.verifyUser(user).then((onValue) {
-        if (onValue == "Login Successfull")
+        if (onValue == "Login Successfull"){
           Navigator.push(
             context,
             MaterialPageRoute(builder: (context) => DashboardScreen()),
           );
-        else
-          showInSnackBar(onValue);
+          prefs.setString("password", user.password);
+          prefs.setString("email", user.email);
+       }
+        else showInSnackBar('Неправильный логин или пароль');
+
       }).catchError((PlatformException onError) {
         showInSnackBar(onError.message);
       });
-      prefs = await SharedPreferences.getInstance();
-      prefs.setString("password", user.password);
-      prefs.setString("email", user.email);
     }
   }
 
