@@ -15,13 +15,12 @@ class LoginScreen extends StatefulWidget {
   LoginScreenState createState() {
     return LoginScreenState();
   }
-
 }
 
 class LoginScreenState extends State<LoginScreen> {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  ScrollController scrollController = ScrollController();
+
   bool autovalidate = false;
   UserAuth userAuth = UserAuth();
   Validations validations = Validations();
@@ -39,95 +38,89 @@ class LoginScreenState extends State<LoginScreen> {
     final Size screenSize = MediaQuery.of(context).size;
 
     return Scaffold(
-      backgroundColor: Colors.white,
-        resizeToAvoidBottomPadding: false,
+        backgroundColor: Colors.white,
         key: _scaffoldKey,
-        body: Center(
-          child: SingleChildScrollView(
-            controller: scrollController,
-            child: Container(
-                height: screenSize.height,
-                color: Colors.white,
-                child: Form(
+        body: ListView(
+          shrinkWrap: false,
+              children: <Widget>[
+                SizedBox(
+                  height: 70.0,
+                ),
+                SizedBox(
+                  width: 150.0,
+                  height: 150.0,
+                  child: Image(image: logo),
+                ),
+                SizedBox(
+                  height: 30.0,
+                ),
+                Form(
                   key: formKey,
                   autovalidate: autovalidate,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: SizedBox(
-                      width: 150.0,
-                      height: 150.0,
-                      child: Image(image: logo),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 30.0,
-                  ),
-                  SizedBox(
-                    width: 250.0,
-                    height: 50.0,
-                    child: TextFormField(
-                      validator: validations.validateEmail,
-                      onSaved: (String email) {
-                        user.email = email;
-                      },
-                      decoration: InputDecoration(
-                        hintText: 'E-mail',
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                  SizedBox(
-                    width: 250.0,
-                    height: 50.0,
-                    child: TextFormField(
-                      obscureText: true,
-                      onSaved: (String password) {
-                        user.password = password;
-                      },
-                      decoration: InputDecoration(hintText: 'Пароль'),
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                  SizedBox(
-                    width: 250.0,
-                    height: 90.0,
-                    child: FlatButton(
-                        onPressed: () {
-                          // проверка логина и пароля
-                          _handleSubmitted();
-                        },
-                        child: Text(
-                          'ВОЙТИ',
-                          style: TextStyle(
-                            fontSize: 18.0,
-                            color: Colors.red[500],
+                      SizedBox(
+                        width: 250.0,
+                        height: 50.0,
+                        child: TextFormField(
+                          validator: validations.validateEmail,
+                          onSaved: (String email) {
+                            user.email = email;
+                          },
+                          decoration: InputDecoration(
+                            hintText: 'E-mail',
                           ),
-                          textAlign: TextAlign.right,
-                        )),
-                  ),
-                  SizedBox(
-                    height: 50.0,
-                  ),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                      SizedBox(
+                        width: 250.0,
+                        height: 50.0,
+                        child: TextFormField(
+                          obscureText: true,
+                          onSaved: (String password) {
+                            user.password = password;
+                          },
+                          decoration: InputDecoration(hintText: 'Пароль'),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                      SizedBox(
+                        width: 250.0,
+                        height: 90.0,
+                        child: FlatButton(
+                            onPressed: () {
+                              // проверка логина и пароля
+                              _handleSubmitted();
+                            },
+                            child: Text(
+                              'ВОЙТИ',
+                              style: TextStyle(
+                                fontSize: 18.0,
+                                color: Colors.red[500],
+                              ),
+                              textAlign: TextAlign.right,
+                            )),
+                      ),
+                      SizedBox(
+                        height: 50.0,
+                      ),
 /*
-                  SizedBox(
-                    child: FlatButton(
-                        onPressed: null,
-                        child: Text('ИСПОЛЬЗОВАТЬ ДЕМО')),
-                  )
+                      SizedBox(
+                        child: FlatButton(
+                            onPressed: null, child: Text('ИСПОЛЬЗОВАТЬ ДЕМО')),
+                      )
 */
                     ],
                   ),
                 )
-            ),
-          ),
-        )
+              ],
+            )
     );
   }
 
- Future<void> _handleSubmitted() async{
+  Future<void> _handleSubmitted() async {
     final FormState form = formKey.currentState;
     SharedPreferences prefs;
     prefs = await SharedPreferences.getInstance();
@@ -138,16 +131,15 @@ class LoginScreenState extends State<LoginScreen> {
     } else {
       form.save();
       userAuth.verifyUser(user).then((onValue) {
-        if (onValue == "Login Successfull"){
+        if (onValue == "Login Successfull") {
           Navigator.push(
             context,
             MaterialPageRoute(builder: (context) => DashboardScreen()),
           );
           prefs.setString("password", user.password);
           prefs.setString("email", user.email);
-       }
-        else showInSnackBar('Неправильный логин или пароль');
-
+        } else
+          showInSnackBar('Неправильный логин или пароль');
       }).catchError((PlatformException onError) {
         showInSnackBar(onError.message);
       });
@@ -155,7 +147,7 @@ class LoginScreenState extends State<LoginScreen> {
   }
 
   void showInSnackBar(String value) {
-    _scaffoldKey.currentState
-        .showSnackBar(SnackBar(content: Text(value)));
+    _scaffoldKey.currentState.showSnackBar(SnackBar(content: Text(value),
+    backgroundColor: Colors.yellow,));
   }
 }
