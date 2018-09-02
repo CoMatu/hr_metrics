@@ -35,8 +35,6 @@ class LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     //фиксируем портретный режим
 
-    final Size screenSize = MediaQuery.of(context).size;
-
     return Scaffold(
         backgroundColor: Colors.white,
         key: _scaffoldKey,
