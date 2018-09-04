@@ -66,11 +66,11 @@ class StartScreenState extends State<StartScreen>
     super.initState();
     startTime();
     animationController = AnimationController(
-        duration: Duration(milliseconds: 10000), vsync: this);
-    animation = Tween(begin: 0.0, end: 1000.0).animate(animationController)
+        duration: Duration(milliseconds: 1000), vsync: this);
+    animation = Tween(begin: 0.0, end: 200.0).animate(animationController)
       ..addListener(() => this.setState(() {}))
       ..addStatusListener((AnimationStatus status) {});
-    animationController.repeat();
+    animationController.forward();
   }
 
   @override
@@ -87,7 +87,6 @@ class StartScreenState extends State<StartScreen>
           child: Container(
       height: animation.value,
       width: animation.value,
-      color: Colors.white,
       child: Image(image: logo),
     ),
         )
