@@ -14,7 +14,10 @@ class StartScreen extends StatefulWidget {
   }
 }
 
-class StartScreenState extends State<StartScreen> {
+class StartScreenState extends State<StartScreen>
+    with SingleTickerProviderStateMixin {
+  Animation<double> animation;
+  AnimationController animationController;
 
   bool isLoggedIn = false;
   UserData user = UserData();
@@ -24,13 +27,13 @@ class StartScreenState extends State<StartScreen> {
       name: 'hr-metrics',
       options: Platform.isIOS
           ? const FirebaseOptions(
-          googleAppID: '1:525720506365:ios:d34af888671c6927',
-          gcmSenderID: '525720506365',
-          databaseURL: 'https://hr-metrics-85b07.firebaseio.com/')
+              googleAppID: '1:525720506365:ios:d34af888671c6927',
+              gcmSenderID: '525720506365',
+              databaseURL: 'https://hr-metrics-85b07.firebaseio.com/')
           : const FirebaseOptions(
-          apiKey: 'AIzaSyCkbkGrtOChRiDsrRvp_kzMJn_VZqI9M7U',
-          databaseURL: 'https://hr-metrics-85b07.firebaseio.com/',
-          googleAppID: '1:525720506365:android:dd3d45e37ad67662'),
+              apiKey: 'AIzaSyCkbkGrtOChRiDsrRvp_kzMJn_VZqI9M7U',
+              databaseURL: 'https://hr-metrics-85b07.firebaseio.com/',
+              googleAppID: '1:525720506365:android:dd3d45e37ad67662'),
     );
 
     SharedPreferences prefs;
@@ -45,7 +48,7 @@ class StartScreenState extends State<StartScreen> {
   }
 
   void navigationPage() {
-    if(isLoggedIn){
+    if (isLoggedIn) {
       // инциируем офлайн режим
       FirebaseDatabase database;
       database = FirebaseDatabase.instance;
@@ -62,22 +65,32 @@ class StartScreenState extends State<StartScreen> {
   void initState() {
     super.initState();
     startTime();
+    animationController = AnimationController(
+        duration: Duration(milliseconds: 10000), vsync: this);
+    animation = Tween(begin: 0.0, end: 1000.0).animate(animationController)
+      ..addListener(() => this.setState(() {}))
+      ..addStatusListener((AnimationStatus status) {});
+    animationController.repeat();
   }
 
+  @override
+  void dispose() {
+    animationController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-
     var logo = AssetImage('assets/logo.png');
     return Scaffold(
-        body: Container(
+        body: Center(
+          child: Container(
+      height: animation.value,
+      width: animation.value,
       color: Colors.white,
-      child: Center(
-          child: SizedBox(
-        height: 150.0,
-        width: 150.0,
-        child: Image(image: logo),
-      )),
-    ));
+      child: Image(image: logo),
+    ),
+        )
+    );
   }
 }

@@ -148,27 +148,9 @@ class DashboardScreenState extends State<DashboardScreen> {
                     return _getWidget(snapshot);
                   } else {
                     return Container(
-                        color: Colors.white,
                         width: screenSize.width,
                         height: screenSize.height,
-                        child: Center(
-                          child: Stack(children: <Widget>[
-                            SizedBox(
-                              height: 150.0,
-                              width: 150.0,
-                              child: CircularProgressIndicator(
-                                valueColor:
-                                    AlwaysStoppedAnimation(Colors.yellow[100]),
-                                strokeWidth: 15.0,
-                              ),
-                            ),
-                            SizedBox(
-                              height: 150.0,
-                              width: 150.0,
-                              child: Image(image: logo),
-                            )
-                          ]),
-                        ));
+                        );
                   }
                 }),
           )),
