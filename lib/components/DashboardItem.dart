@@ -246,7 +246,7 @@ class DashboardItem extends StatelessWidget {
         result = Colors.green[700];
         return result;
       case 4:
-        result = Colors.amber[700];
+        result = Colors.purple[700];
         return result;
     }
   }
@@ -277,6 +277,14 @@ class DashboardItem extends StatelessWidget {
           MaterialPageRoute(
               builder: (context) =>
                   ChartView(dataTurnover, 'ТЕКУЧЕСТЬ КАДРОВ')),
+        );
+        return getRoute;
+      case 4:
+        getRoute = Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) =>
+                  ChartView(dataAge, 'ВОЗРАСТ СОТРУДНИКОВ')),
         );
         return getRoute;
     }

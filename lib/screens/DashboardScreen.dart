@@ -38,7 +38,7 @@ class DashboardScreenState extends State<DashboardScreen> {
       appBar: AppBar(
         title: Text('ИНФОПАНЕЛЬ'),
       ),
-      drawer: new Drawer(
+      drawer: Drawer(
         child: Column(
           children: <Widget>[
             FutureBuilder(
@@ -63,63 +63,6 @@ class DashboardScreenState extends State<DashboardScreen> {
                       ),
                       ListTile(
                         title: Text(
-                          'ЧИСЛЕННОСТЬ',
-                          style: TextStyle(
-                              fontSize: 20.0,
-                              color: Colors.grey[700],
-                              fontFamily: 'Oswald'),
-                        ),
-                        onTap: () {
-                          Navigator.pop(context);
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    ChartView(dataHeadcount, 'ЧИСЛЕННОСТЬ')),
-                          );
-                        },
-                        trailing: Icon(Icons.group),
-                      ),
-                      ListTile(
-                        title: Text(
-                          'ЗАРПЛАТА',
-                          style: TextStyle(
-                              fontSize: 20.0,
-                              color: Colors.grey[700],
-                              fontFamily: 'Oswald'),
-                        ),
-                        onTap: () {
-                          Navigator.pop(context);
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    ChartView(dataSalary, 'ЗАРПЛАТА')),
-                          );
-                        },
-                        trailing: Icon(Icons.attach_money),
-                      ),
-                      ListTile(
-                        title: Text(
-                          'ТЕКУЧЕСТЬ',
-                          style: TextStyle(
-                              fontSize: 20.0,
-                              color: Colors.grey[700],
-                              fontFamily: 'Oswald'),
-                        ),
-                        onTap: () {
-                          Navigator.pop(context);
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => ChartView(
-                                    dataTurnover, 'ТЕКУЧЕСТЬ КАДРОВ')),
-                          );
-                        },
-                        trailing: Icon(Icons.donut_small),
-                      ),
-                      ListTile(
-                        title: Text(
                           'Выход из аккаунта',
                           style: TextStyle(fontSize: 18.0, color: Colors.red),
                         ),
@@ -131,6 +74,7 @@ class DashboardScreenState extends State<DashboardScreen> {
                                 builder: (context) => LoginScreen()),
                           );
                         },
+                        trailing: Icon(Icons.exit_to_app),
                       ),
                     ],
                   ));
@@ -148,9 +92,9 @@ class DashboardScreenState extends State<DashboardScreen> {
                     return _getWidget(snapshot);
                   } else {
                     return Container(
-                        width: screenSize.width,
-                        height: screenSize.height,
-                        );
+                      width: screenSize.width,
+                      height: screenSize.height,
+                    );
                   }
                 }),
           )),
@@ -258,6 +202,17 @@ List<ChartEntry> dataTurnover = [
       [
         charts.MaterialPalette.blue.shadeDefault.lighter,
         charts.MaterialPalette.blue.shadeDefault
+      ],
+      'чел.')
+];
+List<ChartEntry> dataAge = [
+  ChartEntry(
+      10,
+      [''],
+      ['ageData'],
+      'Распределение по возрастам',
+      [
+        charts.MaterialPalette.blue.shadeDefault.lighter,
       ],
       'чел.')
 ];
