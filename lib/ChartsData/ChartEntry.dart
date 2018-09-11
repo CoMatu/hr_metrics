@@ -1,4 +1,5 @@
 import 'package:charts_flutter/flutter.dart' as charts;
+import 'package:firebase_database/firebase_database.dart';
 /*
   Выбираем тип графика:
   10 - простой вертикальный BarChart https://google.github.io/charts/flutter/example/bar_charts/simple
@@ -13,7 +14,7 @@ import 'package:charts_flutter/flutter.dart' as charts;
 class ChartEntry{
   int chartType;
   List<String> id;// подписи для легенды графика
-  List<String> databaseRefName; //ссылка на файл
+  List<DatabaseReference> databaseRefName; //ссылка на файл
   String chartTitle; //название графика
   List<charts.Color> color; // цвет графика
   String units;

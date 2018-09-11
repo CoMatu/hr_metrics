@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:firebase_database/firebase_database.dart';
 import 'package:hr_metrics/components/Charts/DonutAutoLabelChart.dart';
 import 'package:hr_metrics/components/Charts/LineChart.dart';
 import 'package:hr_metrics/components/Charts/SimpleBarChart.dart';
@@ -98,7 +99,7 @@ class FullscreenView extends StatelessWidget {
   }
 
   static Future<List<charts.Series<BarData, String>>> _createData(
-      List<String> databaseRefName,
+      List<DatabaseReference> databaseRefName,
       List<charts.Color> color,
       int chartType,
       List<String> id) async {
@@ -108,14 +109,14 @@ class FullscreenView extends StatelessWidget {
   }
 
   static Future<List<charts.Series<LineData, DateTime>>> _createLineData(
-      List<String> loadUrl, List<charts.Color> color, int chartType) async {
+      List<DatabaseReference> loadUrl, List<charts.Color> color, int chartType) async {
     Future<List<charts.Series<LineData, DateTime>>> dataLnCh =
         CreateDataLineChart.createData(loadUrl, color);
     return dataLnCh;
   }
 
   static Future<List<charts.Series<DonutData, String>>> _createDonutData(
-      List<String> loadUrl, List<charts.Color> color, int chartType) async {
+      List<DatabaseReference> loadUrl, List<charts.Color> color, int chartType) async {
     Future<List<charts.Series<DonutData, String>>> dataDnCh =
         CreateDataDonutChart.createData(loadUrl, color);
     return dataDnCh;

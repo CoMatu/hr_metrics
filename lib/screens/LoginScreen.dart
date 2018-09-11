@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hr_metrics/models/userdata.dart';
-import 'package:hr_metrics/screens/DashboardScreen.dart';
+import 'package:hr_metrics/demo/DashboardScreenDemo.dart';
 import 'package:hr_metrics/services/validations.dart';
 import 'package:hr_metrics/services/authentication.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -104,12 +104,20 @@ class LoginScreenState extends State<LoginScreen> {
                       SizedBox(
                         height: 50.0,
                       ),
-/*
+
                       SizedBox(
                         child: FlatButton(
-                            onPressed: null, child: Text('ИСПОЛЬЗОВАТЬ ДЕМО')),
+                            onPressed: (){
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) => DashboardScreenDemo()),
+                              );                            }
+                            , child: Text('ИСПОЛЬЗОВАТЬ ДЕМО',
+                        style: TextStyle(
+                          color: Colors.black54
+                        ),)),
                       )
-*/
+
                     ],
                   ),
                 )
@@ -130,10 +138,7 @@ class LoginScreenState extends State<LoginScreen> {
       form.save();
       userAuth.verifyUser(user).then((onValue) {
         if (onValue == "Login Successfull") {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => DashboardScreen()),
-          );
+
           prefs.setString("password", user.password);
           prefs.setString("email", user.email);
         } else

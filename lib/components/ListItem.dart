@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:hr_metrics/components/Charts/DonutAutoLabelChart.dart';
 import 'package:hr_metrics/ChartsData/ChartEntry.dart';
@@ -124,21 +125,21 @@ class ListItem extends StatelessWidget {
   }
 
   static Future<List<charts.Series<BarData, String>>> _createData(
-      List<String> loadUrl, List<charts.Color> color, int chartType, List<String> id) async {
+      List<DatabaseReference> loadUrl, List<charts.Color> color, int chartType, List<String> id) async {
     Future<List<charts.Series<BarData, String>>> dataCh =
         CreateDataBarChart.createData(loadUrl, color, id);
     return dataCh;
   }
 
   static Future<List<charts.Series<LineData, DateTime>>> _createLineData(
-      List<String> loadUrl, List<charts.Color> color, int chartType) async {
+      List<DatabaseReference> loadUrl, List<charts.Color> color, int chartType) async {
     Future<List<charts.Series<LineData, DateTime>>> dataLnCh =
         CreateDataLineChart.createData(loadUrl, color);
     return dataLnCh;
   }
 
   static Future<List<charts.Series<DonutData, String>>> _createDonutData(
-      List<String> loadUrl, List<charts.Color> color, int chartType) async {
+      List<DatabaseReference> loadUrl, List<charts.Color> color, int chartType) async {
     Future<List<charts.Series<DonutData, String>>> dataDnCh =
         CreateDataDonutChart.createData(loadUrl, color);
     return dataDnCh;

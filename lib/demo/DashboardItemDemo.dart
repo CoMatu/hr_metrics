@@ -3,12 +3,12 @@
 
 import 'package:flutter/material.dart';
 import 'package:hr_metrics/screens/ChartView.dart';
-import 'package:hr_metrics/screens/DashboardScreen.dart';
+import 'package:hr_metrics/demo/DashboardScreenDemo.dart';
 import 'package:hr_metrics/models/dashboard.dart';
 import 'package:intl/intl.dart';
 
-class DashboardItem extends StatelessWidget {
-  const DashboardItem(this.dashboard, {Key key}) : super(key: key);
+class DashboardItemDemo extends StatelessWidget {
+  const DashboardItemDemo(this.dashboard, {Key key}) : super(key: key);
   final Dashboard dashboard;
 
   @override
@@ -30,8 +30,8 @@ class DashboardItem extends StatelessWidget {
                     Text(
                       dashboard.dashboardItemTitle,
                       style: TextStyle(
-                        fontSize: 18.0,
-                        fontFamily: 'Oswald'
+                          fontSize: 18.0,
+                          fontFamily: 'Oswald'
                       ),
                       textAlign: TextAlign.left,
                     ),

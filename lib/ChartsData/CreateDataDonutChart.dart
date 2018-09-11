@@ -8,7 +8,7 @@ import 'package:charts_flutter/flutter.dart' as charts;
 
 class CreateDataDonutChart {
   static Future<List<charts.Series<DonutData, String>>> createData(
-      List<String> databaseRefName, List<charts.Color> color) async {
+      List<DatabaseReference> databaseRefName, List<charts.Color> color) async {
     var seriesData = List<charts.Series<DonutData, String>>();
 
     for (int i = 0; i < databaseRefName.length; i++) {
@@ -29,11 +29,10 @@ class CreateDataDonutChart {
   }
 
 
-  static Future<List<DonutData>> _fetchData(String loadUrl) async {
+  static Future<List<DonutData>> _fetchData(DatabaseReference loadUrl) async {
     List snapdata = List();
     List<DonutData> donutdataList = List();
-    FirebaseDatabase database = FirebaseDatabase.instance;
-    var snapshot = await database.reference().child(loadUrl).once();
+    var snapshot = await loadUrl.once();
 
     for (var value in snapshot.value) {
       snapdata.add(value);
