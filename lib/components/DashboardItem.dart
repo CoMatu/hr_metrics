@@ -181,6 +181,33 @@ class DashboardItem extends StatelessWidget {
       ],
     );
   }
+  Widget _ageWidget(_f) {
+    Intl.defaultLocale = 'ru';
+    return Column(
+      children: <Widget>[
+        Text(
+          dashboard.indicator1Title,
+          style: TextStyle(
+              fontSize: 14.0, fontFamily: 'Oswald', color: Colors.blue),
+        ),
+        Text(
+          _f.format(dashboard.indicator1).toString(),
+          style: TextStyle(
+              fontSize: 20.0, fontFamily: 'Oswald', color: Colors.black54),
+        ),
+        Text(
+          dashboard.indicator2Title,
+          style: TextStyle(
+              fontSize: 14.0, fontFamily: 'Oswald', color: Colors.redAccent),
+        ),
+        Text(
+          _f.format(dashboard.indicator2).toString(),
+          style: TextStyle(
+              fontSize: 20.0, fontFamily: 'Oswald', color: Colors.black54),
+        ),
+      ],
+    );
+  }
 
   // ignore: missing_return
   Widget _choiceCardWidget() {
@@ -198,7 +225,7 @@ class DashboardItem extends StatelessWidget {
         result = _turnoverWidget(_f);
         return result;
       case 4:
-        result = _turnoverWidget(_f);
+        result = _ageWidget(_f);
         return result;
     }
 
@@ -217,6 +244,9 @@ class DashboardItem extends StatelessWidget {
         return result;
       case 3:
         result = Colors.green[700];
+        return result;
+      case 4:
+        result = Colors.amber[700];
         return result;
     }
   }

@@ -38,7 +38,7 @@ class DashboardScreenState extends State<DashboardScreen> {
       appBar: AppBar(
         title: Text('ИНФОПАНЕЛЬ'),
       ),
-      drawer: Drawer(
+      drawer: new Drawer(
         child: Column(
           children: <Widget>[
             FutureBuilder(
