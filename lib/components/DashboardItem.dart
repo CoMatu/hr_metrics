@@ -13,7 +13,6 @@ class DashboardItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Size screenSize = MediaQuery.of(context).size;
 
     Intl.defaultLocale = 'ru';
     var f = NumberFormat();
@@ -289,8 +288,4 @@ class DashboardItem extends StatelessWidget {
 
   }
 
-}
-double _itemSize(Size screenSize) {
-  var size = (screenSize.height-100)/3.5;
-  return size;
 }
