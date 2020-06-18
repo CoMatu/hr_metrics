@@ -18,64 +18,62 @@ class DashboardItemDemo extends StatelessWidget {
     Intl.defaultLocale = 'ru';
     var f = NumberFormat();
 
-    return SizedBox(
-        height: _itemSize(screenSize),
-        child: Card(
-          child: Column(
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(
-                  children: <Widget>[
-                    Text(
-                      dashboard.dashboardItemTitle,
-                      style: TextStyle(
-                          fontSize: 18.0,
-                          fontFamily: 'Oswald'
-                      ),
-                      textAlign: TextAlign.left,
-                    ),
-                  ],
-                ),
-              ),
-              Row(
-                children: <Widget>[
-                  Expanded(
-                      flex: 3,
-                      child: Center(
-                        child: Column(
-                          children: <Widget>[
-                            FlatButton(
-                              child: Text(
-                                f.format(dashboard.mainIndicator).toString(),
-                                style: TextStyle(
-                                    fontSize: 44.0,
-                                    fontFamily: 'Oswald',
-                                    color: _getColor()),
-                              ),
-                              onPressed: (){
-                                _getRoute(context);
-                              },
-                            ),
-                            Text(
-                              dashboard.mainIndicatorUnit,
-                              style: TextStyle(
-                                  fontSize: 20.0,
-                                  fontFamily: 'Oswald',
-                                  color: Colors.black45),
-                            )
-                          ],
-                        ),
-                      )),
-                  Expanded(
-                    flex: 2,
-                    child: _choiceCardWidget(),
+    return Card(
+      child: Column(
+        children: <Widget>[
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              children: <Widget>[
+                Text(
+                  dashboard.dashboardItemTitle,
+                  style: TextStyle(
+                      fontSize: 18.0,
+                      fontFamily: 'Oswald'
                   ),
-                ],
-              )
-            ],
+                  textAlign: TextAlign.left,
+                ),
+              ],
+            ),
           ),
-        ));
+          Row(
+            children: <Widget>[
+              Expanded(
+                  flex: 3,
+                  child: Center(
+                    child: Column(
+                      children: <Widget>[
+                        FlatButton(
+                          child: Text(
+                            f.format(dashboard.mainIndicator).toString(),
+                            style: TextStyle(
+                                fontSize: 44.0,
+                                fontFamily: 'Oswald',
+                                color: _getColor()),
+                          ),
+                          onPressed: (){
+                            _getRoute(context);
+                          },
+                        ),
+                        Text(
+                          dashboard.mainIndicatorUnit,
+                          style: TextStyle(
+                              fontSize: 20.0,
+                              fontFamily: 'Oswald',
+                              color: Colors.black45),
+                        )
+                      ],
+                    ),
+                  )),
+              Expanded(
+                flex: 2,
+                child: _choiceCardWidget(),
+              ),
+            ],
+          )
+        ],
+      ),
+    );
   }
 
   Widget _headcoundWidget(_f) {
@@ -293,11 +291,7 @@ class DashboardItemDemo extends StatelessWidget {
 
 }
 double _itemSize(Size screenSize) {
-  var size = (screenSize.height-100)/3;
-  if(size < 175.0) {
-    size = 175.0;
-  } if(size > 195.0){
-    size = 175.0;
-  }
+  var size = (screenSize.height-100)/3.5;
+
   return size;
 }
