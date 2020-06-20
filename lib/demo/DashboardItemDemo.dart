@@ -17,65 +17,68 @@ class DashboardItemDemo extends StatelessWidget {
     Intl.defaultLocale = 'ru';
     var f = NumberFormat();
 
-    return Card(
-      child: Column(
-        children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
-              children: <Widget>[
-                Text(
-                  dashboard.dashboardItemTitle,
-                  style: TextStyle(
-                      fontSize: 18.0,
-                      fontFamily: 'Oswald'
+    return Hero(
+      tag: 'hero ${dashboard.dashboardItemTitle}',
+      child: Card(
+        child: Column(
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                children: <Widget>[
+                  Text(
+                    dashboard.dashboardItemTitle,
+                    style: TextStyle(
+                        fontSize: 18.0,
+                        fontFamily: 'Oswald'
+                    ),
+                    textAlign: TextAlign.left,
                   ),
-                  textAlign: TextAlign.left,
+                ],
+              ),
+            ),
+            Row(
+              children: <Widget>[
+                Expanded(
+                    flex: 3,
+                    child: Center(
+                      child: Column(
+                        children: <Widget>[
+                          FlatButton(
+                            child: Text(
+                              f.format(dashboard.mainIndicator).toString(),
+                              style: TextStyle(
+                                  fontSize: 44.0,
+                                  fontFamily: 'Oswald',
+                                  color: _getColor()),
+                            ),
+                            onPressed: (){
+                              _getRoute(context);
+                            },
+                          ),
+                          Text(
+                            dashboard.mainIndicatorUnit,
+                            style: TextStyle(
+                                fontSize: 20.0,
+                                fontFamily: 'Oswald',
+                                color: Colors.black45),
+                          )
+                        ],
+                      ),
+                    )),
+                Expanded(
+                  flex: 2,
+                  child: _choiceCardWidget(),
                 ),
               ],
-            ),
-          ),
-          Row(
-            children: <Widget>[
-              Expanded(
-                  flex: 3,
-                  child: Center(
-                    child: Column(
-                      children: <Widget>[
-                        FlatButton(
-                          child: Text(
-                            f.format(dashboard.mainIndicator).toString(),
-                            style: TextStyle(
-                                fontSize: 44.0,
-                                fontFamily: 'Oswald',
-                                color: _getColor()),
-                          ),
-                          onPressed: (){
-                            _getRoute(context);
-                          },
-                        ),
-                        Text(
-                          dashboard.mainIndicatorUnit,
-                          style: TextStyle(
-                              fontSize: 20.0,
-                              fontFamily: 'Oswald',
-                              color: Colors.black45),
-                        )
-                      ],
-                    ),
-                  )),
-              Expanded(
-                flex: 2,
-                child: _choiceCardWidget(),
-              ),
-            ],
-          )
-        ],
+            )
+          ],
+        ),
       ),
     );
   }
 
-  Widget _headcoundWidget(_f) {
+  Widget _headcountWidget(_f) {
     var maleImg = AssetImage('assets/male.png');
     var femaleImg = AssetImage('assets/female.png');
     Intl.defaultLocale = 'ru';
@@ -213,7 +216,7 @@ class DashboardItemDemo extends StatelessWidget {
     var chartType = dashboard.dashboardItemType;
     switch (chartType) {
       case 1:
-        result = _headcoundWidget(_f);
+        result = _headcountWidget(_f);
         return result;
       case 2:
         result = _salaryWidget(_f);

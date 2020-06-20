@@ -21,16 +21,19 @@ class ChartView extends StatelessWidget {
       return items;
     }
 
-    return Scaffold(
-        body: CustomScrollView(
-      slivers: <Widget>[
-        SliverAppBar(
-          title: Text(title),
-        ),
-        SliverList(
-            delegate:
-                SliverChildListDelegate(buildChartsView(chartEntryList, title)))
-      ],
-    ));
+    return Hero(
+      tag: 'hero $title',
+      child: Scaffold(
+          body: CustomScrollView(
+        slivers: <Widget>[
+          SliverAppBar(
+            title: Text(title),
+          ),
+          SliverList(
+              delegate:
+                  SliverChildListDelegate(buildChartsView(chartEntryList, title)))
+        ],
+      )),
+    );
   }
 }

@@ -74,7 +74,6 @@ class LineChartState extends State<LineChart> {
             selectionModels: [
               charts.SelectionModelConfig(
                 type: charts.SelectionModelType.info,
-                listener: _onSelectionChanged,
               )
             ],
             dateTimeFactory: const charts.LocalDateTimeFactory(),

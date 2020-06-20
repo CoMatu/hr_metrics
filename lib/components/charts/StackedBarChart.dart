@@ -62,7 +62,6 @@ class StackedBarChartState extends State<StackedBarChart> {
           selectionModels: [
             charts.SelectionModelConfig(
               type: charts.SelectionModelType.info,
-              listener: _onSelectionChanged,
             )
           ],
           //barRendererDecorator: new charts.BarLabelDecorator<String>(),

@@ -62,7 +62,6 @@ class SimpleBarChartState extends State<SimpleBarChart> {
             selectionModels: [
               charts.SelectionModelConfig(
                 type: charts.SelectionModelType.info,
-                listener: _onSelectionChanged,
               )
             ],
             //barRendererDecorator: new charts.BarLabelDecorator<String>(),

@@ -84,7 +84,7 @@ class StartScreenState extends State<StartScreen>
     var logo = AssetImage('assets/logo.png');
     return Scaffold(
         body: Center(
-          child: Container(
+          child: SizedBox(
       height: animation.value,
       width: animation.value,
       child: Image(image: logo),
